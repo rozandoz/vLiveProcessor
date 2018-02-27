@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-#include "Common/errors.h"
+#include "common/errors.h"
 
 int main()
 {

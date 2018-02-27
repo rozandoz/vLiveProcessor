@@ -16,10 +16,10 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{e0ed6d4b-3ba0-4040-809a-91c4b73dca86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Common">
+    <Filter Include="Sources\common">
       <UniqueIdentifier>{9599ebff-a916-4058-a6ad-c25266448c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Treading">
+    <Filter Include="Sources\treading">
       <UniqueIdentifier>{1906bfcc-3b6b-44a1-aeaa-00a9f1ec3503}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -31,19 +31,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Common\common.h">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Common\errors.h">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Common\strings.h">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Common\hr_exception.h">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Threading\thread_base.h">
-      <Filter>Sources\Treading</Filter>
+      <Filter>Sources\treading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,13 +51,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Common\strings.cpp">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Common\hr_exception.cpp">
-      <Filter>Sources\Common</Filter>
+      <Filter>Sources\common</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Threading\thread_base.cpp">
-      <Filter>Sources\Treading</Filter>
+      <Filter>Sources\treading</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
