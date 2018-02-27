@@ -33,3 +33,5 @@
 /.vs/vLiveProcessor/v14
 /vLiveProcessor.VC.VC.opendb
 /vLiveProcessor.VC.db
+/vLiveProcessor.Core/Release
+/vLiveProcessor.Core/Debug
