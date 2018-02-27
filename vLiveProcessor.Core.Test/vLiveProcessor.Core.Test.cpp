@@ -3,9 +3,19 @@
 
 #include "stdafx.h"
 
+#include "Common/errors.h"
 
 int main()
 {
+    try
+    {
+        _hr = E_FAIL;
+    }
+    catch (hr_exception hr)
+    {
+        auto s = hr.Error();
+    }
+
     return 0;
 }
 
