@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+/.vs/vLiveProcessor/v14
+/vLiveProcessor.VC.VC.opendb
+/vLiveProcessor.VC.db
