@@ -33,5 +33,11 @@
 /.vs/vLiveProcessor/v14
 /vLiveProcessor.VC.VC.opendb
 /vLiveProcessor.VC.db
+/ipch
 /vLiveProcessor.Core/Release
 /vLiveProcessor.Core/Debug
+/vLiveProcessor.Core/x64
+/vLiveProcessor.Core.Test/Release
+/vLiveProcessor.Core.Test/Debug
+/vLiveProcessor.Core.Test/x64
+/_bin
