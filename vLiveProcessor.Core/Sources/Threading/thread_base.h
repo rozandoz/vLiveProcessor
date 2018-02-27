@@ -4,11 +4,11 @@
 
 #include <winerror.h>
 
-class tread_base
+class ThreadBase
 {
 protected:
-    tread_base();
-    ~tread_base();
+    ThreadBase();
+    ~ThreadBase();
 
     HRESULT StartThread();
     HRESULT StopThread();

@@ -1,19 +1,19 @@
-#include "tread_base.h"
+#include "thread_base.h"
 
 using namespace std;
 
-tread_base::tread_base()
+ThreadBase::ThreadBase()
     : m_started(false)
     , m_closing(false)
 {
 }
 
-tread_base::~tread_base()
+ThreadBase::~ThreadBase()
 {
     StopThread();
 }
 
-HRESULT tread_base::StartThread()
+HRESULT ThreadBase::StartThread()
 {
     lock_guard<mutex> lock(m_critSec);
 
@@ -21,7 +21,7 @@ HRESULT tread_base::StartThread()
     {
         if (m_started) return E_FAIL;
 
-        m_thread = thread(&tread_base::ThreadProc, this);
+        m_thread = thread(&ThreadBase::ThreadProc, this);
 
         m_started = true;
         m_closing = false;
@@ -34,17 +34,17 @@ HRESULT tread_base::StartThread()
     }
 }
 
-HRESULT tread_base::StopThread()
+HRESULT ThreadBase::StopThread()
 {
     return StopThread(true);
 }
 
-bool tread_base::CheckClosing() const
+bool ThreadBase::CheckClosing() const
 {
     return m_closing;
 }
 
-HRESULT tread_base::StopThread(bool wait)
+HRESULT ThreadBase::StopThread(bool wait)
 {
     lock_guard<mutex> lock(m_critSec);
 
@@ -69,7 +69,7 @@ HRESULT tread_base::StopThread(bool wait)
     }
 }
 
-void tread_base::ThreadProc()
+void ThreadBase::ThreadProc()
 {
     try
     {

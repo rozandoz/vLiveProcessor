@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vLiveProcessor.Core", "vLiveProcessor.Core\vLiveProcessor.Core.vcxproj", "{D1CF1F04-8103-455C-A0CE-AD333171C9C1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vLiveProcessor.Core.Test", "vLiveProcessor.Core.Test\vLiveProcessor.Core.Test.vcxproj", "{71D8F11A-FDAB-4D8C-8133-3A87FA942349}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D1CF1F04-8103-455C-A0CE-AD333171C9C1} = {D1CF1F04-8103-455C-A0CE-AD333171C9C1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

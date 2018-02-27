@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string string_format(const string format, ...)
+string StringFormat(const string format, ...)
 {
     va_list args;
     va_start(args, format);
@@ -18,7 +18,7 @@ string string_format(const string format, ...)
     return &vec[0];
 }
 
-wstring wstring_format(const wstring format, ...)
+wstring WStringFormat(const wstring format, ...)
 {
     va_list args;
     va_start(args, format);

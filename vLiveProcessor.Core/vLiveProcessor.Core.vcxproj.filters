@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,7 +42,7 @@
     <ClInclude Include="Sources\Common\hr_exception.h">
       <Filter>Sources\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Threading\tread_base.h">
+    <ClInclude Include="Sources\Threading\thread_base.h">
       <Filter>Sources\Treading</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,13 +50,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Common\hr_exception.cpp">
-      <Filter>Sources\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Common\strings.cpp">
       <Filter>Sources\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Threading\tread_base.cpp">
+    <ClCompile Include="Sources\Common\hr_exception.cpp">
+      <Filter>Sources\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Threading\thread_base.cpp">
       <Filter>Sources\Treading</Filter>
     </ClCompile>
   </ItemGroup>
