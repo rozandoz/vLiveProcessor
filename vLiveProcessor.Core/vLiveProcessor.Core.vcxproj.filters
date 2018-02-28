@@ -22,6 +22,9 @@
     <Filter Include="Sources\treading">
       <UniqueIdentifier>{1906bfcc-3b6b-44a1-aeaa-00a9f1ec3503}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\memory">
+      <UniqueIdentifier>{c087269d-de61-46bc-9faf-1d59c8096270}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -45,6 +48,9 @@
     <ClInclude Include="Sources\Threading\thread_base.h">
       <Filter>Sources\treading</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\memory\memory_allocator.h">
+      <Filter>Sources\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="Sources\Threading\thread_base.cpp">
       <Filter>Sources\treading</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\memory\memory_allocator.cpp">
+      <Filter>Sources\memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
