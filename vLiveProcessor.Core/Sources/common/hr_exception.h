@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <winerror.h>
+#include <atlcomcli.h>
 
 class HRException : public std::exception
 {

@@ -142,7 +142,11 @@
     <ClInclude Include="Sources\Common\errors.h" />
     <ClInclude Include="Sources\Common\hr_exception.h" />
     <ClInclude Include="Sources\Common\strings.h" />
+    <ClInclude Include="Sources\devices\audio_device.h" />
     <ClInclude Include="Sources\devices\device_manager.h" />
+    <ClInclude Include="Sources\devices\wasapi\wasapi_capture_device.h" />
+    <ClInclude Include="Sources\devices\wasapi\wasapi_device.h" />
+    <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h" />
     <ClInclude Include="Sources\memory\memory_allocator.h" />
     <ClInclude Include="Sources\Threading\thread_base.h" />
     <ClInclude Include="stdafx.h" />
@@ -152,6 +156,9 @@
     <ClCompile Include="Sources\Common\hr_exception.cpp" />
     <ClCompile Include="Sources\Common\strings.cpp" />
     <ClCompile Include="Sources\devices\device_manager.cpp" />
+    <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp" />
+    <ClCompile Include="Sources\devices\wasapi\wasapi_device.cpp" />
+    <ClCompile Include="Sources\devices\wasapi\wasapi_render_device.cpp" />
     <ClCompile Include="Sources\memory\memory_allocator.cpp" />
     <ClCompile Include="Sources\Threading\thread_base.cpp" />
     <ClCompile Include="stdafx.cpp">
