@@ -25,6 +25,9 @@
     <Filter Include="Sources\memory">
       <UniqueIdentifier>{c087269d-de61-46bc-9faf-1d59c8096270}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\devices">
+      <UniqueIdentifier>{33e76eef-315c-432e-aa62-8ae778f700e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="Sources\memory\memory_allocator.h">
       <Filter>Sources\memory</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\devices\device_manager.h">
+      <Filter>Sources\devices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="Sources\memory\memory_allocator.cpp">
       <Filter>Sources\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\devices\device_manager.cpp">
+      <Filter>Sources\devices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
