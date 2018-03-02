@@ -31,6 +31,9 @@
     <Filter Include="Sources\devices\wasapi">
       <UniqueIdentifier>{fe2e58bd-eb7f-4023-8873-885f9055062b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\media">
+      <UniqueIdentifier>{04a03299-0311-4089-b842-b6b3a7455dcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h">
       <Filter>Sources\devices\wasapi</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\media\media_data.h">
+      <Filter>Sources\media</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="Sources\devices\wasapi\wasapi_render_device.cpp">
       <Filter>Sources\devices\wasapi</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\media_data.cpp">
+      <Filter>Sources\media</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
