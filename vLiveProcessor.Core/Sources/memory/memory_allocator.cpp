@@ -1,6 +1,7 @@
 #include "memory_allocator.h"
 
 #include <chrono>
+#include <thread>
 
 using namespace std;
 using namespace chrono;
@@ -30,10 +31,10 @@ shared_ptr<MemoryAllocator> MemoryAllocator::Create(uint32_t bufferSize, uint32_
 
 bool MemoryAllocator::TryGetBuffer(uint32_t timeout, shared_ptr<MemoryBuffer>& buffer)
 {
-    auto now = chrono::high_resolution_clock::now();
+    auto now = high_resolution_clock::now();
     auto start = now;
 
-    while (duration_cast<chrono::milliseconds>(now - start) < chrono::milliseconds(timeout))
+    while (duration_cast<milliseconds>(now - start) < milliseconds(timeout))
     {
         lock_guard<mutex> lock(m_critSec);
         {
@@ -45,7 +46,7 @@ bool MemoryAllocator::TryGetBuffer(uint32_t timeout, shared_ptr<MemoryBuffer>& b
             }
         }
 
-        Sleep(1);
+        this_thread::sleep_for(1ms);
         now = high_resolution_clock::now();
     }
 

@@ -5,8 +5,6 @@
 #include <queue>
 #include <mutex>
 
-#include <windows.h>
-
 class MemoryAllocator : public std::enable_shared_from_this<MemoryAllocator>
 {
 public:
@@ -14,7 +12,7 @@ public:
     friend class std::_Ref_count_obj<MemoryAllocator>;
 
 private:
-    typedef std::vector<BYTE>                    Buffer;
+    typedef std::vector<char>                    Buffer;
     typedef std::shared_ptr<Buffer>              SharedBuffer;
     typedef std::shared_ptr<MemoryAllocator>     SharedAllocator;
 
@@ -40,7 +38,7 @@ public:
         ~MemoryBuffer();
 
     public:
-        BYTE* GetPointer() const { return m_buffer->data(); }
+        char* GetPointer() const { return m_buffer->data(); }
         uint32_t GetMaxSize() const { return m_buffer->size(); }
         uint32_t GetSize() const { return m_size; }
         void SetSize(uint32_t size) { m_size = size; }
@@ -54,5 +52,4 @@ public:
 };
 
 typedef MemoryAllocator::MemoryBuffer   Buffer;
-typedef MemoryAllocator                 Allocator;
 
