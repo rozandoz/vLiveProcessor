@@ -7,19 +7,20 @@
 
 class MemoryAllocator : public std::enable_shared_from_this<MemoryAllocator>
 {
-public:
-    class MemoryBuffer;
     friend class std::_Ref_count_obj<MemoryAllocator>;
 
+public:
+    class MemoryBuffer;
+
 private:
-    typedef std::vector<char>                    Buffer;
-    typedef std::shared_ptr<Buffer>              SharedBuffer;
+    typedef std::vector<char>                    DataBuffer;
+    typedef std::shared_ptr<DataBuffer>          SharedDataBuffer;
     typedef std::shared_ptr<MemoryAllocator>     SharedAllocator;
 
     MemoryAllocator(uint32_t bufferSize, uint32_t buffersCount);
     ~MemoryAllocator();
 
-    void ReturnBuffer(SharedBuffer sharedBuffer);
+    void ReturnBuffer(SharedDataBuffer sharedBuffer);
 
 public:
     static SharedAllocator Create(uint32_t bufferSize, uint32_t buffersCount);
@@ -27,14 +28,14 @@ public:
 
 private:
     std::mutex                          m_critSec;
-    std::queue<SharedBuffer>            m_buffers;
+    std::queue<SharedDataBuffer>        m_buffers;
 
 public:
     class MemoryBuffer
     {
         friend class std::_Ref_count_obj<MemoryBuffer>;
 
-        MemoryBuffer(SharedAllocator owner, SharedBuffer sharedBuffer);
+        MemoryBuffer(SharedAllocator owner, SharedDataBuffer sharedBuffer);
         ~MemoryBuffer();
 
     public:
@@ -47,7 +48,7 @@ public:
         uint32_t                m_size;
 
         SharedAllocator         m_owner;
-        SharedBuffer            m_buffer;
+        SharedDataBuffer        m_buffer;
     };
 };
 

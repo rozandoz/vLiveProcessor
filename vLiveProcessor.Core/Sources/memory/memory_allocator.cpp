@@ -10,7 +10,7 @@ MemoryAllocator::MemoryAllocator(uint32_t bufferSize, uint32_t buffersCount)
 {
     for (size_t i = 0; i < buffersCount; i++)
     {
-        m_buffers.push(make_shared<Buffer>(bufferSize));
+        m_buffers.push(make_shared<DataBuffer>(bufferSize));
     }
 }
 
@@ -18,7 +18,7 @@ MemoryAllocator::~MemoryAllocator()
 {
 }
 
-void MemoryAllocator::ReturnBuffer(SharedBuffer sharedBuffer)
+void MemoryAllocator::ReturnBuffer(SharedDataBuffer sharedBuffer)
 {
     lock_guard<mutex> lock(m_critSec);
     m_buffers.push(sharedBuffer);
@@ -53,7 +53,7 @@ bool MemoryAllocator::TryGetBuffer(uint32_t timeout, shared_ptr<MemoryBuffer>& b
     return false;
 }
 
-MemoryAllocator::MemoryBuffer::MemoryBuffer(SharedAllocator owner, SharedBuffer sharedBuffer)
+MemoryAllocator::MemoryBuffer::MemoryBuffer(SharedAllocator owner, SharedDataBuffer sharedBuffer)
     : m_size(0)
     , m_owner(owner)
     , m_buffer(sharedBuffer)
