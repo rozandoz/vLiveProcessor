@@ -68,3 +68,23 @@ MemoryAllocator::MemoryBuffer::~MemoryBuffer()
         m_owner->ReturnBuffer(m_buffer);
     }
 }
+
+char* MemoryAllocator::MemoryBuffer::data() const
+{
+    return m_buffer->data();
+}
+
+uint32_t MemoryAllocator::MemoryBuffer::max_size() const
+{
+    return m_buffer->size();
+}
+
+uint32_t MemoryAllocator::MemoryBuffer::size() const
+{
+    return m_size;
+}
+
+void MemoryAllocator::MemoryBuffer::set_size(uint32_t size)
+{
+    m_size = size;
+}

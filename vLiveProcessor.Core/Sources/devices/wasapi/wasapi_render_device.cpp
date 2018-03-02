@@ -70,8 +70,8 @@ void WASAPIRenderDevice::OnThreadProc()
                 continue;
             }
 
-            auto pSourceBuffer = buffer->GetPointer();
-            auto sourceSamples = buffer->GetSize() / pWaveFormat->nBlockAlign;
+            auto pSourceBuffer = buffer->data();
+            auto sourceSamples = buffer->size() / pWaveFormat->nBlockAlign;
 
             while (sourceSamples != 0)
             {

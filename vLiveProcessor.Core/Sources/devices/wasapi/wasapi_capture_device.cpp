@@ -85,24 +85,24 @@ void WASAPICaptureDevice::OnThreadProc()
                         break;
                     }
 
-                    auto actualBufferSize = buffer->GetMaxSize() - buffer->GetSize();
+                    auto actualBufferSize = buffer->max_size() - buffer->size();
                     auto actualFramesCount = actualBufferSize / pWaveFormat->nBlockAlign;
 
                     auto framesToCopy = min(availableFrames, actualFramesCount);
                     auto sizeToCopy = framesToCopy * pWaveFormat->nBlockAlign;
 
                     if (silence)
-                        memset(buffer->GetPointer() + buffer->GetSize(), 0, sizeToCopy);
+                        memset(buffer->data() + buffer->size(), 0, sizeToCopy);
                     else
-                        memcpy(buffer->GetPointer() + buffer->GetSize(), pData, sizeToCopy);
+                        memcpy(buffer->data() + buffer->size(), pData, sizeToCopy);
 
 
                     pData += sizeToCopy;
                     availableFrames -= framesToCopy;
 
-                    buffer->SetSize(buffer->GetSize() + sizeToCopy);
+                    buffer->set_size(buffer->size() + sizeToCopy);
 
-                    if (buffer->GetSize() == buffer->GetMaxSize())
+                    if (buffer->size() == buffer->max_size())
                     {
                         lock_guard<mutex> lock(m_critSec);
                         m_queue.push(buffer);

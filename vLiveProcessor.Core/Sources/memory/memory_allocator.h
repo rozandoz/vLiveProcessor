@@ -22,7 +22,7 @@ private:
     void ReturnBuffer(SharedBuffer sharedBuffer);
 
 public:
-    static std::shared_ptr<MemoryAllocator> Create(uint32_t bufferSize, uint32_t buffersCount);
+    static SharedAllocator Create(uint32_t bufferSize, uint32_t buffersCount);
     bool TryGetBuffer(uint32_t timeout, std::shared_ptr<MemoryBuffer>& buffer);
 
 private:
@@ -38,10 +38,10 @@ public:
         ~MemoryBuffer();
 
     public:
-        char* GetPointer() const { return m_buffer->data(); }
-        uint32_t GetMaxSize() const { return m_buffer->size(); }
-        uint32_t GetSize() const { return m_size; }
-        void SetSize(uint32_t size) { m_size = size; }
+        char* data() const;
+        uint32_t max_size() const;
+        uint32_t size() const;
+        void set_size(uint32_t size);
 
     private:
         uint32_t                m_size;
