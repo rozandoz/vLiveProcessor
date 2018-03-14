@@ -42,3 +42,5 @@
 /vLiveProcessor.Core.Test/x64
 /_bin
 /_obj
+/packages
+!/packages/boost_python3.1.66.00 #must be removed!
