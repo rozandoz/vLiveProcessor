@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include <atlcomcli.h>
 #include <Functiondiscoverykeys_devpkey.h>
 
 #include "win32/hr_exception.h"
@@ -37,62 +36,72 @@ HRESULT WASAPIDeviceProvider::CreateDeviceEnumerator(IMMDeviceEnumerator** ppEnu
 
 HRESULT WASAPIDeviceProvider::ActivateAudioDevice(DeviceDescriptor& descriptor, IAudioClient** ppClient)
 {
-    auto hr = S_OK;
+    try
+    {
+        if (!ppClient) _hr = E_POINTER;
 
-    CComPtr<IMMDeviceEnumerator> enumerator;
-    CComPtr<IMMDevice> device;
+        CComPtr<IMMDeviceEnumerator> enumerator;
+        CComPtr<IMMDevice> device;
 
-    if (SUCCEEDED(hr)) hr = CreateDeviceEnumerator(&enumerator);
-    if (SUCCEEDED(hr)) hr = enumerator->GetDevice(descriptor.id.c_str(), &device);
-    if (SUCCEEDED(hr)) hr = device->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, reinterpret_cast<void**>(ppClient));
-
-    return hr;
+        _hr = CreateDeviceEnumerator(&enumerator);
+        _hr = enumerator->GetDevice(descriptor.id.c_str(), &device);
+        _hr = device->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, reinterpret_cast<void**>(ppClient));
+    }
+    catch(hr_exception e)
+    {
+        return e.Error();
+    }
+    return S_OK;
 }
 
 HRESULT WASAPIDeviceProvider::GetDevices(EDataFlow dataFlow, DWORD flastateMaskgs, std::vector<DeviceDescriptor>& devices)
 {
     auto hr = S_OK;
-
-    CComPtr<IMMDeviceEnumerator> enumerator;
-    CComPtr<IMMDeviceCollection> deviceCollection;
-    UINT deviceCount;
-
-    if (SUCCEEDED(hr)) hr = CreateDeviceEnumerator(&enumerator);
-    if (SUCCEEDED(hr)) hr = enumerator->EnumAudioEndpoints(dataFlow, flastateMaskgs, &deviceCollection);
-    if (SUCCEEDED(hr)) hr = deviceCollection->GetCount(&deviceCount);
-    if (FAILED(hr)) return hr;
-
+    
     PROPVARIANT prop;
     PropVariantInit(&prop);
 
-    for (UINT i = 0; i < deviceCount; i++)
+    try
     {
-        DeviceDescriptor descriptor = {};
+        CComPtr<IMMDeviceEnumerator> enumerator;
+        CComPtr<IMMDeviceCollection> deviceCollection;
+        UINT deviceCount;
 
-        //Id
+        _hr = CreateDeviceEnumerator(&enumerator);
+        _hr = enumerator->EnumAudioEndpoints(dataFlow, flastateMaskgs, &deviceCollection);
+        _hr = deviceCollection->GetCount(&deviceCount);
 
-        LPWSTR id;
-        CComPtr<IMMDevice> device;
-        if (SUCCEEDED(hr)) hr = deviceCollection->Item(i, &device);
-        if (SUCCEEDED(hr)) hr = device->GetId(&id);
-        if (FAILED(hr)) return hr;
+        for (UINT i = 0; i < deviceCount; i++)
+        {
+            DeviceDescriptor descriptor = {};
 
-        descriptor.id = id;
+            //Id
 
-        //Friendly name
+            LPWSTR id;
+            CComPtr<IMMDevice> device;
+            _hr = deviceCollection->Item(i, &device);
+            _hr = device->GetId(&id);
 
-        CComPtr<IPropertyStore> propertyStore;
-        if (SUCCEEDED(hr)) hr = device->OpenPropertyStore(STGM_READ, &propertyStore);
-        if (SUCCEEDED(hr)) hr = propertyStore->GetValue(PKEY_Device_FriendlyName, &prop);
-        if (FAILED(hr)) return hr;
+            descriptor.id = id;
 
-        descriptor.name = prop.pwszVal;
+            //Friendly name
 
-        devices.push_back(descriptor);
+            CComPtr<IPropertyStore> propertyStore;
+            _hr = device->OpenPropertyStore(STGM_READ, &propertyStore);
+            _hr = propertyStore->GetValue(PKEY_Device_FriendlyName, &prop);
+
+            descriptor.name = prop.pwszVal;
+
+            devices.push_back(descriptor);
+        }
+
+    }
+    catch (hr_exception e)
+    {
+        hr = e.Error();
     }
 
     PropVariantClear(&prop);
-
     return hr;
 }
 
