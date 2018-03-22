@@ -1,13 +1,13 @@
 #include "wasapi_capture_device.h"
 
-#include "../../common/errors.h"
-
 #include <iostream>
+
+#include "win32/hr_exception.h"
 
 using namespace std;
 
-WASAPICaptureDevice::WASAPICaptureDevice(DeviceInfo& deviceInfo, uint64_t bufferTime)
-    : WASAPIDevice(deviceInfo, bufferTime)
+WASAPICaptureDevice::WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
+    : WASAPIDevice(descriptor, bufferTime)
 {
 }
 

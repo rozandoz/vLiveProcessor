@@ -1,13 +1,13 @@
 #include "wasapi_render_device.h"
 
-#include "../../common/errors.h"
-
 #include <iostream>
+
+#include "win32/hr_exception.h"
 
 using namespace std;
 
-WASAPIRenderDevice::WASAPIRenderDevice(DeviceInfo& deviceInfo, uint64_t bufferTime)
-    : WASAPIDevice(deviceInfo, bufferTime)
+WASAPIRenderDevice::WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
+    : WASAPIDevice(descriptor, bufferTime)
 {
 }
 

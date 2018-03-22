@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-#include "common/errors.h"
+#include "common/win32/hr_exception.h"
 
 int main()
 {

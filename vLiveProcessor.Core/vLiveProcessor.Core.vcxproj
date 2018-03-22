@@ -91,6 +91,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)Sources\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,6 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)Sources\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,30 +141,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Common\common.h" />
-    <ClInclude Include="Sources\Common\errors.h" />
-    <ClInclude Include="Sources\Common\hr_exception.h" />
+    <ClInclude Include="Sources\common\memory\memory_allocator.h" />
     <ClInclude Include="Sources\Common\strings.h" />
-    <ClInclude Include="Sources\devices\audio_device.h" />
-    <ClInclude Include="Sources\devices\device_manager.h" />
+    <ClInclude Include="Sources\common\threading\thread_base.h" />
+    <ClInclude Include="Sources\common\win32\hr_exception.h" />
+    <ClInclude Include="Sources\devices\interfaces\i_device.h" />
+    <ClInclude Include="Sources\devices\interfaces\i_device_manager.h" />
+    <ClInclude Include="Sources\devices\interfaces\i_device_provider.h" />
+    <ClInclude Include="Sources\devices\interfaces\device_types.h" />
     <ClInclude Include="Sources\devices\wasapi\wasapi_capture_device.h" />
     <ClInclude Include="Sources\devices\wasapi\wasapi_device.h" />
+    <ClInclude Include="Sources\devices\wasapi\wasapi_device_provider.h" />
     <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h" />
-    <ClInclude Include="Sources\media\media_data.h" />
-    <ClInclude Include="Sources\memory\memory_allocator.h" />
-    <ClInclude Include="Sources\Threading\thread_base.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Common\hr_exception.cpp" />
+    <ClCompile Include="Sources\common\memory\memory_allocator.cpp" />
     <ClCompile Include="Sources\Common\strings.cpp" />
-    <ClCompile Include="Sources\devices\device_manager.cpp" />
+    <ClCompile Include="Sources\common\threading\thread_base.cpp" />
+    <ClCompile Include="Sources\common\win32\hr_exception.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_device.cpp" />
+    <ClCompile Include="Sources\devices\wasapi\wasapi_device_provider.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_render_device.cpp" />
-    <ClCompile Include="Sources\media\media_data.cpp" />
-    <ClCompile Include="Sources\memory\memory_allocator.cpp" />
-    <ClCompile Include="Sources\Threading\thread_base.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

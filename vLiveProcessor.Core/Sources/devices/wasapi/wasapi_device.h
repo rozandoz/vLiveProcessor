@@ -1,23 +1,26 @@
 #pragma once
 
-#include "../device_manager.h"
-#include "../audio_device.h"
-#include "../../common/common.h"
-#include "../../threading/thread_base.h"
+#include <Audioclient.h>
 
-class WASAPIDevice : public AudioDevice, protected ThreadBase
+#include "common.h"
+#include "threading/thread_base.h"
+#include "../interfaces/device_types.h"
+#include "../interfaces/i_device.h"
+
+class WASAPIDevice : public IDevice, protected ThreadBase
 {
 public:
-    explicit WASAPIDevice(DeviceInfo& deviceInfo, uint64_t bufferTime = REFTIMES_PER_SEC);
+    explicit WASAPIDevice(DeviceDescriptor& deviceInfo, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPIDevice();
 
-    HRESULT Start() override;
-    HRESULT Stop() override;
-    HRESULT Reset() override;
+    void Start() override;
+    void Stop() override;
+    void Reset() override;
 
 protected:
     HRESULT InitializeAudioClient(IAudioClient** ppAudioClient, WAVEFORMATEX** pWaveFormat);
 
 protected:
-    uint64_t m_bufferTime;
+    uint64_t            m_bufferTime;
+    DeviceDescriptor    m_descriptor;
 };

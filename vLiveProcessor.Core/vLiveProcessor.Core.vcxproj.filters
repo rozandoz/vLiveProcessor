@@ -19,20 +19,29 @@
     <Filter Include="Sources\common">
       <UniqueIdentifier>{9599ebff-a916-4058-a6ad-c25266448c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\treading">
-      <UniqueIdentifier>{1906bfcc-3b6b-44a1-aeaa-00a9f1ec3503}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\memory">
-      <UniqueIdentifier>{c087269d-de61-46bc-9faf-1d59c8096270}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\devices">
       <UniqueIdentifier>{33e76eef-315c-432e-aa62-8ae778f700e7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\devices\wasapi">
       <UniqueIdentifier>{fe2e58bd-eb7f-4023-8873-885f9055062b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\media">
-      <UniqueIdentifier>{04a03299-0311-4089-b842-b6b3a7455dcd}</UniqueIdentifier>
+    <Filter Include="Sources\devices\interfaces">
+      <UniqueIdentifier>{23a9f23a-5f22-4ff5-bece-5fb9505a4ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\devices\wasapi\capture">
+      <UniqueIdentifier>{a52c938c-f1f6-42eb-bac3-13dfc91ce5ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\devices\wasapi\render">
+      <UniqueIdentifier>{8e42d69c-7d55-490e-9bef-15091a6df614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\common\memory">
+      <UniqueIdentifier>{004f1cd1-0440-4f27-8991-2febffa6118b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\common\threading">
+      <UniqueIdentifier>{5cc4ac78-8443-4962-9932-b0396a9e64cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\common\win32">
+      <UniqueIdentifier>{17793094-42ab-4a27-bdbc-3c41b42b2d4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,38 +54,41 @@
     <ClInclude Include="Sources\Common\common.h">
       <Filter>Sources\common</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Common\errors.h">
-      <Filter>Sources\common</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Common\strings.h">
       <Filter>Sources\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Common\hr_exception.h">
-      <Filter>Sources\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Threading\thread_base.h">
-      <Filter>Sources\treading</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\memory\memory_allocator.h">
-      <Filter>Sources\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\device_manager.h">
-      <Filter>Sources\devices</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\audio_device.h">
-      <Filter>Sources\devices</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_capture_device.h">
-      <Filter>Sources\devices\wasapi</Filter>
     </ClInclude>
     <ClInclude Include="Sources\devices\wasapi\wasapi_device.h">
       <Filter>Sources\devices\wasapi</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h">
+    <ClInclude Include="Sources\devices\interfaces\i_device.h">
+      <Filter>Sources\devices\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\devices\interfaces\i_device_provider.h">
+      <Filter>Sources\devices\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\devices\interfaces\i_device_manager.h">
+      <Filter>Sources\devices\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\devices\wasapi\wasapi_device_provider.h">
       <Filter>Sources\devices\wasapi</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\media_data.h">
-      <Filter>Sources\media</Filter>
+    <ClInclude Include="Sources\devices\wasapi\wasapi_capture_device.h">
+      <Filter>Sources\devices\wasapi\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h">
+      <Filter>Sources\devices\wasapi\render</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\devices\interfaces\device_types.h">
+      <Filter>Sources\devices\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\memory\memory_allocator.h">
+      <Filter>Sources\common\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\threading\thread_base.h">
+      <Filter>Sources\common\threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\win32\hr_exception.h">
+      <Filter>Sources\common\win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,29 +98,26 @@
     <ClCompile Include="Sources\Common\strings.cpp">
       <Filter>Sources\common</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Common\hr_exception.cpp">
-      <Filter>Sources\common</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Threading\thread_base.cpp">
-      <Filter>Sources\treading</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\memory\memory_allocator.cpp">
-      <Filter>Sources\memory</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\devices\device_manager.cpp">
-      <Filter>Sources\devices</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\devices\wasapi\wasapi_device.cpp">
       <Filter>Sources\devices\wasapi</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp">
+    <ClCompile Include="Sources\devices\wasapi\wasapi_device_provider.cpp">
       <Filter>Sources\devices\wasapi</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp">
+      <Filter>Sources\devices\wasapi\capture</Filter>
     </ClCompile>
     <ClCompile Include="Sources\devices\wasapi\wasapi_render_device.cpp">
-      <Filter>Sources\devices\wasapi</Filter>
+      <Filter>Sources\devices\wasapi\render</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\media\media_data.cpp">
-      <Filter>Sources\media</Filter>
+    <ClCompile Include="Sources\common\memory\memory_allocator.cpp">
+      <Filter>Sources\common\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\threading\thread_base.cpp">
+      <Filter>Sources\common\threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\win32\hr_exception.cpp">
+      <Filter>Sources\common\win32</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

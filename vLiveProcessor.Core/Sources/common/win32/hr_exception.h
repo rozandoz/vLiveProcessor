@@ -17,3 +17,13 @@ private:
     std::wstring    m_file;
     std::wstring    m_line;
 };
+
+// ReSharper disable IdentifierTypo
+
+#define STRINGIFY2(m) #m
+#define MEXPAND(m) m
+#define STRINGIFY(m) STRINGIFY2(m)
+#define WIDE(m) _T(m)
+
+typedef HRException hr_exception;
+#define _hr hr_exception(WIDE(MEXPAND(__FILE__)), WIDE(STRINGIFY(__LINE__)))
