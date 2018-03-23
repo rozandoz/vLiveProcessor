@@ -43,6 +43,12 @@
     <Filter Include="Sources\common\win32">
       <UniqueIdentifier>{17793094-42ab-4a27-bdbc-3c41b42b2d4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\common\logging">
+      <UniqueIdentifier>{80c1928e-4404-42d7-9201-62fed7e74b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\common\logging\logger_sinks">
+      <UniqueIdentifier>{257fc9ed-0c52-4e21-bb71-073d2a9ce1f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -90,6 +96,18 @@
     <ClInclude Include="Sources\common\win32\hr_exception.h">
       <Filter>Sources\common\win32</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\logging\logger.h">
+      <Filter>Sources\common\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\logging\logger_streams.h">
+      <Filter>Sources\common\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\logging\i_logger_sink.h">
+      <Filter>Sources\common\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\common\logging\console_logger_sink.h">
+      <Filter>Sources\common\logging\logger_sinks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -118,6 +136,12 @@
     </ClCompile>
     <ClCompile Include="Sources\common\win32\hr_exception.cpp">
       <Filter>Sources\common\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\logging\logger.cpp">
+      <Filter>Sources\common\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\logging\logger_streams.cpp">
+      <Filter>Sources\common\logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
