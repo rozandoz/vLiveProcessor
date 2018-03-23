@@ -47,7 +47,7 @@ protected:
 
 int main()
 {
-    Logger logger;
+    auto& logger = Logger::GetInstance();
        
     logger.warning << "Stream log" << std::endl;
     logger.warning << "Stream log 2" << std::endl;

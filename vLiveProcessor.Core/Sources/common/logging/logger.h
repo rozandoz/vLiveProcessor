@@ -10,7 +10,12 @@
 class Logger : ILoggerSink
 {
 public:
-    explicit Logger(bool threadSafe = false);
+    static Logger& GetInstance();
+
+private:
+    Logger();
+    Logger(Logger const&) = delete;
+    void operator=(Logger const&) = delete;
 
 private:
     int Message(MessageType type, std::string msg) override;
@@ -25,8 +30,6 @@ public:
 
 private:
     std::function<void(void)>                   m_guard;
-
     std::vector<std::shared_ptr<ILoggerSink>>   m_sinks;
     std::mutex                                  m_mutex;
-    bool                                        m_threadSafe;
 };
