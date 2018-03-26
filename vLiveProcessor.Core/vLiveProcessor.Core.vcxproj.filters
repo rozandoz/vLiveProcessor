@@ -108,6 +108,9 @@
     <ClInclude Include="Sources\common\logging\console_logger_sink.h">
       <Filter>Sources\common\logging\logger_sinks</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\devices\device_manager.h">
+      <Filter>Sources\devices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Sources\common\logging\logger_streams.cpp">
       <Filter>Sources\common\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\devices\device_manager.cpp">
+      <Filter>Sources\devices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

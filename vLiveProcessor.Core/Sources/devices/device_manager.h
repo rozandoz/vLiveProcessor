@@ -1,13 +1,25 @@
 #pragma once
 
-#include "../interfaces/i_device_provider.h"
+#include <map>
 
-#include <vector>
+#include "interfaces/i_device_manager.h"
+#include "interfaces/i_device_provider.h"
 
-#include <mmdeviceapi.h>
-#include <Audioclient.h>
+class DeviceManager : public IDeviceManager
+{
+    typedef std::map<std::wstring, std::shared_ptr<IDeviceProvider>> ProvidersCollection;
 
+public:
+    DeviceManager();
+    virtual ~DeviceManager();
 
-HRESULT CreateDeviceEnumerator(IMMDeviceEnumerator** ppEnumerator);
-HRESULT ActivateAudioDevice(DeviceDescriptor& deviceInfo, IAudioClient** ppClient);
-HRESULT GetDevices(EDataFlow dataFlow, DWORD flastateMaskgs, std::vector<DeviceDescriptor>& devices);
+    std::vector<std::wstring> GetGroups() override;
+    std::vector<DeviceDescriptor> GetGroupDevices(std::wstring group, DeviceType type) override;
+    std::shared_ptr<IDevice> CreateDevice(std::wstring group, DeviceType type, DeviceDescriptor& descriptor) override;
+
+protected:
+    static void InitProvidersCollection(ProvidersCollection& collection);
+
+private:
+    ProvidersCollection     m_providers;
+};

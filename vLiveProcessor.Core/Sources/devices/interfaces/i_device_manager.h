@@ -1,1 +1,20 @@
 #pragma once
+
+#include <vector>
+#include <memory>
+
+#include "device_types.h"
+#include "i_device.h"
+
+class IDeviceManager
+{
+protected:
+    IDeviceManager() {}
+    virtual ~IDeviceManager() {}
+
+public:
+    virtual std::vector<std::wstring> GetGroups() = 0;
+    virtual std::vector<DeviceDescriptor> GetGroupDevices(std::wstring group, DeviceType type) = 0;
+    virtual std::shared_ptr<IDevice> CreateDevice(std::wstring group, DeviceType type, DeviceDescriptor& descriptor) = 0;
+
+};

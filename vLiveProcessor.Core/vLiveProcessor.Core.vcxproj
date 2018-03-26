@@ -149,6 +149,7 @@
     <ClInclude Include="Sources\Common\strings.h" />
     <ClInclude Include="Sources\common\threading\thread_base.h" />
     <ClInclude Include="Sources\common\win32\hr_exception.h" />
+    <ClInclude Include="Sources\devices\device_manager.h" />
     <ClInclude Include="Sources\devices\interfaces\i_device.h" />
     <ClInclude Include="Sources\devices\interfaces\i_device_manager.h" />
     <ClInclude Include="Sources\devices\interfaces\i_device_provider.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Sources\Common\strings.cpp" />
     <ClCompile Include="Sources\common\threading\thread_base.cpp" />
     <ClCompile Include="Sources\common\win32\hr_exception.cpp" />
+    <ClCompile Include="Sources\devices\device_manager.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_device.cpp" />
     <ClCompile Include="Sources\devices\wasapi\wasapi_device_provider.cpp" />

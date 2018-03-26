@@ -10,10 +10,12 @@
 
 WASAPIDeviceProvider::WASAPIDeviceProvider()
 {
+    _hr = CoInitialize(nullptr);
 }
 
 WASAPIDeviceProvider::~WASAPIDeviceProvider()
 {
+    CoUninitialize();
 }
 
 EDataFlow WASAPIDeviceProvider::ToEDataFlow(DeviceType type)
@@ -110,14 +112,14 @@ std::wstring WASAPIDeviceProvider::Group()
     return L"WASAPI";
 }
 
-std::vector<DeviceDescriptor> WASAPIDeviceProvider::EnumerateDevices(DeviceType& type)
+std::vector<DeviceDescriptor> WASAPIDeviceProvider::EnumerateDevices(DeviceType type)
 {
     std::vector<DeviceDescriptor> descriptors;
-    _hr = GetDevices(ToEDataFlow(type), 0, descriptors);
+    _hr = GetDevices(ToEDataFlow(type), DEVICE_STATE_ACTIVE, descriptors);
     return descriptors;
 }
 
-std::shared_ptr<IDevice> WASAPIDeviceProvider::CreateDevice(DeviceType& type, DeviceDescriptor& descriptor)
+std::shared_ptr<IDevice> WASAPIDeviceProvider::CreateDevice(DeviceType type, DeviceDescriptor& descriptor)
 {
     switch (type)
     {
