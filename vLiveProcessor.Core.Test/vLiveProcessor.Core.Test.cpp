@@ -3,33 +3,20 @@
 
 #include "stdafx.h"
 
-#include <iostream>
-#include <memory>
-
 #include "common/logging/logger.h"
-#include "common/win32/strings_converter.h"
-#include "devices/device_manager.h"
+#include "common/media/audio_format.h"
 
 using namespace std;
+using namespace common::media;
 
 int main()
 {
-    auto provider = make_unique<DeviceManager>();
-    auto groups = provider->GetGroups();
+    auto& logger = Logger::GetInstance();
 
-    for (auto group : groups)
-    {
-        cout << "'" << group << "' group" << endl;
+    AudioFormat format(2, 32, 48000);
+    logger.trace << format;
 
-        auto devices = provider->GetGroupDevices(group, Render);
-
-        for (auto device : devices)
-        {
-            cout << "\t " << device.name << " (" << device.id << ")" << endl;
-        }
-    }
-
-     getchar();
+    getchar();
 
     return 0;
 }

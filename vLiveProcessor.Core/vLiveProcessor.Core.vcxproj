@@ -145,6 +145,7 @@
     <ClInclude Include="Sources\common\logging\i_logger_sink.h" />
     <ClInclude Include="Sources\common\logging\logger.h" />
     <ClInclude Include="Sources\common\logging\logger_streams.h" />
+    <ClInclude Include="Sources\common\media\audio_format.h" />
     <ClInclude Include="Sources\common\memory\memory_allocator.h" />
     <ClInclude Include="Sources\Common\strings.h" />
     <ClInclude Include="Sources\common\threading\thread_base.h" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="Sources\common\logging\logger.cpp" />
     <ClCompile Include="Sources\common\logging\logger_streams.cpp" />
+    <ClCompile Include="Sources\common\media\audio_format.cpp" />
     <ClCompile Include="Sources\common\memory\memory_allocator.cpp" />
     <ClCompile Include="Sources\Common\strings.cpp" />
     <ClCompile Include="Sources\common\threading\thread_base.cpp" />

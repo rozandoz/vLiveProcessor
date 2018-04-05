@@ -49,6 +49,9 @@
     <Filter Include="Sources\common\logging\logger_sinks">
       <UniqueIdentifier>{257fc9ed-0c52-4e21-bb71-073d2a9ce1f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\common\media">
+      <UniqueIdentifier>{3d481867-60ad-408f-b865-34df3b5570ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -114,6 +117,9 @@
     <ClInclude Include="Sources\common\win32\strings_converter.h">
       <Filter>Sources\common\win32</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\media\audio_format.h">
+      <Filter>Sources\common\media</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Sources\common\win32\strings_converter.cpp">
       <Filter>Sources\common\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\media\audio_format.cpp">
+      <Filter>Sources\common\media</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
