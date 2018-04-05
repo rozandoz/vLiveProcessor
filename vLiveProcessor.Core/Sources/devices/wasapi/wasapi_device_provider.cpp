@@ -135,5 +135,5 @@ std::shared_ptr<IDevice> WASAPIDeviceProvider::CreateDevice(DeviceType type, Dev
         break;
     }
 
-    throw new std::runtime_error("Invalid device type");
+    throw std::runtime_error("Invalid device type");
 }

@@ -25,7 +25,7 @@ vector<string> DeviceManager::GetGroups()
 vector<DeviceDescriptor> DeviceManager::GetGroupDevices(string group, DeviceType type)
 {
     if (!m_providers.count(group))
-        throw new exception("Group is not found");
+        throw exception("Group is not found");
 
     return m_providers[group]->EnumerateDevices(type);
 }
@@ -33,7 +33,7 @@ vector<DeviceDescriptor> DeviceManager::GetGroupDevices(string group, DeviceType
 shared_ptr<IDevice> DeviceManager::CreateDevice(string group, DeviceType type, DeviceDescriptor& descriptor)
 {
     if (!m_providers.count(group))
-        throw new exception("Group is not found");
+        throw exception("Group is not found");
 
     return m_providers[group]->CreateDevice(type, descriptor);
 }

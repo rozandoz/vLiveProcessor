@@ -18,7 +18,7 @@ void ThreadBase::StartThread()
     lock_guard<mutex> lock(m_critSec);
 
     if (m_started) 
-        throw new runtime_error("Thread is already started.");
+        throw runtime_error("Thread is already started.");
 
     m_thread = thread(&ThreadBase::ThreadProc, this);
 
