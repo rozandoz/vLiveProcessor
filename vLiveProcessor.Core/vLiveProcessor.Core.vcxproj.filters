@@ -111,6 +111,9 @@
     <ClInclude Include="Sources\devices\device_manager.h">
       <Filter>Sources\devices</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\win32\strings_converter.h">
+      <Filter>Sources\common\win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Sources\devices\device_manager.cpp">
       <Filter>Sources\devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\win32\strings_converter.cpp">
+      <Filter>Sources\common\win32</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

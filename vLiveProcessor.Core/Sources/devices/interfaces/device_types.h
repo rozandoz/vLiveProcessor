@@ -11,6 +11,6 @@ enum DeviceType
 
 struct DeviceDescriptor
 {
-    std::wstring name;
-    std::wstring id;
+    std::string name;
+    std::string id;
 };

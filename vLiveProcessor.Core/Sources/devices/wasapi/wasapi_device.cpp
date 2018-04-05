@@ -3,6 +3,8 @@
 #include "win32/hr_exception.h"
 #include "wasapi_device_provider.h"
 
+using namespace common::win32;
+
 WASAPIDevice::WASAPIDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : m_bufferTime(bufferTime)
     , m_descriptor(descriptor)

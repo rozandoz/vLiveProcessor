@@ -7,29 +7,29 @@
 #include <memory>
 
 #include "common/logging/logger.h"
+#include "common/win32/strings_converter.h"
 #include "devices/device_manager.h"
 
 using namespace std;
 
 int main()
 {
-
     auto provider = make_unique<DeviceManager>();
     auto groups = provider->GetGroups();
 
     for (auto group : groups)
     {
-        wcout << "'" << group << "' group" << endl;
+        cout << "'" << group << "' group" << endl;
 
         auto devices = provider->GetGroupDevices(group, Render);
 
         for (auto device : devices)
         {
-            wcout << "\t " << device.name << " (" << device.id << ")" << endl;
+            cout << "\t " << device.name << " (" << device.id << ")" << endl;
         }
     }
 
-    getchar();
+     getchar();
 
     return 0;
 }

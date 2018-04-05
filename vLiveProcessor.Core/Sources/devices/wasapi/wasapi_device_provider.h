@@ -20,7 +20,7 @@ public:
     static HRESULT GetDevices(EDataFlow dataFlow, DWORD flastateMaskgs, std::vector<DeviceDescriptor>& descriptors);
 
 public: //IDeviceProvider
-    std::wstring Group() override;
+    std::string Group() override;
     std::vector<DeviceDescriptor> EnumerateDevices(DeviceType type) override;
     std::shared_ptr<IDevice> CreateDevice(DeviceType type, DeviceDescriptor& descriptor) override;
 };

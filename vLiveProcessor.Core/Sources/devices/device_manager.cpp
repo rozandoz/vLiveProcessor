@@ -14,15 +14,15 @@ DeviceManager::~DeviceManager()
 {
 }
 
-vector<wstring> DeviceManager::GetGroups()
+vector<string> DeviceManager::GetGroups()
 {
-    vector<wstring> groups;
+    vector<string> groups;
     for (auto& provider : m_providers)
         groups.push_back(provider.first);
     return groups;
 }
 
-vector<DeviceDescriptor> DeviceManager::GetGroupDevices(wstring group, DeviceType type)
+vector<DeviceDescriptor> DeviceManager::GetGroupDevices(string group, DeviceType type)
 {
     if (!m_providers.count(group))
         throw new exception("Group is not found");
@@ -30,7 +30,7 @@ vector<DeviceDescriptor> DeviceManager::GetGroupDevices(wstring group, DeviceTyp
     return m_providers[group]->EnumerateDevices(type);
 }
 
-shared_ptr<IDevice> DeviceManager::CreateDevice(wstring group, DeviceType type, DeviceDescriptor& descriptor)
+shared_ptr<IDevice> DeviceManager::CreateDevice(string group, DeviceType type, DeviceDescriptor& descriptor)
 {
     if (!m_providers.count(group))
         throw new exception("Group is not found");

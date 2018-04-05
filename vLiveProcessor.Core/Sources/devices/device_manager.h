@@ -7,15 +7,15 @@
 
 class DeviceManager : public IDeviceManager
 {
-    typedef std::map<std::wstring, std::shared_ptr<IDeviceProvider>> ProvidersCollection;
+    typedef std::map<std::string, std::shared_ptr<IDeviceProvider>> ProvidersCollection;
 
 public:
     DeviceManager();
     virtual ~DeviceManager();
 
-    std::vector<std::wstring> GetGroups() override;
-    std::vector<DeviceDescriptor> GetGroupDevices(std::wstring group, DeviceType type) override;
-    std::shared_ptr<IDevice> CreateDevice(std::wstring group, DeviceType type, DeviceDescriptor& descriptor) override;
+    std::vector<std::string> GetGroups() override;
+    std::vector<DeviceDescriptor> GetGroupDevices(std::string group, DeviceType type) override;
+    std::shared_ptr<IDevice> CreateDevice(std::string group, DeviceType type, DeviceDescriptor& descriptor) override;
 
 protected:
     static void InitProvidersCollection(ProvidersCollection& collection);

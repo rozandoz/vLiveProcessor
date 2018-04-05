@@ -3,27 +3,32 @@
 #include <string>
 #include <atlcomcli.h>
 
-class HRException : public std::exception
+namespace common
 {
-public:
-    explicit HRException(const wchar_t* pFile, const wchar_t* pLine);
-    void operator =(HRESULT hr);
+    namespace win32
+    {
+        class HRException : public std::exception
+        {
+        public:
+            explicit HRException(const char* pFile, const char* pLine);
+            void operator =(HRESULT hr);
 
-    std::wstring ErrorMessage() const;
-    HRESULT Error() const;
+            std::string ErrorMessage() const;
+            HRESULT Error() const;
 
-private:
-    HRESULT         m_hr;
-    std::wstring    m_file;
-    std::wstring    m_line;
-};
+        private:
+            HRESULT m_hr;
+            std::string m_file;
+            std::string m_line;
+        };
 
-// ReSharper disable IdentifierTypo
+        // ReSharper disable IdentifierTypo
 
 #define STRINGIFY2(m) #m
 #define MEXPAND(m) m
 #define STRINGIFY(m) STRINGIFY2(m)
-#define WIDE(m) _T(m)
 
 typedef HRException hr_exception;
-#define _hr hr_exception(WIDE(MEXPAND(__FILE__)), WIDE(STRINGIFY(__LINE__)))
+#define _hr hr_exception(MEXPAND(__FILE__), STRINGIFY(__LINE__))
+    }
+}

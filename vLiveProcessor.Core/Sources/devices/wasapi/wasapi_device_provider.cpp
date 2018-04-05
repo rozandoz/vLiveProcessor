@@ -5,8 +5,12 @@
 #include <Functiondiscoverykeys_devpkey.h>
 
 #include "win32/hr_exception.h"
+#include "win32/strings_converter.h"
+
 #include "wasapi_capture_device.h"
 #include "wasapi_render_device.h"
+
+using namespace common::win32;
 
 WASAPIDeviceProvider::WASAPIDeviceProvider()
 {
@@ -46,7 +50,7 @@ HRESULT WASAPIDeviceProvider::ActivateAudioDevice(DeviceDescriptor& descriptor, 
         CComPtr<IMMDevice> device;
 
         _hr = CreateDeviceEnumerator(&enumerator);
-        _hr = enumerator->GetDevice(descriptor.id.c_str(), &device);
+        _hr = enumerator->GetDevice(MultibyteToWide(descriptor.id).c_str(), &device);
         _hr = device->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, reinterpret_cast<void**>(ppClient));
     }
     catch(hr_exception e)
@@ -84,7 +88,7 @@ HRESULT WASAPIDeviceProvider::GetDevices(EDataFlow dataFlow, DWORD flastateMaskg
             _hr = deviceCollection->Item(i, &device);
             _hr = device->GetId(&id);
 
-            descriptor.id = id;
+            descriptor.id = WideToMultiByte(id);
 
             //Friendly name
 
@@ -92,7 +96,7 @@ HRESULT WASAPIDeviceProvider::GetDevices(EDataFlow dataFlow, DWORD flastateMaskg
             _hr = device->OpenPropertyStore(STGM_READ, &propertyStore);
             _hr = propertyStore->GetValue(PKEY_Device_FriendlyName, &prop);
 
-            descriptor.name = prop.pwszVal;
+            descriptor.name = WideToMultiByte(prop.pwszVal);
 
             devices.push_back(descriptor);
         }
@@ -107,9 +111,9 @@ HRESULT WASAPIDeviceProvider::GetDevices(EDataFlow dataFlow, DWORD flastateMaskg
     return hr;
 }
 
-std::wstring WASAPIDeviceProvider::Group()
+std::string WASAPIDeviceProvider::Group()
 {
-    return L"WASAPI";
+    return "WASAPI";
 }
 
 std::vector<DeviceDescriptor> WASAPIDeviceProvider::EnumerateDevices(DeviceType type)

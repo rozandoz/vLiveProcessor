@@ -5,6 +5,7 @@
 #include "win32/hr_exception.h"
 
 using namespace std;
+using namespace common::win32;
 
 WASAPICaptureDevice::WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : WASAPIDevice(descriptor, bufferTime)
@@ -119,7 +120,7 @@ void WASAPICaptureDevice::OnThreadProc()
     }
     catch (hr_exception e)
     {
-        wcout << "WASAPICaptureDevice::OnThreadProc: " << e.ErrorMessage();
+        cout << "WASAPICaptureDevice::OnThreadProc: " << e.ErrorMessage();
     }
 
     if (pWaveFormat)
