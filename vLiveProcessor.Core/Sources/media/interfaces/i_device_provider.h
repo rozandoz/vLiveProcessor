@@ -9,7 +9,6 @@
 class IDeviceProvider
 {
 protected:
-    IDeviceProvider() {}
     virtual ~IDeviceProvider() {}
 
 public:

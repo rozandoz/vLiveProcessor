@@ -16,19 +16,11 @@ WASAPIRenderDevice::~WASAPIRenderDevice()
 {
 }
 
-HRESULT WASAPIRenderDevice::RenderBuffer(shared_ptr<Buffer> buffer)
+bool WASAPIRenderDevice::TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
 {
-    try
-    {
-        lock_guard<mutex> lock(m_critSec);
-        m_queue.push(buffer);
-    }
-    catch (hr_exception ex)
-    {
-        return ex.Error();
-    }
-
-    return S_OK;
+    lock_guard<mutex> lock(m_critSec);
+    m_queue.push(block->buffer());
+    return true;
 }
 
 void WASAPIRenderDevice::OnThreadProc()

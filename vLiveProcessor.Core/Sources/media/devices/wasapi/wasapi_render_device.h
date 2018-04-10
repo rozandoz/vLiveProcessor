@@ -1,15 +1,17 @@
 #pragma once
-
 #include "wasapi_device.h"
-#include "memory/memory_allocator.h"
 
-class WASAPIRenderDevice : public WASAPIDevice
+#include "memory/memory_allocator.h"
+#include "../media/interfaces/i_consumer.h"
+
+class WASAPIRenderDevice : public WASAPIDevice, public IConsumer
 {
 public:
     explicit WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPIRenderDevice();
 
-    HRESULT RenderBuffer(std::shared_ptr<Buffer> buffer);
+    bool TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+
 private:
     void OnThreadProc() override;
 

@@ -9,7 +9,6 @@
 class IDeviceManager
 {
 protected:
-    IDeviceManager() {}
     virtual ~IDeviceManager() {}
 
 public:

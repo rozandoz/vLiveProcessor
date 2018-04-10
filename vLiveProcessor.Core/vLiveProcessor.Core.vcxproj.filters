@@ -108,9 +108,6 @@
     <ClInclude Include="Sources\media\devices\wasapi\wasapi_device_provider.h">
       <Filter>Sources\media\devices\wasapi</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\devices\wasapi\wasapi_render_device.h">
-      <Filter>Sources\media\devices\wasapi</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\media\devices\device_manager.h">
       <Filter>Sources\media\devices</Filter>
     </ClInclude>
@@ -122,6 +119,15 @@
     </ClInclude>
     <ClInclude Include="Sources\media\devices\wasapi\wasapi_capture_device.h">
       <Filter>Sources\media\devices\wasapi\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\wasapi\wasapi_render_device.h">
+      <Filter>Sources\media\devices\wasapi\render</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_producer.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_consumer.h">
+      <Filter>Sources\media\interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,18 +16,22 @@ WASAPICaptureDevice::~WASAPICaptureDevice()
 {
 }
 
-HRESULT WASAPICaptureDevice::CaptureBuffer(shared_ptr<Buffer>& buffer)
+bool WASAPICaptureDevice::TryGetBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
 {
     lock_guard<mutex> lock(m_critSec);
 
     if (m_queue.size())
     {
-        buffer = m_queue.front();
+        AudioFormat fmt(2, 32, 48000);
+        auto buffer = m_queue.front();
+
+        block = make_shared<MediaBlock>(buffer, fmt);
+
         m_queue.pop();
-        return S_OK;
+        return true;
     }
 
-    return S_FALSE;
+    return false;
 }
 
 void WASAPICaptureDevice::OnThreadProc()
