@@ -2,7 +2,7 @@
 
 #include "strings.h"
 
-common::media::AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
+AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
     : m_channels(channels)
     , m_bitsPerSample(bitsPerSample)
     , m_samplesPerSec(samplesPerSecond)
@@ -13,11 +13,11 @@ common::media::AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSampl
     m_avgBytesPerSec = m_blockAlign * m_samplesPerSec;
 }
 
-common::media::AudioFormat::~AudioFormat()
+AudioFormat::~AudioFormat()
 {
 }
 
-std::ostream& common::media::operator<<(std::ostream& stream, const AudioFormat& format)
+std::ostream& operator<<(std::ostream& stream, const AudioFormat& format)
 {
     return stream << StringFormat("Audio format (%d, %d, %d)", format.channels(), format.bitsPerSample(), format.samplesPerSec());
 }

@@ -3,7 +3,7 @@
 #include <mmdeviceapi.h>
 #include <Audioclient.h>
 
-#include "../interfaces/i_device_provider.h"
+#include "../../interfaces/i_device_provider.h"
 
 class WASAPIDeviceProvider : public IDeviceProvider
 {

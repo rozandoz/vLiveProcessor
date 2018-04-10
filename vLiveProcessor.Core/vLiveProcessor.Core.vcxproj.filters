@@ -19,21 +19,6 @@
     <Filter Include="Sources\common">
       <UniqueIdentifier>{9599ebff-a916-4058-a6ad-c25266448c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\devices">
-      <UniqueIdentifier>{33e76eef-315c-432e-aa62-8ae778f700e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\devices\wasapi">
-      <UniqueIdentifier>{fe2e58bd-eb7f-4023-8873-885f9055062b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\devices\interfaces">
-      <UniqueIdentifier>{23a9f23a-5f22-4ff5-bece-5fb9505a4ceb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\devices\wasapi\capture">
-      <UniqueIdentifier>{a52c938c-f1f6-42eb-bac3-13dfc91ce5ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\devices\wasapi\render">
-      <UniqueIdentifier>{8e42d69c-7d55-490e-9bef-15091a6df614}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\common\memory">
       <UniqueIdentifier>{004f1cd1-0440-4f27-8991-2febffa6118b}</UniqueIdentifier>
     </Filter>
@@ -49,8 +34,23 @@
     <Filter Include="Sources\common\logging\logger_sinks">
       <UniqueIdentifier>{257fc9ed-0c52-4e21-bb71-073d2a9ce1f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\common\media">
-      <UniqueIdentifier>{3d481867-60ad-408f-b865-34df3b5570ce}</UniqueIdentifier>
+    <Filter Include="Sources\media">
+      <UniqueIdentifier>{7d16586e-9e7f-45d2-abae-13b9ad70da1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\media\interfaces">
+      <UniqueIdentifier>{1bbe576a-d5b2-425b-b909-e914d96182c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\media\devices">
+      <UniqueIdentifier>{f340ae2c-55f3-4fc1-baa7-8cab48e1dc83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\media\devices\wasapi">
+      <UniqueIdentifier>{06d5e847-06df-42e0-a9a4-213724a6f56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\media\devices\wasapi\capture">
+      <UniqueIdentifier>{15d4e3ad-cdb3-4e28-9bfd-f5688515cc28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\media\devices\wasapi\render">
+      <UniqueIdentifier>{571e775a-9324-462b-b653-0ecb182c67a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,30 +65,6 @@
     </ClInclude>
     <ClInclude Include="Sources\Common\strings.h">
       <Filter>Sources\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_device.h">
-      <Filter>Sources\devices\wasapi</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\interfaces\i_device.h">
-      <Filter>Sources\devices\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\interfaces\i_device_provider.h">
-      <Filter>Sources\devices\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\interfaces\i_device_manager.h">
-      <Filter>Sources\devices\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_device_provider.h">
-      <Filter>Sources\devices\wasapi</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_capture_device.h">
-      <Filter>Sources\devices\wasapi\capture</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\wasapi\wasapi_render_device.h">
-      <Filter>Sources\devices\wasapi\render</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\devices\interfaces\device_types.h">
-      <Filter>Sources\devices\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Sources\common\memory\memory_allocator.h">
       <Filter>Sources\common\memory</Filter>
@@ -111,17 +87,41 @@
     <ClInclude Include="Sources\common\logging\console_logger_sink.h">
       <Filter>Sources\common\logging\logger_sinks</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\devices\device_manager.h">
-      <Filter>Sources\devices</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\common\win32\strings_converter.h">
       <Filter>Sources\common\win32</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\common\media\audio_format.h">
-      <Filter>Sources\common\media</Filter>
+    <ClInclude Include="Sources\media\interfaces\device_types.h">
+      <Filter>Sources\media\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\common\media\media_block.h">
-      <Filter>Sources\common\media</Filter>
+    <ClInclude Include="Sources\media\interfaces\i_device.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_device_manager.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_device_provider.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\wasapi\wasapi_device.h">
+      <Filter>Sources\media\devices\wasapi</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\wasapi\wasapi_device_provider.h">
+      <Filter>Sources\media\devices\wasapi</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\wasapi\wasapi_render_device.h">
+      <Filter>Sources\media\devices\wasapi</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\device_manager.h">
+      <Filter>Sources\media\devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\audio_format.h">
+      <Filter>Sources\media</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\media_block.h">
+      <Filter>Sources\media</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\devices\wasapi\wasapi_capture_device.h">
+      <Filter>Sources\media\devices\wasapi\capture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,18 +130,6 @@
     </ClCompile>
     <ClCompile Include="Sources\Common\strings.cpp">
       <Filter>Sources\common</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\devices\wasapi\wasapi_device.cpp">
-      <Filter>Sources\devices\wasapi</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\devices\wasapi\wasapi_device_provider.cpp">
-      <Filter>Sources\devices\wasapi</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\devices\wasapi\wasapi_capture_device.cpp">
-      <Filter>Sources\devices\wasapi\capture</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\devices\wasapi\wasapi_render_device.cpp">
-      <Filter>Sources\devices\wasapi\render</Filter>
     </ClCompile>
     <ClCompile Include="Sources\common\memory\memory_allocator.cpp">
       <Filter>Sources\common\memory</Filter>
@@ -158,17 +146,29 @@
     <ClCompile Include="Sources\common\logging\logger_streams.cpp">
       <Filter>Sources\common\logging</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\devices\device_manager.cpp">
-      <Filter>Sources\devices</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\common\win32\strings_converter.cpp">
       <Filter>Sources\common\win32</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\common\media\audio_format.cpp">
-      <Filter>Sources\common\media</Filter>
+    <ClCompile Include="Sources\media\devices\wasapi\wasapi_device.cpp">
+      <Filter>Sources\media\devices\wasapi</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\common\media\media_block.cpp">
-      <Filter>Sources\common\media</Filter>
+    <ClCompile Include="Sources\media\devices\wasapi\wasapi_device_provider.cpp">
+      <Filter>Sources\media\devices\wasapi</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\devices\device_manager.cpp">
+      <Filter>Sources\media\devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\audio_format.cpp">
+      <Filter>Sources\media</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\media_block.cpp">
+      <Filter>Sources\media</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\devices\wasapi\wasapi_capture_device.cpp">
+      <Filter>Sources\media\devices\wasapi\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\devices\wasapi\wasapi_render_device.cpp">
+      <Filter>Sources\media\devices\wasapi\render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

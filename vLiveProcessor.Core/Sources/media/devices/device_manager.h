@@ -2,8 +2,8 @@
 
 #include <map>
 
-#include "interfaces/i_device_manager.h"
-#include "interfaces/i_device_provider.h"
+#include "../interfaces/i_device_manager.h"
+#include "../interfaces/i_device_provider.h"
 
 class DeviceManager : public IDeviceManager
 {

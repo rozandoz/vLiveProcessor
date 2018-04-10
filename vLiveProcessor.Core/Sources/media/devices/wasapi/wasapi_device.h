@@ -4,8 +4,8 @@
 
 #include "common.h"
 #include "threading/thread_base.h"
-#include "../interfaces/device_types.h"
-#include "../interfaces/i_device.h"
+#include "../../interfaces/device_types.h"
+#include "../../interfaces/i_device.h"
 
 class WASAPIDevice : public IDevice, protected ThreadBase
 {
