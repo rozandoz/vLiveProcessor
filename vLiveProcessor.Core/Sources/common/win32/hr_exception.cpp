@@ -1,7 +1,7 @@
 #include "hr_exception.h"
 
 #include "strings.h"
-#include "win32/strings_converter.h"
+#include "strings_converter.h"
 
 #include <comdef.h>
 

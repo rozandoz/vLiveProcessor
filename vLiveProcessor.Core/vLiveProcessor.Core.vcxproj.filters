@@ -120,6 +120,9 @@
     <ClInclude Include="Sources\common\media\audio_format.h">
       <Filter>Sources\common\media</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\media\media_block.h">
+      <Filter>Sources\common\media</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -162,6 +165,9 @@
       <Filter>Sources\common\win32</Filter>
     </ClCompile>
     <ClCompile Include="Sources\common\media\audio_format.cpp">
+      <Filter>Sources\common\media</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\media\media_block.cpp">
       <Filter>Sources\common\media</Filter>
     </ClCompile>
   </ItemGroup>
