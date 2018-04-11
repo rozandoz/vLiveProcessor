@@ -2,6 +2,11 @@
 
 #include "common/strings.h"
 
+AudioFormat::AudioFormat() 
+    : AudioFormat(1, 8, 441000)
+{
+}
+
 AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
     : m_channels(channels)
     , m_bitsPerSample(bitsPerSample)

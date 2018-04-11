@@ -25,17 +25,16 @@ bool WASAPIRenderDevice::TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlo
 
 void WASAPIRenderDevice::OnThreadProc()
 {
-    WAVEFORMATEX* pWaveFormat;
-
     try
     {
         _hr = CoInitialize(nullptr);
 
+        AudioFormat fmt;
         UINT32 maxSamplesCount;
 
         CComPtr<IAudioClient> client;
         CComPtr<IAudioRenderClient> renderClient;
-        _hr = InitializeAudioClient(&client, &pWaveFormat);
+        _hr = InitializeAudioClient(&client, fmt);
         _hr = client->GetService(__uuidof(IAudioRenderClient), reinterpret_cast<void**>(&renderClient));
         _hr = client->GetBufferSize(&maxSamplesCount);
 
@@ -64,7 +63,7 @@ void WASAPIRenderDevice::OnThreadProc()
             }
 
             auto pSourceBuffer = buffer->data();
-            auto sourceSamples = buffer->size() / pWaveFormat->nBlockAlign;
+            auto sourceSamples = buffer->size() / fmt.blockAlign();
 
             while (sourceSamples != 0)
             {
@@ -73,11 +72,11 @@ void WASAPIRenderDevice::OnThreadProc()
                 auto targetSamples = maxSamplesCount - samplesPadding;
 
                 auto samplesToProcess = min(sourceSamples, targetSamples);
-                auto sizeToProcess = samplesToProcess * pWaveFormat->nBlockAlign;
+                auto sizeToProcess = samplesToProcess * fmt.blockAlign();
 
                 if (sizeToProcess == 0)
                 {
-                    Sleep(targetSamples / pWaveFormat->nSamplesPerSec / 1000 / 2);
+                    Sleep(targetSamples / fmt.samplesPerSec() / 1000 / 2);
                     continue;
                 }
 
@@ -99,7 +98,4 @@ void WASAPIRenderDevice::OnThreadProc()
     {
         cout << "WASAPIRenderDevice::OnThreadProc: " << e.ErrorMessage();
     }
-
-    if (pWaveFormat)
-        CoTaskMemFree(pWaveFormat);
 }

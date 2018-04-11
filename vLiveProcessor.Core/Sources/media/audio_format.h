@@ -8,6 +8,7 @@
 class AudioFormat
 {
 public:
+    AudioFormat();
     AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond);
     ~AudioFormat();
 

@@ -6,8 +6,10 @@
 #include "common/threading/thread_base.h"
 #include "common/logging/logger.h"
 
+#include "media/audio_format.h"
 #include "media/interfaces/device_types.h"
 #include "media/interfaces/i_device.h"
+
 
 class WASAPIDevice : public IDevice, protected ThreadBase
 {
@@ -20,7 +22,7 @@ public:
     void Reset() override;
 
 protected:
-    HRESULT InitializeAudioClient(IAudioClient** ppAudioClient, WAVEFORMATEX** pWaveFormat);
+    HRESULT InitializeAudioClient(IAudioClient** ppAudioClient, AudioFormat& audioFormat);
 
 protected:
     uint64_t            m_bufferTime;
