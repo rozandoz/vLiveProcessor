@@ -1,6 +1,6 @@
 #include "wasapi_device.h"
 
-#include "win32/hr_exception.h"
+#include "common/win32/hr_exception.h"
 #include "wasapi_device_provider.h"
 
 using namespace common::win32;

@@ -2,9 +2,10 @@
 
 #include <Audioclient.h>
 
-#include "common.h"
-#include "threading/thread_base.h"
-#include "logging/logger.h"
+#include "common/common.h"
+#include "common/threading/thread_base.h"
+#include "common/logging/logger.h"
+
 #include "../../interfaces/device_types.h"
 #include "../../interfaces/i_device.h"
 

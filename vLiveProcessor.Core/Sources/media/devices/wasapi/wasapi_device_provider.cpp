@@ -4,8 +4,8 @@
 
 #include <Functiondiscoverykeys_devpkey.h>
 
-#include "win32/hr_exception.h"
-#include "win32/strings_converter.h"
+#include "common/win32/hr_exception.h"
+#include "common/win32/strings_converter.h"
 
 #include "wasapi_capture_device.h"
 #include "wasapi_render_device.h"

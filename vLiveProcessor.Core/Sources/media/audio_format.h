@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <ostream>
 
-#include "common.h"
+#include "common/common.h"
 
 class AudioFormat
 {

@@ -1,6 +1,6 @@
 #include "audio_format.h"
 
-#include "strings.h"
+#include "common/strings.h"
 
 AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
     : m_channels(channels)

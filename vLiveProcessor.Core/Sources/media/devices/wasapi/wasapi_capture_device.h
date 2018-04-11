@@ -1,8 +1,9 @@
 #pragma once
 #include "wasapi_device.h"
 
-#include "memory/memory_allocator.h"
-#include "../media/interfaces/i_producer.h"
+#include "common/memory/memory_allocator.h"
+
+#include "../../interfaces/i_producer.h"
 
 #define BUFFERS_COUNT 4
 

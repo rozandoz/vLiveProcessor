@@ -1,6 +1,6 @@
 #include "hr_exception.h"
 
-#include "strings.h"
+#include "common/strings.h"
 #include "strings_converter.h"
 
 #include <comdef.h>

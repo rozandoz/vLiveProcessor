@@ -1,7 +1,7 @@
 #pragma once
 
-#include "common.h"
-#include "memory/memory_allocator.h"
+#include "common/common.h"
+#include "common/memory/memory_allocator.h"
 #include "audio_format.h"
 
 class MediaBlock

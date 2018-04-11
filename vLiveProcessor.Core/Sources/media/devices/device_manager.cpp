@@ -1,6 +1,6 @@
 #include "device_manager.h"
 
-#include "strings.h"
+#include "common/strings.h"
 #include "wasapi/wasapi_device_provider.h"
 
 using namespace std;

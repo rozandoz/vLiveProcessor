@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "win32/hr_exception.h"
+#include "common/win32/hr_exception.h"
 
 using namespace std;
 using namespace common::win32;
