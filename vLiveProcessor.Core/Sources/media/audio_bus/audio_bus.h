@@ -3,9 +3,9 @@
 #include <memory>
 #include <vector>
 
-#include "../../common/logging/logger.h"
+#include "common/logging/logger.h"
 
-#include "../interfaces/i_device.h"
+#include "media/interfaces/i_device.h"
 
 class AudioBus
 {

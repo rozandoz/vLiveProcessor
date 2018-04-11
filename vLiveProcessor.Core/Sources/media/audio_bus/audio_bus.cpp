@@ -1,7 +1,7 @@
 #include "audio_bus.h"
 
-#include "../interfaces/i_consumer.h"
-#include "../interfaces/i_producer.h"
+#include "media/interfaces/i_consumer.h"
+#include "media/interfaces/i_producer.h"
 
 using namespace std;
 

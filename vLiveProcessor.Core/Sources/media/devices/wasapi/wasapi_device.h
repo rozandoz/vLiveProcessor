@@ -6,8 +6,8 @@
 #include "common/threading/thread_base.h"
 #include "common/logging/logger.h"
 
-#include "../../interfaces/device_types.h"
-#include "../../interfaces/i_device.h"
+#include "media/interfaces/device_types.h"
+#include "media/interfaces/i_device.h"
 
 class WASAPIDevice : public IDevice, protected ThreadBase
 {

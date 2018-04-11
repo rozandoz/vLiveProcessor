@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../media_block.h"
+#include "media/media_block.h"
 
 class IConsumer
 {

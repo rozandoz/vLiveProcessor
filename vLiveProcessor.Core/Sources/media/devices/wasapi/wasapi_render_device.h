@@ -3,7 +3,7 @@
 
 #include "common/memory/memory_allocator.h"
 
-#include "../../interfaces/i_consumer.h"
+#include "media/interfaces/i_consumer.h"
 
 class WASAPIRenderDevice : public WASAPIDevice, public IConsumer
 {
