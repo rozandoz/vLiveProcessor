@@ -12,7 +12,7 @@ public:
     explicit WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPICaptureDevice();
 
-    bool TryGetBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+    void Callback(const std::shared_ptr<IProducerCallback>& callback) override;
 
 private:
     void OnThreadProc() override;
@@ -20,4 +20,6 @@ private:
 private:
     std::mutex                              m_critSec;
     std::queue<std::shared_ptr<Buffer>>     m_queue;
+
+    std::shared_ptr<IProducerCallback>      m_callback;
 };

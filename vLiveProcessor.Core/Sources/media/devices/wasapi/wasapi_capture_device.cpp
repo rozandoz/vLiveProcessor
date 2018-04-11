@@ -16,22 +16,9 @@ WASAPICaptureDevice::~WASAPICaptureDevice()
 {
 }
 
-bool WASAPICaptureDevice::TryGetBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
+void WASAPICaptureDevice::Callback(const shared_ptr<IProducerCallback>& callback)
 {
-    lock_guard<mutex> lock(m_critSec);
-
-    if (m_queue.size())
-    {
-        AudioFormat fmt(2, 32, 48000);
-        auto buffer = m_queue.front();
-
-        block = make_shared<MediaBlock>(buffer, fmt);
-
-        m_queue.pop();
-        return true;
-    }
-
-    return false;
+    m_callback = callback;
 }
 
 void WASAPICaptureDevice::OnThreadProc()
@@ -51,7 +38,9 @@ void WASAPICaptureDevice::OnThreadProc()
         _hr = client->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
         _hr = client->GetBufferSize(&maxSamplesCount);
 
-        cout << pWaveFormat->nChannels << " " << pWaveFormat->wBitsPerSample << " " << pWaveFormat->nSamplesPerSec << endl;
+        AudioFormat audioFormat(pWaveFormat->nChannels, pWaveFormat->wBitsPerSample, pWaveFormat->nSamplesPerSec);
+
+        m_logger.trace << "WASAPICaptureDevice: " << audioFormat << endl;
 
         auto maxBufferSize = maxSamplesCount * pWaveFormat->nBlockAlign;
         auto allocator = MemoryAllocator::Create(maxBufferSize / BUFFERS_COUNT, BUFFERS_COUNT);
@@ -86,7 +75,7 @@ void WASAPICaptureDevice::OnThreadProc()
                 {
                     if (buffer == nullptr && !allocator->TryGetBuffer(waitTime, buffer))
                     {
-                        cout << availableFrames << " frames were dropped" << endl;
+                        m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped!" << endl;
                         break;
                     }
 
@@ -109,8 +98,11 @@ void WASAPICaptureDevice::OnThreadProc()
 
                     if (buffer->size() == buffer->max_size())
                     {
-                        lock_guard<mutex> lock(m_critSec);
-                        m_queue.push(buffer);
+                        if(m_callback != nullptr)
+                        {
+                            m_callback->OnProcessBlock(make_shared<MediaBlock>(buffer, audioFormat));
+                        }
+
                         buffer.reset();
                     }
                 }
@@ -124,7 +116,7 @@ void WASAPICaptureDevice::OnThreadProc()
     }
     catch (hr_exception e)
     {
-        cout << "WASAPICaptureDevice::OnThreadProc: " << e.ErrorMessage();
+        m_logger.error << "WASAPICaptureDevice::OnThreadProc: " << e.ErrorMessage();
     }
 
     if (pWaveFormat)

@@ -8,6 +8,7 @@ using namespace common::win32;
 WASAPIDevice::WASAPIDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : m_bufferTime(bufferTime)
     , m_descriptor(descriptor)
+    , m_logger(Logger::GetInstance())
 {
 }
 

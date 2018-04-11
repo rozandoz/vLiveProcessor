@@ -4,6 +4,7 @@
 
 #include "common.h"
 #include "threading/thread_base.h"
+#include "logging/logger.h"
 #include "../../interfaces/device_types.h"
 #include "../../interfaces/i_device.h"
 
@@ -23,4 +24,5 @@ protected:
 protected:
     uint64_t            m_bufferTime;
     DeviceDescriptor    m_descriptor;
+    Logger&             m_logger;
 };
