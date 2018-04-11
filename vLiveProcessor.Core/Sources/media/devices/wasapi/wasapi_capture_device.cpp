@@ -16,9 +16,9 @@ WASAPICaptureDevice::~WASAPICaptureDevice()
 {
 }
 
-void WASAPICaptureDevice::Callback(const shared_ptr<IProducerCallback>& callback)
+void WASAPICaptureDevice::SetConsumer(const std::shared_ptr<IConsumer>& consumer)
 {
-    m_callback = callback;
+    m_consumer = consumer;
 }
 
 void WASAPICaptureDevice::OnThreadProc()
@@ -98,9 +98,13 @@ void WASAPICaptureDevice::OnThreadProc()
 
                     if (buffer->size() == buffer->max_size())
                     {
-                        if(m_callback != nullptr)
+                        if(m_consumer != nullptr)
                         {
-                            m_callback->OnProcessBlock(make_shared<MediaBlock>(buffer, audioFormat));
+                            auto mediaBlock = make_shared<MediaBlock>(buffer, audioFormat);
+                            if(!m_consumer->TryPushBlock(waitTime, mediaBlock))
+                            {
+                                m_logger.error << "WASAPICaptureDevice: failed to push block to consumer" << endl;
+                            }
                         }
 
                         buffer.reset();

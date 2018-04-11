@@ -12,7 +12,7 @@ public:
     explicit WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPICaptureDevice();
 
-    void Callback(const std::shared_ptr<IProducerCallback>& callback) override;
+    void SetConsumer(const std::shared_ptr<IConsumer>& consumer) override;
 
 private:
     void OnThreadProc() override;
@@ -21,5 +21,5 @@ private:
     std::mutex                              m_critSec;
     std::queue<std::shared_ptr<Buffer>>     m_queue;
 
-    std::shared_ptr<IProducerCallback>      m_callback;
+    std::shared_ptr<IConsumer>              m_consumer;
 };

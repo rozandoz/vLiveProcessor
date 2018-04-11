@@ -1,6 +1,8 @@
 #pragma once
 
-class IDevice
+#include "i_processor.h"
+
+class IDevice : public IProcessor
 {
 protected:
     virtual ~IDevice() {}

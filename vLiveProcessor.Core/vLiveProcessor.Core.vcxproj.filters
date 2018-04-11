@@ -52,6 +52,9 @@
     <Filter Include="Sources\media\devices\wasapi\render">
       <UniqueIdentifier>{571e775a-9324-462b-b653-0ecb182c67a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\media\audio_bus">
+      <UniqueIdentifier>{4cb4054d-4bad-4fce-aa46-48d4c985a0af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -129,6 +132,12 @@
     <ClInclude Include="Sources\media\interfaces\i_consumer.h">
       <Filter>Sources\media\interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_processor.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\audio_bus\audio_bus.h">
+      <Filter>Sources\media\audio_bus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -175,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Sources\media\devices\wasapi\wasapi_render_device.cpp">
       <Filter>Sources\media\devices\wasapi\render</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\audio_bus\audio_bus.cpp">
+      <Filter>Sources\media\audio_bus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
