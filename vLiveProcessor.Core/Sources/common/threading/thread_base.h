@@ -12,7 +12,9 @@ protected:
     void StopThread();
 
     bool CheckClosing() const;
+    bool CheckStarted() const;
     virtual void OnThreadProc() = 0;
+
 
 private:
     void StopThread(bool wait);

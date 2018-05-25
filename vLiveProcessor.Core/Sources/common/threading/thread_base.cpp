@@ -37,6 +37,11 @@ bool ThreadBase::CheckClosing() const
     return m_closing;
 }
 
+bool ThreadBase::CheckStarted() const
+{
+    return m_started;
+}
+
 void ThreadBase::StopThread(bool wait)
 {
     lock_guard<mutex> lock(m_critSec);
