@@ -13,6 +13,10 @@ shared_ptr<VST2Host> VST2Host::Create()
     return make_shared<VST2Host>();
 }
 
+VST2Host::VST2Host()
+{
+}
+
 VST2Host::~VST2Host()
 {
     StopThread();
@@ -45,8 +49,8 @@ void VST2Host::OnThreadProc()
 {
     while (!CheckClosing()) 
     {
-        if (!EventRoutine()) 
-            break;
+        /*if (!EventRoutine()) 
+            break;*/
 
         this_thread::sleep_for(1ms);
     }

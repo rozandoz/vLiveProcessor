@@ -170,6 +170,7 @@
     <ClInclude Include="Sources\media\vst\vst2_host.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h" />
+    <ClInclude Include="Sources\media\vst\vst2_processor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClCompile Include="Sources\media\vst\vst2_plugin.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_module.h" />
     <ClCompile Include="Sources\media\vst\vst2_module.cpp" />
+    <ClCompile Include="Sources\media\vst\vst2_processor.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

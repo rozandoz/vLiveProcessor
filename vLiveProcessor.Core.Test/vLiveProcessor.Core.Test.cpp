@@ -4,10 +4,14 @@
 #include "stdafx.h"
 
 #include <algorithm>
+#include <iostream>
 
 #include "common/logging/logger.h"
+
 #include "media/devices/device_manager.h"
+#include "media/vst/vst2_processor.h"
 #include "media/audio_bus/audio_bus.h"
+
 
 using namespace std;
 
@@ -29,16 +33,36 @@ int main()
     logger.trace << endl;
     logger.trace << "Initialize AudioBus" << endl;
 
+    VST2PluginSettings vst2Settings;
+    vst2Settings.modulePath = "E:\\temp\\TDR Nova (no installer)\\VST2\\x64\\TDR Nova.dll";
+
     vector<shared_ptr<IProcessor>> processors;
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Capture, captureDevices[0]));
+    processors.push_back(make_shared<VST2Processor>(vst2Settings));
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Render, renderDevices[0]));
 
     auto audiobus = make_unique<AudioBus>();
-    
+
     audiobus->SetProcessors(processors);
     audiobus->Start();
 
-    getchar();
+    while (true)
+    {
+        if (GetAsyncKeyState(0x58)) // X
+        {
+            logger.trace << "Closing...";
+            break;
+        }
+
+        WaitMessage();
+
+        MSG message = {};
+        if (!PeekMessage(&message, 0, 0, 0, PM_REMOVE))
+            continue;
+
+        TranslateMessage(&message);
+        DispatchMessage(&message);
+    }
 
     audiobus->Stop();
 

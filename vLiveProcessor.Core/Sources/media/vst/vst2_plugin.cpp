@@ -74,6 +74,67 @@ intptr_t VST2Plugin::Dispatcher(int32_t opcode, int32_t index, intptr_t value, v
     return m_pEffect->dispatcher(m_pEffect, opcode, index, value, ptr, opt);
 }
 
+VstIntPtr VST2Plugin::HostCallback(VstInt32 opcode, VstInt32 index, VstIntPtr value, void* ptr, float) const
+{
+    switch (opcode)
+    {
+    default: break;
+    case audioMasterVersion: return kVstVersion;
+    case audioMasterCurrentId: return m_pEffect->uniqueID;
+    case audioMasterGetSampleRate: return m_settings.sampleRate;
+    case audioMasterGetBlockSize: return m_settings.blockSize;
+    case audioMasterGetCurrentProcessLevel: return kVstProcessLevelUnknown;
+    case audioMasterGetAutomationState: return kVstAutomationOff;
+    case audioMasterGetLanguage: return kVstLangEnglish;
+    case audioMasterGetVendorVersion: return m_host->VendorVersion();
+
+    case audioMasterGetVendorString:
+        strcpy_s(static_cast<char*>(ptr), kVstMaxVendorStrLen, m_host->Vendor().c_str());
+        return 1;
+
+    case audioMasterGetProductString:
+        strcpy_s(static_cast<char*>(ptr), kVstMaxProductStrLen, m_host->Product().c_str());
+        return 1;
+
+        /*  case audioMasterGetTime:
+        VstTimeInfo timeinfo;
+        timeinfo.flags = 0;
+        timeinfo.samplePos = 0;
+        timeinfo.sampleRate = m_settings.sampleRate;
+        return reinterpret_cast<VstIntPtr>(&timeinfo);
+
+        case audioMasterGetDirectory:
+        return reinterpret_cast<VstIntPtr>(L"E:\\temp\\Synth1");*/
+
+    case audioMasterIdle:
+        if (m_settings.window)
+        {
+            Dispatcher(effEditIdle);
+        }
+        break;
+
+    case audioMasterSizeWindow:
+        if (m_settings.window)
+        {
+            RECT rc{};
+            GetWindowRect((HWND)m_settings.window, &rc);
+            rc.right = rc.left + static_cast<int>(index);
+            rc.bottom = rc.top + static_cast<int>(value);
+            ResizeEditor(rc);
+        }
+        break;
+
+    case audioMasterCanDo:
+        for each (auto capability in m_host->Capabilities())
+        {
+            if (strcmp(capability.c_str(), static_cast<const char*>(ptr)) == 0)
+                return 1;
+        }
+        return 0;
+    }
+    return 0;
+}
+
 void VST2Plugin::AllocateBuffrers()
 {
     assert(m_pEffect);
@@ -102,8 +163,8 @@ void VST2Plugin::Initialize()
     if (m_pEffect == nullptr || m_pEffect->magic != kEffectMagic)
         throw exception("VST2Plugin: invalid VST2 plugin");
 
-    if (!HasFlag(effFlagsIsSynth))
-        throw exception("VST2Plugin: plugin has no 'IsSynth' flag");
+   /* if (!HasFlag(effFlagsIsSynth))
+        throw exception("VST2Plugin: plugin has no 'IsSynth' flag");*/
 
     m_pEffect->user = this;
 
@@ -157,3 +218,20 @@ void VST2Plugin::Close()
     m_module.reset();
 }
 
+std::vector<float*>& VST2Plugin::Process(float* pBuffer, uint32_t& frames)
+{
+    auto maxFramesCount = m_outputBuffer.size() / m_settings.channelCount;
+    auto framesCount = std::min<size_t>(frames, maxFramesCount);
+
+    for (size_t i = 0; i < framesCount; i++)
+    {
+        auto offset = i * 2;
+        memcpy(m_inputBufferPointers[0] + i, pBuffer + offset, sizeof(float));
+        memcpy(m_inputBufferPointers[1] + i, pBuffer + offset + 1, sizeof(float));
+    }
+
+    m_pEffect->processReplacing(m_pEffect, m_inputBufferPointers.data(), m_outputBufferPointers.data(), framesCount);
+    frames = framesCount;
+
+    return m_outputBufferPointers;
+}

@@ -159,6 +159,9 @@
     <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h">
       <Filter>Sources\media\vst\vst2\plugin</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\media\vst\vst2_processor.h">
+      <Filter>Sources\media\vst\vst2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="Sources\media\vst\vst2_plugin.cpp">
       <Filter>Sources\media\vst\vst2\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\vst\vst2_processor.cpp">
+      <Filter>Sources\media\vst\vst2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
