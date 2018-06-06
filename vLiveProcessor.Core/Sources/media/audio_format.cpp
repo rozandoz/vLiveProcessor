@@ -3,7 +3,7 @@
 #include "common/strings.h"
 
 AudioFormat::AudioFormat() 
-    : AudioFormat(1, 8, 441000)
+    : AudioFormat(1, 8, 44100)
 {
 }
 
@@ -14,7 +14,7 @@ AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t sam
     , m_blockAlign(0)
     , m_avgBytesPerSec(0)
 {
-    m_blockAlign = m_channels * (m_bitsPerSample + 7) / 8;
+    m_blockAlign = m_channels * ((m_bitsPerSample + 7) / 8);
     m_avgBytesPerSec = m_blockAlign * m_samplesPerSec;
 }
 
