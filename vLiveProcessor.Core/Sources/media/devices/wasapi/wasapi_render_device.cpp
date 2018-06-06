@@ -38,7 +38,7 @@ void WASAPIRenderDevice::OnThreadProc()
         _hr = client->GetService(__uuidof(IAudioRenderClient), reinterpret_cast<void**>(&renderClient));
         _hr = client->GetBufferSize(&maxSamplesCount);
 
-        //cout << pWaveFormat->nChannels << " " << pWaveFormat->wBitsPerSample << " " << pWaveFormat->nSamplesPerSec << endl;
+        cout << "WASAPIRenderDevice::OnThreadProc: " << fmt << endl;
 
         _hr = client->Start();
 

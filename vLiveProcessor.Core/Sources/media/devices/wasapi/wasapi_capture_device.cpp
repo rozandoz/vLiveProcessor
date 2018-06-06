@@ -34,7 +34,7 @@ void WASAPICaptureDevice::OnThreadProc()
         _hr = client->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
         _hr = client->GetBufferSize(&maxSamplesCount);
 
-        m_logger.trace << "WASAPICaptureDevice: " << fmt << endl;
+        m_logger.trace << "WASAPICaptureDevice::OnThreadProc: " << fmt << endl;
 
         auto maxBufferSize = maxSamplesCount * fmt.blockAlign();
         auto allocator = MemoryAllocator::Create(maxBufferSize / BUFFERS_COUNT, BUFFERS_COUNT);
