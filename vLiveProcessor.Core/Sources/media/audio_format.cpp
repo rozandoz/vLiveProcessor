@@ -3,12 +3,13 @@
 #include "common/strings.h"
 
 AudioFormat::AudioFormat() 
-    : AudioFormat(1, 8, 44100)
+    : AudioFormat(PCM, 1, 8, 44100)
 {
 }
 
-AudioFormat::AudioFormat(uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
-    : m_channels(channels)
+AudioFormat::AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
+    : m_audioType(type)
+    , m_channels(channels)
     , m_bitsPerSample(bitsPerSample)
     , m_samplesPerSec(samplesPerSecond)
     , m_blockAlign(0)

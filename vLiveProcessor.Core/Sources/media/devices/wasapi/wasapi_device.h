@@ -22,6 +22,8 @@ public:
     void Reset() override;
 
 protected:
+    static AudioFormat ToAudioFormat(const WAVEFORMATEX* pWaveFormat);
+
     HRESULT InitializeAudioClient(IAudioClient** ppAudioClient, AudioFormat& audioFormat);
 
 protected:

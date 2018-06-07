@@ -1,5 +1,7 @@
 #include "wasapi_device.h"
 
+#include <exception>
+
 #include "common/win32/hr_exception.h"
 
 #include "wasapi_device_provider.h"
@@ -33,6 +35,28 @@ void WASAPIDevice::Reset()
     Start();
 }
 
+AudioFormat WASAPIDevice::ToAudioFormat(const WAVEFORMATEX* pWaveFormat)
+{
+    AudioType type(INVALID);
+
+    if (pWaveFormat->wFormatTag == WAVE_FORMAT_EXTENSIBLE && pWaveFormat->cbSize == sizeof(WAVEFORMATEXTENSIBLE) - sizeof(WAVEFORMATEX))
+    {
+        auto pExtensible = reinterpret_cast<const WAVEFORMATEXTENSIBLE*>(pWaveFormat);
+
+        if (pExtensible->SubFormat == KSDATAFORMAT_SUBTYPE_IEEE_FLOAT) type = IEEE_FLOAT;
+        if (pExtensible->SubFormat == KSDATAFORMAT_SUBTYPE_PCM) type = PCM;
+    }
+    else
+    {
+        if (pWaveFormat->wFormatTag == WAVE_FORMAT_IEEE_FLOAT)  type = IEEE_FLOAT;
+        if (pWaveFormat->wFormatTag == WAVE_FORMAT_PCM)  type = PCM;
+    }
+
+    if (type == INVALID) throw std::exception("Audio subtype is not supported");
+
+    return AudioFormat(type, pWaveFormat->nChannels, pWaveFormat->wBitsPerSample, pWaveFormat->nSamplesPerSec);
+}
+
 HRESULT WASAPIDevice::InitializeAudioClient(IAudioClient** ppAudioClient, AudioFormat& audioFormat)
 {
     auto hr = S_OK;
@@ -50,7 +74,7 @@ HRESULT WASAPIDevice::InitializeAudioClient(IAudioClient** ppAudioClient, AudioF
         _hr = audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, 0, m_bufferTime, 0, pWaveFormat, nullptr);
         _hr = audioClient.QueryInterface(ppAudioClient);
 
-        audioFormat = AudioFormat(pWaveFormat->nChannels, pWaveFormat->wBitsPerSample, pWaveFormat->nSamplesPerSec);
+        audioFormat = ToAudioFormat(pWaveFormat);
     }
     catch (hr_exception e)
     {
