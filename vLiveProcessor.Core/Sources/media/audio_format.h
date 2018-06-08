@@ -14,6 +14,9 @@ enum AudioType
 
 class AudioFormat
 {
+public: //static
+    static AudioFormat& Invalid();
+
 public:
     AudioFormat();
     AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond);
@@ -28,6 +31,9 @@ public:
 
     friend std::ostream& operator<<(std::ostream& stream, const AudioFormat& format);
 
+    friend bool operator==(const AudioFormat& lhs, const AudioFormat& rhs);
+    friend bool operator!=(const AudioFormat& lhs, const AudioFormat& rhs);
+
 private:
     AudioType   m_audioType;
 
@@ -38,3 +44,5 @@ private:
     uint16_t    m_blockAlign;
     uint32_t    m_avgBytesPerSec;
 };
+
+#define INVALID_AUDIO_FORMAT AudioFormat::Invalid()

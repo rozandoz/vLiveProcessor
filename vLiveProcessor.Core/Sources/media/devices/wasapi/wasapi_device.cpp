@@ -18,7 +18,7 @@ WASAPIDevice::~WASAPIDevice()
 
 AudioFormat WASAPIDevice::ToAudioFormat(const WAVEFORMATEX* pWaveFormat)
 {
-    AudioType type(INVALID);
+    auto type = INVALID;
 
     if (pWaveFormat->wFormatTag == WAVE_FORMAT_EXTENSIBLE && pWaveFormat->cbSize == sizeof(WAVEFORMATEXTENSIBLE) - sizeof(WAVEFORMATEX))
     {
@@ -38,6 +38,37 @@ AudioFormat WASAPIDevice::ToAudioFormat(const WAVEFORMATEX* pWaveFormat)
     return AudioFormat(type, pWaveFormat->nChannels, pWaveFormat->wBitsPerSample, pWaveFormat->nSamplesPerSec);
 }
 
+WAVEFORMATEX* WASAPIDevice::FromAudioFormat(const AudioFormat& audioFormat)
+{
+    auto subFormat = GUID_NULL;
+
+    switch (audioFormat.audioType())
+    {
+    case PCM: subFormat = KSDATAFORMAT_SUBTYPE_PCM; break;
+    case IEEE_FLOAT: subFormat = KSDATAFORMAT_SUBTYPE_IEEE_FLOAT; break;
+    default: break;
+    }
+
+    if (subFormat == GUID_NULL) throw std::exception("Audio subtype is not supported");
+
+    auto pWaveFormat = reinterpret_cast<WAVEFORMATEXTENSIBLE*>(CoTaskMemAlloc(sizeof(WAVEFORMATEXTENSIBLE)));
+
+    pWaveFormat->Format.wFormatTag = WAVE_FORMAT_EXTENSIBLE;
+    pWaveFormat->Format.nChannels = audioFormat.channels();
+    pWaveFormat->Format.nSamplesPerSec = audioFormat.samplesPerSec();
+    pWaveFormat->Format.nAvgBytesPerSec = audioFormat.avgBytesPerSec();
+    pWaveFormat->Format.nBlockAlign = audioFormat.blockAlign();
+    pWaveFormat->Format.wBitsPerSample = audioFormat.bitsPerSample();
+    pWaveFormat->Format.cbSize = sizeof(WAVEFORMATEXTENSIBLE) - sizeof(pWaveFormat->Format);
+
+    pWaveFormat->Samples.wValidBitsPerSample = audioFormat.bitsPerSample();
+
+    pWaveFormat->dwChannelMask = 0x03; //stereo only
+    pWaveFormat->SubFormat = subFormat;
+
+    return reinterpret_cast<WAVEFORMATEX*>(pWaveFormat);
+}
+
 HRESULT WASAPIDevice::InitializeAudioClient(IAudioClient** ppAudioClient, AudioFormat& audioFormat)
 {
     auto hr = S_OK;
@@ -51,7 +82,11 @@ HRESULT WASAPIDevice::InitializeAudioClient(IAudioClient** ppAudioClient, AudioF
         CComPtr<IAudioClient> audioClient;
         _hr = WASAPIDeviceProvider::ActivateAudioDevice(m_descriptor, &audioClient);
 
-        _hr = audioClient->GetMixFormat(&pWaveFormat);
+        if (audioFormat == INVALID_AUDIO_FORMAT)
+            _hr = audioClient->GetMixFormat(&pWaveFormat);
+        else
+            pWaveFormat = FromAudioFormat(audioFormat);
+
         _hr = audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, 0, m_bufferTime, 0, pWaveFormat, nullptr);
         _hr = audioClient.QueryInterface(ppAudioClient);
 

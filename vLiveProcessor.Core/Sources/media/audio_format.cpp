@@ -2,8 +2,14 @@
 
 #include "common/strings.h"
 
+AudioFormat& AudioFormat::Invalid()
+{
+    static AudioFormat invalidFormat(INVALID, 0, 0, 0);
+    return invalidFormat;
+}
+
 AudioFormat::AudioFormat() 
-    : AudioFormat(PCM, 1, 8, 44100)
+    : AudioFormat(Invalid())
 {
 }
 
@@ -26,4 +32,19 @@ AudioFormat::~AudioFormat()
 std::ostream& operator<<(std::ostream& stream, const AudioFormat& format)
 {
     return stream << StringFormat("Audio format (%d, %d, %d)", format.channels(), format.bitsPerSample(), format.samplesPerSec());
+}
+
+bool operator==(const AudioFormat& lhs, const AudioFormat& rhs)
+{
+    return lhs.m_audioType == rhs.m_audioType
+        && lhs.m_channels == rhs.m_channels
+        && lhs.m_bitsPerSample == rhs.m_bitsPerSample
+        && lhs.m_samplesPerSec == rhs.m_samplesPerSec
+        && lhs.m_blockAlign == rhs.m_blockAlign
+        && lhs.m_avgBytesPerSec == rhs.m_avgBytesPerSec;
+}
+
+bool operator!=(const AudioFormat& lhs, const AudioFormat& rhs)
+{
+    return !(lhs == rhs);
 }

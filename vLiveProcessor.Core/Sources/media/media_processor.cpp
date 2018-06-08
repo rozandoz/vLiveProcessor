@@ -4,7 +4,6 @@ using namespace std;
 
 MediaProcessor::MediaProcessor()
     : m_logger(Logger::GetInstance())
-    , m_audioFormat(INVALID, 1, 8, 16000)
 {
 }
 
@@ -18,7 +17,7 @@ void MediaProcessor::Initialize()
     {
         OnInitialize();
 
-        if (m_audioFormat.audioType() == INVALID)
+        if (m_audioFormat == INVALID_AUDIO_FORMAT)
             throw exception("AudioFormat was not specified");
 
         if (m_consumer != nullptr) 

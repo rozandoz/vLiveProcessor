@@ -14,6 +14,7 @@ public:
 
 protected:
     static AudioFormat ToAudioFormat(const WAVEFORMATEX* pWaveFormat);
+    static WAVEFORMATEX* FromAudioFormat(const AudioFormat& audioFormat);
 
     HRESULT InitializeAudioClient(IAudioClient** ppAudioClient, AudioFormat& audioFormat);
 

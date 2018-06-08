@@ -16,6 +16,22 @@ WASAPIRenderDevice::~WASAPIRenderDevice()
 {
 }
 
+void WASAPIRenderDevice::OnInitialize()
+{
+    try
+    {
+        _hr = CoInitialize(nullptr);
+        _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
+
+        m_logger.trace << "WASAPIRenderDevice::OnInitialize: " << m_audioFormat << endl;
+    }
+    catch (hr_exception e)
+    {
+        m_logger.error << "WASAPIRenderDevice::OnInitialize: " << e.ErrorMessage() << endl;
+        throw;
+    }
+}
+
 bool WASAPIRenderDevice::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
 {
     lock_guard<mutex> lock(m_critSec);
@@ -25,7 +41,7 @@ bool WASAPIRenderDevice::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock
 
 void WASAPIRenderDevice::OnValidateFormat(const AudioFormat& format)
 {
-    if (format.audioType() == INVALID)
+    if (format == INVALID_AUDIO_FORMAT)
         throw exception("AudioFormat is not supported");
 }
 
@@ -33,20 +49,12 @@ void WASAPIRenderDevice::OnThreadProc()
 {
     try
     {
-        _hr = CoInitialize(nullptr);
-
-        AudioFormat fmt;
         UINT32 maxSamplesCount;
-
-        CComPtr<IAudioClient> client;
         CComPtr<IAudioRenderClient> renderClient;
-        _hr = InitializeAudioClient(&client, fmt);
-        _hr = client->GetService(__uuidof(IAudioRenderClient), reinterpret_cast<void**>(&renderClient));
-        _hr = client->GetBufferSize(&maxSamplesCount);
+        _hr = m_audioClient->GetService(__uuidof(IAudioRenderClient), reinterpret_cast<void**>(&renderClient));
+        _hr = m_audioClient->GetBufferSize(&maxSamplesCount);
 
-        cout << "WASAPIRenderDevice::OnThreadProc: " << fmt << endl;
-
-        _hr = client->Start();
+        _hr = m_audioClient->Start();
 
         while (!CheckClosing())
         {
@@ -69,20 +77,20 @@ void WASAPIRenderDevice::OnThreadProc()
             }
 
             auto pSourceBuffer = buffer->data();
-            auto sourceSamples = buffer->size() / fmt.blockAlign();
+            auto sourceSamples = buffer->size() / m_audioFormat.blockAlign();
 
             while (sourceSamples != 0)
             {
                 UINT32 samplesPadding;
-                _hr = client->GetCurrentPadding(&samplesPadding);
+                _hr = m_audioClient->GetCurrentPadding(&samplesPadding);
                 auto targetSamples = maxSamplesCount - samplesPadding;
 
                 auto samplesToProcess = min(sourceSamples, targetSamples);
-                auto sizeToProcess = samplesToProcess * fmt.blockAlign();
+                auto sizeToProcess = samplesToProcess * m_audioFormat.blockAlign();
 
                 if (sizeToProcess == 0)
                 {
-                    Sleep(targetSamples / fmt.samplesPerSec() / 1000 / 2);
+                    Sleep(targetSamples / m_audioFormat.samplesPerSec() / 1000 / 2);
                     continue;
                 }
 
@@ -98,7 +106,7 @@ void WASAPIRenderDevice::OnThreadProc()
             }
         }
 
-        _hr = client->Stop();
+        _hr = m_audioClient->Stop();
     }
     catch (hr_exception e)
     {

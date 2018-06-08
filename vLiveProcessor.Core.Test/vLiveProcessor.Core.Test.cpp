@@ -50,7 +50,7 @@ int main()
     {
         if (GetAsyncKeyState(0x58)) // X
         {
-            logger.trace << "Closing...";
+            logger.trace << "Closing..." << endl;
             break;
         }
 

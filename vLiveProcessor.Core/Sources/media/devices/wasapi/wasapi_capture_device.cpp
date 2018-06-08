@@ -18,17 +18,16 @@ void WASAPICaptureDevice::OnInitialize()
 {
     try
     {
-        AudioFormat audioFormat;
-
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
-        m_logger.trace << "WASAPICaptureDevice::Initialize: " << m_audioFormat << endl;
+        m_logger.trace << "WASAPICaptureDevice::OnInitialize: " << m_audioFormat << endl;
 
     }
     catch(hr_exception e)
     {
-        m_logger.error << "WASAPICaptureDevice::Initialize: " << e.ErrorMessage();
+        m_logger.error << "WASAPICaptureDevice::OnInitialize: " << e.ErrorMessage() << endl;
+        throw;
     }
 }
 
