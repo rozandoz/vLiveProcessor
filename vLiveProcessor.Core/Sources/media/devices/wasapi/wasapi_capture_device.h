@@ -1,19 +1,20 @@
 #pragma once
 #include "wasapi_device.h"
 
-#include "common/memory/memory_allocator.h"
+#include <atlcomcli.h>
 
-#include "media/interfaces/i_producer.h"
+#include "common/memory/memory_allocator.h"
 
 #define BUFFERS_COUNT 4
 
-class WASAPICaptureDevice : public WASAPIDevice, public IProducer
+class WASAPICaptureDevice : public WASAPIDevice
 {
 public:
     explicit WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPICaptureDevice();
 
-    void SetConsumer(const std::shared_ptr<IConsumer>& consumer) override;
+protected:
+    void OnInitialize() override;
 
 private:
     void OnThreadProc() override;
@@ -21,6 +22,6 @@ private:
 private:
     std::mutex                              m_critSec;
     std::queue<std::shared_ptr<Buffer>>     m_queue;
-
-    std::shared_ptr<IConsumer>              m_consumer;
+    
+    CComPtr<IAudioClient>                   m_audioClient;
 };

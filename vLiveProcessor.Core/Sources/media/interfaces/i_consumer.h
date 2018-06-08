@@ -8,5 +8,6 @@ protected:
     virtual ~IConsumer() {}
 
 public:
-    virtual bool TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) = 0;
+    virtual void SetAudioFormat(const AudioFormat& audioFormat) = 0;
+    virtual bool AddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) = 0;
 };

@@ -14,35 +14,40 @@ WASAPICaptureDevice::~WASAPICaptureDevice()
 {
 }
 
-void WASAPICaptureDevice::SetConsumer(const std::shared_ptr<IConsumer>& consumer)
+void WASAPICaptureDevice::OnInitialize()
 {
-    m_consumer = consumer;
+    try
+    {
+        AudioFormat audioFormat;
+
+        _hr = CoInitialize(nullptr);
+        _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
+
+        m_logger.trace << "WASAPICaptureDevice::Initialize: " << m_audioFormat << endl;
+
+    }
+    catch(hr_exception e)
+    {
+        m_logger.error << "WASAPICaptureDevice::Initialize: " << e.ErrorMessage();
+    }
 }
 
 void WASAPICaptureDevice::OnThreadProc()
 {
     try
     {
-        _hr = CoInitialize(nullptr);
-
-        AudioFormat fmt;
         UINT32 maxSamplesCount;
-
-        CComPtr<IAudioClient> client;
         CComPtr<IAudioCaptureClient> captureClient;
-        _hr = InitializeAudioClient(&client, fmt);
-        _hr = client->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
-        _hr = client->GetBufferSize(&maxSamplesCount);
+        _hr = m_audioClient->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
+        _hr = m_audioClient->GetBufferSize(&maxSamplesCount);
 
-        m_logger.trace << "WASAPICaptureDevice::OnThreadProc: " << fmt << endl;
-
-        auto maxBufferSize = maxSamplesCount * fmt.blockAlign();
+        auto maxBufferSize = maxSamplesCount * m_audioFormat.blockAlign();
         auto allocator = MemoryAllocator::Create(maxBufferSize / BUFFERS_COUNT, BUFFERS_COUNT);
 
-        auto actualDuration = static_cast<double>(REFTIMES_PER_SEC) * maxSamplesCount / fmt.samplesPerSec();
+        auto actualDuration = static_cast<double>(REFTIMES_PER_SEC) * maxSamplesCount / m_audioFormat.samplesPerSec();
         auto waitTime = actualDuration / REFTIMES_PER_MILLISEC / 2;
 
-        _hr = client->Start();
+        _hr = m_audioClient->Start();
 
         shared_ptr<Buffer> buffer;
 
@@ -74,10 +79,10 @@ void WASAPICaptureDevice::OnThreadProc()
                     }
 
                     auto actualBufferSize = buffer->max_size() - buffer->size();
-                    auto actualFramesCount = actualBufferSize / fmt.blockAlign();
+                    auto actualFramesCount = actualBufferSize / m_audioFormat.blockAlign();
 
                     auto framesToCopy = min(availableFrames, actualFramesCount);
-                    auto sizeToCopy = framesToCopy * fmt.blockAlign();
+                    auto sizeToCopy = framesToCopy * m_audioFormat.blockAlign();
 
                     if (silence)
                         memset(buffer->data() + buffer->size(), 0, sizeToCopy);
@@ -94,8 +99,8 @@ void WASAPICaptureDevice::OnThreadProc()
                     {
                         if(m_consumer != nullptr)
                         {
-                            auto mediaBlock = make_shared<MediaBlock>(buffer, fmt);
-                            if(!m_consumer->TryPushBlock(waitTime, mediaBlock))
+                            auto mediaBlock = make_shared<MediaBlock>(buffer, m_audioFormat);
+                            if(!m_consumer->AddBlock(waitTime, mediaBlock))
                             {
                                 m_logger.error << "WASAPICaptureDevice: failed to push block to consumer" << endl;
                             }
@@ -110,7 +115,7 @@ void WASAPICaptureDevice::OnThreadProc()
             }
         }
 
-        _hr = client->Stop();
+        _hr = m_audioClient->Stop();
     }
     catch (hr_exception e)
     {

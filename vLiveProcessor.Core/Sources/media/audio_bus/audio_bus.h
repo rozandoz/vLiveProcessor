@@ -5,7 +5,7 @@
 
 #include "common/logging/logger.h"
 
-#include "media/interfaces/i_device.h"
+#include "media/interfaces/i_processor.h"
 
 class AudioBus
 {

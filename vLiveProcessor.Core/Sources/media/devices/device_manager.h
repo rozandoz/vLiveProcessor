@@ -15,7 +15,7 @@ public:
 
     std::vector<std::string> GetGroups() override;
     std::vector<DeviceDescriptor> GetGroupDevices(std::string group, DeviceType type) override;
-    std::shared_ptr<IDevice> CreateDevice(std::string group, DeviceType type, DeviceDescriptor& descriptor) override;
+    std::shared_ptr<IProcessor> CreateDevice(std::string group, DeviceType type, DeviceDescriptor& descriptor) override;
 
 protected:
     static void InitProvidersCollection(ProvidersCollection& collection);

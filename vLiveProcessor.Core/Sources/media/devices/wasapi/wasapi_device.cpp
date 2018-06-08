@@ -1,7 +1,5 @@
 #include "wasapi_device.h"
 
-#include <exception>
-
 #include "common/win32/hr_exception.h"
 
 #include "wasapi_device_provider.h"
@@ -11,28 +9,11 @@ using namespace common::win32;
 WASAPIDevice::WASAPIDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : m_bufferTime(bufferTime)
     , m_descriptor(descriptor)
-    , m_logger(Logger::GetInstance())
 {
 }
 
 WASAPIDevice::~WASAPIDevice()
 {
-}
-
-void WASAPIDevice::Start()
-{
-    StartThread();
-}
-
-void WASAPIDevice::Stop()
-{
-    StopThread();
-}
-
-void WASAPIDevice::Reset()
-{
-    Stop();
-    Start();
 }
 
 AudioFormat WASAPIDevice::ToAudioFormat(const WAVEFORMATEX* pWaveFormat)

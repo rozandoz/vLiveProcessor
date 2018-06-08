@@ -16,11 +16,17 @@ WASAPIRenderDevice::~WASAPIRenderDevice()
 {
 }
 
-bool WASAPIRenderDevice::TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
+bool WASAPIRenderDevice::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
 {
     lock_guard<mutex> lock(m_critSec);
     m_queue.push(block->buffer());
     return true;
+}
+
+void WASAPIRenderDevice::OnValidateFormat(const AudioFormat& format)
+{
+    if (format.audioType() == INVALID)
+        throw exception("AudioFormat is not supported");
 }
 
 void WASAPIRenderDevice::OnThreadProc()

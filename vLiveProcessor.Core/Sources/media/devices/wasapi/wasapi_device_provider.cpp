@@ -123,7 +123,7 @@ std::vector<DeviceDescriptor> WASAPIDeviceProvider::EnumerateDevices(DeviceType 
     return descriptors;
 }
 
-std::shared_ptr<IDevice> WASAPIDeviceProvider::CreateDevice(DeviceType type, DeviceDescriptor& descriptor)
+std::shared_ptr<IProcessor> WASAPIDeviceProvider::CreateDevice(DeviceType type, DeviceDescriptor& descriptor)
 {
     switch (type)
     {

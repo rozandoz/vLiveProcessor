@@ -161,12 +161,13 @@
     <ClInclude Include="Sources\media\devices\wasapi\wasapi_render_device.h" />
     <ClInclude Include="Sources\media\interfaces\device_types.h" />
     <ClInclude Include="Sources\media\interfaces\i_consumer.h" />
-    <ClInclude Include="Sources\media\interfaces\i_device.h" />
     <ClInclude Include="Sources\media\interfaces\i_device_manager.h" />
     <ClInclude Include="Sources\media\interfaces\i_device_provider.h" />
     <ClInclude Include="Sources\media\interfaces\i_processor.h" />
     <ClInclude Include="Sources\media\interfaces\i_producer.h" />
     <ClInclude Include="Sources\media\media_block.h" />
+    <ClInclude Include="Sources\media\media_processor.h" />
+    <ClInclude Include="Sources\media\media_processor_async.h" />
     <ClInclude Include="Sources\media\vst\vst2_host.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h" />
@@ -190,6 +191,8 @@
     <ClCompile Include="Sources\media\devices\wasapi\wasapi_device_provider.cpp" />
     <ClCompile Include="Sources\media\devices\wasapi\wasapi_render_device.cpp" />
     <ClCompile Include="Sources\media\media_block.cpp" />
+    <ClCompile Include="Sources\media\media_processor.cpp" />
+    <ClCompile Include="Sources\media\media_processor_async.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_host.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_plugin.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_module.h" />

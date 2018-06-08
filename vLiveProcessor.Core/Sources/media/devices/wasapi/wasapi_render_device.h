@@ -5,13 +5,15 @@
 
 #include "media/interfaces/i_consumer.h"
 
-class WASAPIRenderDevice : public WASAPIDevice, public IConsumer
+class WASAPIRenderDevice : public WASAPIDevice
 {
 public:
     explicit WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
     virtual ~WASAPIRenderDevice();
 
-    bool TryPushBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+protected:
+    bool OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+    void OnValidateFormat(const AudioFormat& format) override;
 
 private:
     void OnThreadProc() override;

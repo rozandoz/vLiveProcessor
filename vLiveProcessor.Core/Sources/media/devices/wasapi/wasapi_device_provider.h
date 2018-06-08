@@ -22,5 +22,5 @@ public:
 public: //IDeviceProvider
     std::string Group() override;
     std::vector<DeviceDescriptor> EnumerateDevices(DeviceType type) override;
-    std::shared_ptr<IDevice> CreateDevice(DeviceType type, DeviceDescriptor& descriptor) override;
+    std::shared_ptr<IProcessor> CreateDevice(DeviceType type, DeviceDescriptor& descriptor) override;
 };

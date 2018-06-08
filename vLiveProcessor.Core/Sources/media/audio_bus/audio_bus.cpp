@@ -25,7 +25,7 @@ void AudioBus::SetProcessors(ProcessorsCollection& processors)
 
     m_processors.clear();
     m_processors.resize(processors.size());
-    
+
     copy(processors.begin(), processors.end(), m_processors.begin());
 
     for (size_t i = 1; i <= processors.size() - 1; i++)
@@ -41,6 +41,11 @@ void AudioBus::SetProcessors(ProcessorsCollection& processors)
 
         producer->SetConsumer(consumer);
     }
+
+    for (auto processor : m_processors)
+    {
+        processor->Initialize();
+    }
 }
 
 void AudioBus::Start()
@@ -53,10 +58,7 @@ void AudioBus::Start()
 
     for (auto& processor : m_processors)
     {
-        auto device = dynamic_pointer_cast<IDevice, IProcessor>(processor);
-
-        if (device != nullptr) 
-            device->Start();
+        processor->Start();
     }
 
     m_started = true;
@@ -72,10 +74,7 @@ void AudioBus::Stop()
 
     for (auto& processor : m_processors)
     {
-        auto device = dynamic_pointer_cast<IDevice, IProcessor>(processor);
-
-        if (device != nullptr)
-            device->Stop();
+        processor->Stop();
     }
 
     m_started = false;
