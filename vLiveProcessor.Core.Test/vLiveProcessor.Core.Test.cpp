@@ -9,7 +9,7 @@
 #include "common/logging/logger.h"
 
 #include "media/devices/device_manager.h"
-#include "media/vst/vst2_processor.h"
+#include "media/vst/plugin_manager.h"
 #include "media/audio_bus/audio_bus.h"
 
 
@@ -30,15 +30,21 @@ int main()
     logger.trace << "Render devices: " << endl;
     for_each(renderDevices.begin(), renderDevices.end(), [&](DeviceDescriptor d)-> void { logger.trace << "\t" << d.name << endl; });
 
+    logger.trace << "-----------------------------------------" << endl;
+
+    auto pluginProvider = make_unique<PluginManager>();
+
+    auto vst2Plugins = pluginProvider->GetGroupPlugins("VST2");
+
+    logger.trace << "Plugins: " << endl;
+    for_each(vst2Plugins.begin(), vst2Plugins.end(), [&](PluginDescriptor d)-> void { logger.trace << "\t" << d.name << " (" << d.location << ")" << endl; });
+
     logger.trace << endl;
     logger.trace << "Initialize AudioBus" << endl;
 
-    VST2PluginSettings vst2Settings;
-    vst2Settings.modulePath = "E:\\temp\\TDR Nova (no installer)\\VST2\\x64\\TDR Nova.dll";
-
     vector<shared_ptr<IProcessor>> processors;
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Capture, captureDevices[0]));
-    processors.push_back(make_shared<VST2Processor>(vst2Settings));
+    processors.push_back(pluginProvider->CreatePlugin("VST2", vst2Plugins[0], PluginSettings()));
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Render, renderDevices[0]));
 
     auto audiobus = make_unique<AudioBus>();

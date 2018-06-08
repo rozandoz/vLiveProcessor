@@ -162,6 +162,21 @@
     <ClInclude Include="Sources\media\vst\vst_constants.h">
       <Filter>Sources\media\vst</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_plugin_manager.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\i_plugin_provider.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\interfaces\plugin_types.h">
+      <Filter>Sources\media\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\vst\plugin_manager.h">
+      <Filter>Sources\media\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\vst\vst2_plugin_provider.h">
+      <Filter>Sources\media\vst\vst2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -229,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="Sources\media\media_processor_async.cpp">
       <Filter>Sources\media</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\vst\plugin_manager.cpp">
+      <Filter>Sources\media\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\vst\vst2_plugin_provider.cpp">
+      <Filter>Sources\media\vst\vst2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
