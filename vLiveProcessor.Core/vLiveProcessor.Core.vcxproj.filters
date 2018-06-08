@@ -61,9 +61,6 @@
     <Filter Include="Sources\media\vst\vst2">
       <UniqueIdentifier>{b6393446-551f-44ae-ae3c-6be50be77904}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\media\vst\vst2\host">
-      <UniqueIdentifier>{87b45e83-969b-4a32-98a5-42074136657b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\media\vst\vst2\plugin">
       <UniqueIdentifier>{b3c51a3b-06a9-45b8-a66b-c0960e140123}</UniqueIdentifier>
     </Filter>
@@ -147,9 +144,6 @@
     <ClInclude Include="Sources\media\audio_bus\audio_bus.h">
       <Filter>Sources\media\audio_bus</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst2_host.h">
-      <Filter>Sources\media\vst\vst2\host</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\media\vst\vst2_plugin.h">
       <Filter>Sources\media\vst\vst2\plugin</Filter>
     </ClInclude>
@@ -164,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="Sources\media\media_processor_async.h">
       <Filter>Sources\media</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\vst\vst_constants.h">
+      <Filter>Sources\media\vst</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="Sources\media\audio_bus\audio_bus.cpp">
       <Filter>Sources\media\audio_bus</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_host.cpp">
-      <Filter>Sources\media\vst\vst2\host</Filter>
     </ClCompile>
     <ClCompile Include="Sources\media\vst\vst2_module.cpp">
       <Filter>Sources\media\vst\vst2\plugin</Filter>

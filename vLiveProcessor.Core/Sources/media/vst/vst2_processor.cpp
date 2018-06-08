@@ -15,7 +15,7 @@ VST2Processor::~VST2Processor()
 
 void VST2Processor::OnInitialize()
 {
-    m_plugin = VST2Host::Create()->CreatePlugin(m_settings);
+    m_plugin = make_shared<VST2Plugin>(m_settings);
 }
 
 void VST2Processor::OnValidateFormat(const AudioFormat& format)

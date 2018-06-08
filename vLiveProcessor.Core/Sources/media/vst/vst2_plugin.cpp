@@ -1,13 +1,11 @@
 #include "vst2_plugin.h"
 
 #include <cassert>
+#include <algorithm>
 
-#ifdef WIN32
-#include "common/win32/strings_converter.h"
-#endif // WIN32
+#include "media/vst/vst_constants.h"
 
 using namespace std;
-using namespace common::win32;
 
 VstIntPtr VSTCALLBACK VST2Plugin::StaticCallback(AEffect * effect, VstInt32 opcode, VstInt32 index, VstIntPtr value, void * ptr, float opt)
 {
@@ -23,10 +21,24 @@ VstIntPtr VSTCALLBACK VST2Plugin::StaticCallback(AEffect * effect, VstInt32 opco
     }
 }
 
-VST2Plugin::VST2Plugin(const VST2PluginSettings& settings, std::shared_ptr<VST2Host> host)
-    : m_settings(settings)
+vector<string> VST2Plugin::Capabilities()
+{
+    vector<string> capabilities = 
+    {
+        //"sendVstEvents",
+        //"sendVstMidiEvents"
+        //"sendVstMidiEventFlagIsRealtime"
+        "sizeWindow",
+        "sizeWindow"
+    };
+
+    return capabilities;
+}
+
+VST2Plugin::VST2Plugin(const VST2PluginSettings& settings)
+    : m_logger(Logger::GetInstance())
+    , m_settings(settings)
     , m_pEffect(nullptr)
-    , m_logger(Logger::GetInstance())
 {
     Initialize();
 }
@@ -86,14 +98,14 @@ VstIntPtr VST2Plugin::HostCallback(VstInt32 opcode, VstInt32 index, VstIntPtr va
     case audioMasterGetCurrentProcessLevel: return kVstProcessLevelUnknown;
     case audioMasterGetAutomationState: return kVstAutomationOff;
     case audioMasterGetLanguage: return kVstLangEnglish;
-    case audioMasterGetVendorVersion: return m_host->VendorVersion();
+    case audioMasterGetVendorVersion: return VSTConstants::VendorVersion();
 
     case audioMasterGetVendorString:
-        strcpy_s(static_cast<char*>(ptr), kVstMaxVendorStrLen, m_host->Vendor().c_str());
+        strcpy_s(static_cast<char*>(ptr), kVstMaxVendorStrLen, VSTConstants::Vendor().c_str());
         return 1;
 
     case audioMasterGetProductString:
-        strcpy_s(static_cast<char*>(ptr), kVstMaxProductStrLen, m_host->Product().c_str());
+        strcpy_s(static_cast<char*>(ptr), kVstMaxProductStrLen, VSTConstants::Product().c_str());
         return 1;
 
         /*  case audioMasterGetTime:
@@ -125,7 +137,7 @@ VstIntPtr VST2Plugin::HostCallback(VstInt32 opcode, VstInt32 index, VstIntPtr va
         break;
 
     case audioMasterCanDo:
-        for each (auto capability in m_host->Capabilities())
+        for each (auto capability in Capabilities())
         {
             if (strcmp(capability.c_str(), static_cast<const char*>(ptr)) == 0)
                 return 1;

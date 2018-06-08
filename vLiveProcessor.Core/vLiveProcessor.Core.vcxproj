@@ -168,7 +168,7 @@
     <ClInclude Include="Sources\media\media_block.h" />
     <ClInclude Include="Sources\media\media_processor.h" />
     <ClInclude Include="Sources\media\media_processor_async.h" />
-    <ClInclude Include="Sources\media\vst\vst2_host.h" />
+    <ClInclude Include="Sources\media\vst\vst_constants.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin.h" />
     <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h" />
     <ClInclude Include="Sources\media\vst\vst2_processor.h" />
@@ -193,7 +193,6 @@
     <ClCompile Include="Sources\media\media_block.cpp" />
     <ClCompile Include="Sources\media\media_processor.cpp" />
     <ClCompile Include="Sources\media\media_processor_async.cpp" />
-    <ClCompile Include="Sources\media\vst\vst2_host.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_plugin.cpp" />
     <ClCompile Include="Sources\media\vst\vst2_module.h" />
     <ClCompile Include="Sources\media\vst\vst2_module.cpp" />
