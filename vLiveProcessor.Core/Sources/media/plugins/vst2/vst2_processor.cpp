@@ -1,6 +1,6 @@
 #include "vst2_processor.h"
 
-#include "media/vst/vst2_plugin.h"
+#include "media/plugins/vst2/vst2_plugin.h"
 
 using namespace std;
 

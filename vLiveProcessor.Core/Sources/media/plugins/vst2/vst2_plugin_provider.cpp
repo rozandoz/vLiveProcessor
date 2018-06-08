@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "media/vst/vst2_processor.h"
+#include "media/plugins/vst2/vst2_processor.h"
 
 using namespace std;
 

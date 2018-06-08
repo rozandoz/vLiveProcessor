@@ -55,14 +55,14 @@
     <Filter Include="Sources\media\audio_bus">
       <UniqueIdentifier>{4cb4054d-4bad-4fce-aa46-48d4c985a0af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\media\vst">
-      <UniqueIdentifier>{2851119c-dafe-41a1-b7c6-6da14ad90867}</UniqueIdentifier>
+    <Filter Include="Sources\media\plugins">
+      <UniqueIdentifier>{1fd18ca1-3cc8-490a-83e1-b471506b37d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\media\vst\vst2">
-      <UniqueIdentifier>{b6393446-551f-44ae-ae3c-6be50be77904}</UniqueIdentifier>
+    <Filter Include="Sources\media\plugins\vst2">
+      <UniqueIdentifier>{2288ee7c-61bf-41c8-bd86-dba839f81c7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\media\vst\vst2\plugin">
-      <UniqueIdentifier>{b3c51a3b-06a9-45b8-a66b-c0960e140123}</UniqueIdentifier>
+    <Filter Include="Sources\media\plugins\vst2\plugin">
+      <UniqueIdentifier>{32755818-ba39-44e8-8ca9-c37ac0251ecd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,23 +144,11 @@
     <ClInclude Include="Sources\media\audio_bus\audio_bus.h">
       <Filter>Sources\media\audio_bus</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst2_plugin.h">
-      <Filter>Sources\media\vst\vst2\plugin</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h">
-      <Filter>Sources\media\vst\vst2\plugin</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst2_processor.h">
-      <Filter>Sources\media\vst\vst2</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\media\media_processor.h">
       <Filter>Sources\media</Filter>
     </ClInclude>
     <ClInclude Include="Sources\media\media_processor_async.h">
       <Filter>Sources\media</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst_constants.h">
-      <Filter>Sources\media\vst</Filter>
     </ClInclude>
     <ClInclude Include="Sources\media\interfaces\i_plugin_manager.h">
       <Filter>Sources\media\interfaces</Filter>
@@ -171,11 +159,26 @@
     <ClInclude Include="Sources\media\interfaces\plugin_types.h">
       <Filter>Sources\media\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\vst\plugin_manager.h">
-      <Filter>Sources\media\vst</Filter>
+    <ClInclude Include="Sources\media\plugins\plugin_manager.h">
+      <Filter>Sources\media\plugins</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\media\vst\vst2_plugin_provider.h">
-      <Filter>Sources\media\vst\vst2</Filter>
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin_provider.h">
+      <Filter>Sources\media\plugins\vst2</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_processor.h">
+      <Filter>Sources\media\plugins\vst2</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\plugins\vst2\vst_constants.h">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_module.h">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin.h">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin_settings.h">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,29 +230,26 @@
     <ClCompile Include="Sources\media\audio_bus\audio_bus.cpp">
       <Filter>Sources\media\audio_bus</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_module.cpp">
-      <Filter>Sources\media\vst\vst2\plugin</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_module.h">
-      <Filter>Sources\media\vst\vst2\plugin</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_plugin.cpp">
-      <Filter>Sources\media\vst\vst2\plugin</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_processor.cpp">
-      <Filter>Sources\media\vst\vst2</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\media\media_processor.cpp">
       <Filter>Sources\media</Filter>
     </ClCompile>
     <ClCompile Include="Sources\media\media_processor_async.cpp">
       <Filter>Sources\media</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\media\vst\plugin_manager.cpp">
-      <Filter>Sources\media\vst</Filter>
+    <ClCompile Include="Sources\media\plugins\plugin_manager.cpp">
+      <Filter>Sources\media\plugins</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\media\vst\vst2_plugin_provider.cpp">
-      <Filter>Sources\media\vst\vst2</Filter>
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_plugin_provider.cpp">
+      <Filter>Sources\media\plugins\vst2</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_processor.cpp">
+      <Filter>Sources\media\plugins\vst2</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_module.cpp">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_plugin.cpp">
+      <Filter>Sources\media\plugins\vst2\plugin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

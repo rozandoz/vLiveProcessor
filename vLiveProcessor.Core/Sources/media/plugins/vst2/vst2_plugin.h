@@ -2,8 +2,8 @@
 
 #include "pluginterfaces/vst2.x/aeffectx.h"
 
-#include "media/vst/vst2_plugin_settings.h"
-#include "media/vst/vst2_module.h"
+#include "media/plugins/vst2/vst2_plugin_settings.h"
+#include "media/plugins/vst2/vst2_module.h"
 
 #include "common/logging/logger.h"
 

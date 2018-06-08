@@ -171,12 +171,13 @@
     <ClInclude Include="Sources\media\media_block.h" />
     <ClInclude Include="Sources\media\media_processor.h" />
     <ClInclude Include="Sources\media\media_processor_async.h" />
-    <ClInclude Include="Sources\media\vst\plugin_manager.h" />
-    <ClInclude Include="Sources\media\vst\vst2_plugin_provider.h" />
-    <ClInclude Include="Sources\media\vst\vst_constants.h" />
-    <ClInclude Include="Sources\media\vst\vst2_plugin.h" />
-    <ClInclude Include="Sources\media\vst\vst2_plugin_settings.h" />
-    <ClInclude Include="Sources\media\vst\vst2_processor.h" />
+    <ClInclude Include="Sources\media\plugins\plugin_manager.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_module.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin_provider.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_plugin_settings.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst2_processor.h" />
+    <ClInclude Include="Sources\media\plugins\vst2\vst_constants.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -198,12 +199,11 @@
     <ClCompile Include="Sources\media\media_block.cpp" />
     <ClCompile Include="Sources\media\media_processor.cpp" />
     <ClCompile Include="Sources\media\media_processor_async.cpp" />
-    <ClCompile Include="Sources\media\vst\plugin_manager.cpp" />
-    <ClCompile Include="Sources\media\vst\vst2_plugin.cpp" />
-    <ClCompile Include="Sources\media\vst\vst2_module.h" />
-    <ClCompile Include="Sources\media\vst\vst2_module.cpp" />
-    <ClCompile Include="Sources\media\vst\vst2_plugin_provider.cpp" />
-    <ClCompile Include="Sources\media\vst\vst2_processor.cpp" />
+    <ClCompile Include="Sources\media\plugins\plugin_manager.cpp" />
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_module.cpp" />
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_plugin.cpp" />
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_plugin_provider.cpp" />
+    <ClCompile Include="Sources\media\plugins\vst2\vst2_processor.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

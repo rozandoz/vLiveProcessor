@@ -1,6 +1,6 @@
 #include "plugin_manager.h"
 
-#include "media/vst/vst2_plugin_provider.h"
+#include "media/plugins/vst2/vst2_plugin_provider.h"
 
 using namespace std;
 

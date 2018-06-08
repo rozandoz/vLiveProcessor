@@ -3,7 +3,7 @@
 #include <cassert>
 #include <algorithm>
 
-#include "media/vst/vst_constants.h"
+#include "media/plugins/vst2/vst_constants.h"
 
 using namespace std;
 

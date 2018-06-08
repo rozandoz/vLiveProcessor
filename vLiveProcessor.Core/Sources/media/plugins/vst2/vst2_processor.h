@@ -5,7 +5,7 @@
 #include "common/memory/memory_allocator.h"
 
 #include "media/media_processor.h"
-#include "media/vst/vst2_plugin.h"
+#include "media/plugins/vst2/vst2_plugin.h"
 
 class VST2Processor : public MediaProcessor
 {

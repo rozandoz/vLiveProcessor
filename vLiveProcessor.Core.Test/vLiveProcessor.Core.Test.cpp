@@ -9,7 +9,7 @@
 #include "common/logging/logger.h"
 
 #include "media/devices/device_manager.h"
-#include "media/vst/plugin_manager.h"
+#include "media/plugins/plugin_manager.h"
 #include "media/audio_bus/audio_bus.h"
 
 
