@@ -199,7 +199,7 @@ void VST2Plugin::Close()
     m_module.reset();
 }
 
-vector<float*>& VST2Plugin::Process(float* pBuffer, uint32_t& frames)
+vector<float*>& VST2Plugin::Process(float* pBuffer, size_t& frames)
 {
     auto maxFramesCount = m_outputBuffer.size() / m_pEffect->numOutputs;
     auto framesCount = min<size_t>(frames, maxFramesCount);
@@ -211,7 +211,7 @@ vector<float*>& VST2Plugin::Process(float* pBuffer, uint32_t& frames)
         memcpy(m_inputBufferPointers[1] + i, pBuffer + offset + 1, sizeof(float));
     }
 
-    m_pEffect->processReplacing(m_pEffect, m_inputBufferPointers.data(), m_outputBufferPointers.data(), framesCount);
+    m_pEffect->processReplacing(m_pEffect, m_inputBufferPointers.data(), m_outputBufferPointers.data(), VstInt32(framesCount));
     frames = framesCount;
 
     return m_outputBufferPointers;

@@ -13,7 +13,7 @@ AudioFormat::AudioFormat()
 {
 }
 
-AudioFormat::AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond)
+AudioFormat::AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint32_t samplesPerSecond)
     : m_audioType(type)
     , m_channels(channels)
     , m_bitsPerSample(bitsPerSample)

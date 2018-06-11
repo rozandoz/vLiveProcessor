@@ -19,7 +19,7 @@ public: //static
 
 public:
     AudioFormat();
-    AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint16_t samplesPerSecond);
+    AudioFormat(AudioType type, uint16_t channels, uint16_t bitsPerSample, uint32_t samplesPerSecond);
     ~AudioFormat();
 
     DECLARE_ACCESSOR(AudioType, audioType)

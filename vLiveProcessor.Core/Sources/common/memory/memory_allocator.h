@@ -17,13 +17,13 @@ private:
     typedef std::shared_ptr<DataBuffer>          SharedDataBuffer;
     typedef std::shared_ptr<MemoryAllocator>     SharedAllocator;
 
-    MemoryAllocator(uint32_t bufferSize, uint32_t buffersCount);
+    MemoryAllocator(size_t bufferSize, size_t buffersCount);
     ~MemoryAllocator();
 
     void ReturnBuffer(SharedDataBuffer sharedBuffer);
 
 public:
-    static SharedAllocator Create(uint32_t bufferSize, uint32_t buffersCount);
+    static SharedAllocator Create(size_t bufferSize, size_t buffersCount);
     bool TryGetBuffer(uint32_t timeout, std::shared_ptr<MemoryBuffer>& buffer);
 
 private:
@@ -40,12 +40,12 @@ public:
 
     public:
         char* data() const;
-        uint32_t max_size() const;
-        uint32_t size() const;
-        void set_size(uint32_t size);
+        size_t max_size() const;
+        size_t size() const;
+        void set_size(size_t size);
 
     private:
-        uint32_t                m_size;
+        size_t                  m_size;
 
         SharedAllocator         m_owner;
         SharedDataBuffer        m_buffer;

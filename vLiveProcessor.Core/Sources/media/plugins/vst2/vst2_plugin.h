@@ -36,7 +36,7 @@ protected:
     void Close();
 
 public:
-    std::vector<float*>& Process(float* pBuffer, uint32_t& frames);
+    std::vector<float*>& Process(float* pBuffer, size_t& frames);
 
 private:
     Logger&                     m_logger;

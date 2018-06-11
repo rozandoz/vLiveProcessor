@@ -6,7 +6,7 @@
 using namespace std;
 using namespace chrono;
 
-MemoryAllocator::MemoryAllocator(uint32_t bufferSize, uint32_t buffersCount)
+MemoryAllocator::MemoryAllocator(size_t bufferSize, size_t buffersCount)
 {
     for (size_t i = 0; i < buffersCount; i++)
     {
@@ -24,7 +24,7 @@ void MemoryAllocator::ReturnBuffer(SharedDataBuffer sharedBuffer)
     m_buffers.push(sharedBuffer);
 }
 
-shared_ptr<MemoryAllocator> MemoryAllocator::Create(uint32_t bufferSize, uint32_t buffersCount)
+shared_ptr<MemoryAllocator> MemoryAllocator::Create(size_t bufferSize, size_t buffersCount)
 {
     return make_shared<MemoryAllocator>(bufferSize, buffersCount);
 }
@@ -74,17 +74,17 @@ char* MemoryAllocator::MemoryBuffer::data() const
     return m_buffer->data();
 }
 
-uint32_t MemoryAllocator::MemoryBuffer::max_size() const
+size_t MemoryAllocator::MemoryBuffer::max_size() const
 {
     return m_buffer->size();
 }
 
-uint32_t MemoryAllocator::MemoryBuffer::size() const
+size_t MemoryAllocator::MemoryBuffer::size() const
 {
     return m_size;
 }
 
-void MemoryAllocator::MemoryBuffer::set_size(uint32_t size)
+void MemoryAllocator::MemoryBuffer::set_size(size_t size)
 {
     m_size = size;
 }

@@ -85,7 +85,7 @@ void WASAPIRenderDevice::OnThreadProc()
                 _hr = m_audioClient->GetCurrentPadding(&samplesPadding);
                 auto targetSamples = maxSamplesCount - samplesPadding;
 
-                auto samplesToProcess = min(sourceSamples, targetSamples);
+                auto samplesToProcess = UINT32(min(sourceSamples, targetSamples));
                 auto sizeToProcess = samplesToProcess * m_audioFormat.blockAlign();
 
                 if (sizeToProcess == 0)

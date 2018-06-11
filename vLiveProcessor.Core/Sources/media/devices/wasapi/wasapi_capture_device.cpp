@@ -44,7 +44,7 @@ void WASAPICaptureDevice::OnThreadProc()
         auto allocator = MemoryAllocator::Create(maxBufferSize / BUFFERS_COUNT, BUFFERS_COUNT);
 
         auto actualDuration = static_cast<double>(REFTIMES_PER_SEC) * maxSamplesCount / m_audioFormat.samplesPerSec();
-        auto waitTime = actualDuration / REFTIMES_PER_MILLISEC / 2;
+        auto waitTime = static_cast<uint32_t>(actualDuration / REFTIMES_PER_MILLISEC / 2);
 
         _hr = m_audioClient->Start();
 
@@ -80,7 +80,7 @@ void WASAPICaptureDevice::OnThreadProc()
                     auto actualBufferSize = buffer->max_size() - buffer->size();
                     auto actualFramesCount = actualBufferSize / m_audioFormat.blockAlign();
 
-                    auto framesToCopy = min(availableFrames, actualFramesCount);
+                    auto framesToCopy = min(availableFrames, (UINT)actualFramesCount);
                     auto sizeToCopy = framesToCopy * m_audioFormat.blockAlign();
 
                     if (silence)
