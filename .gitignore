@@ -44,3 +44,4 @@
 /_obj
 /packages
 !/packages/boost_python3.1.66.00 #must be removed!
+!/packages/vstsdk369_01_03_2018_build_132 #VST SDK
