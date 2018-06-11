@@ -24,9 +24,6 @@ public:
     ~VST2Plugin();
 
 protected:
-    //Temp
-    void ResizeEditor(const RECT& clientRc) const;
-
     //Helpers
     bool HasFlag(int32_t flag) const;
     bool HasEditor() const;

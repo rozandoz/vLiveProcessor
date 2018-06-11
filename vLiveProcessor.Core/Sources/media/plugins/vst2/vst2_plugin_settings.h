@@ -1,21 +1,21 @@
 #pragma once
 
+#include <memory>
 #include <string>
+
+#include "media/interfaces/i_plugin_window_controller.h"
 
 struct VST2PluginSettings
 {
     VST2PluginSettings()
-        : sampleRate(48000)
-        , channelCount(2)
-        , blockSize(1024)
+        : blockSize(1024)
+        , sampleRate(48000)
+        , windowController(nullptr)
     {
     }
 
-    std::string     modulePath;
-
-    size_t          sampleRate;
-    size_t          channelCount;
-    size_t          blockSize;
-
-    void            *window = nullptr;
+    size_t                                      blockSize;
+    size_t                                      sampleRate;
+    std::string                                 modulePath;
+    std::shared_ptr<IPluginWindowController>    windowController;
 };

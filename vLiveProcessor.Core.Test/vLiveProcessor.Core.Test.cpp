@@ -4,7 +4,6 @@
 #include "stdafx.h"
 
 #include <algorithm>
-#include <iostream>
 
 #include "common/logging/logger.h"
 
@@ -12,12 +11,15 @@
 #include "media/plugins/plugin_manager.h"
 #include "media/audio_bus/audio_bus.h"
 
+#include "TestWindowController.h"
 
 using namespace std;
 
 int main()
 {
     auto& logger = Logger::GetInstance();
+
+    auto controller = make_shared<TestWindowController>();
 
     auto deviceProvider = make_unique<DeviceManager>();
 
@@ -44,7 +46,7 @@ int main()
 
     vector<shared_ptr<IProcessor>> processors;
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Capture, captureDevices[0]));
-    processors.push_back(pluginProvider->CreatePlugin("VST2", vst2Plugins[0], PluginSettings()));
+    processors.push_back(pluginProvider->CreatePlugin("VST2", vst2Plugins[0], PluginSettings { controller }));
     processors.push_back(deviceProvider->CreateDevice("WASAPI", Render, renderDevices[0]));
 
     auto audiobus = make_unique<AudioBus>();

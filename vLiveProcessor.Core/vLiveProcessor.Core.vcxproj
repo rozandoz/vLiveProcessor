@@ -165,6 +165,7 @@
     <ClInclude Include="Sources\media\interfaces\i_device_provider.h" />
     <ClInclude Include="Sources\media\interfaces\i_plugin_manager.h" />
     <ClInclude Include="Sources\media\interfaces\i_plugin_provider.h" />
+    <ClInclude Include="Sources\media\interfaces\i_plugin_window_controller.h" />
     <ClInclude Include="Sources\media\interfaces\i_processor.h" />
     <ClInclude Include="Sources\media\interfaces\i_producer.h" />
     <ClInclude Include="Sources\media\interfaces\plugin_types.h" />

@@ -33,8 +33,5 @@ vector<PluginDescriptor> VST2PluginProvider::EnumeratePlugins()
 
 shared_ptr<IProcessor> VST2PluginProvider::CreatePlugin(const PluginDescriptor& descriptor, const PluginSettings& settings)
 {
-    VST2PluginSettings vst2Settings;
-    vst2Settings.modulePath = descriptor.location;
-    vst2Settings.window = settings.pWindow;
-    return make_shared<VST2Processor>(vst2Settings);
+    return make_shared<VST2Processor>(descriptor, settings);
 }

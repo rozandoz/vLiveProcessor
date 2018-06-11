@@ -13,7 +13,7 @@ PluginManager::~PluginManager()
 {
 }
 
-std::vector<std::string> PluginManager::GetGroups()
+vector<string> PluginManager::GetGroups()
 {
     vector<string> groups;
     for (auto& provider : m_providers)
@@ -21,7 +21,7 @@ std::vector<std::string> PluginManager::GetGroups()
     return groups;
 }
 
-std::vector<PluginDescriptor> PluginManager::GetGroupPlugins(std::string group)
+vector<PluginDescriptor> PluginManager::GetGroupPlugins(string group)
 {
     if (!m_providers.count(group))
         throw exception("Group is not found");
@@ -29,7 +29,7 @@ std::vector<PluginDescriptor> PluginManager::GetGroupPlugins(std::string group)
     return m_providers[group]->EnumeratePlugins();
 }
 
-std::shared_ptr<IProcessor> PluginManager::CreatePlugin(std::string group, const PluginDescriptor& descriptor, const PluginSettings& settings)
+shared_ptr<IProcessor> PluginManager::CreatePlugin(string group, const PluginDescriptor& descriptor, const PluginSettings& settings)
 {
     if (!m_providers.count(group))
         throw exception("Group is not found");

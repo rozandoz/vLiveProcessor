@@ -4,8 +4,9 @@
 
 using namespace std;
 
-VST2Processor::VST2Processor(const VST2PluginSettings& settings) 
-    : m_settings(settings)
+VST2Processor::VST2Processor(const PluginDescriptor& descriptor, const PluginSettings& settings)
+    : m_descriptor(descriptor)
+    , m_settings(settings)
 {
 }
 
@@ -15,7 +16,12 @@ VST2Processor::~VST2Processor()
 
 void VST2Processor::OnInitialize()
 {
-    m_plugin = make_shared<VST2Plugin>(m_settings);
+    VST2PluginSettings settings;
+    settings.modulePath = m_descriptor.location;
+    settings.sampleRate = m_audioFormat.samplesPerSec();
+    settings.windowController = m_settings.windowController;
+
+    m_plugin = make_shared<VST2Plugin>(settings);
 }
 
 void VST2Processor::OnValidateFormat(const AudioFormat& format)

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <memory>
+
+#include "i_plugin_window_controller.h"
 
 struct PluginDescriptor
 {
@@ -10,5 +13,5 @@ struct PluginDescriptor
 
 struct PluginSettings
 {
-    void *pWindow;
+    std::shared_ptr<IPluginWindowController> windowController;
 };
