@@ -49,8 +49,6 @@ void WASAPICaptureDevice::OnThreadProc()
 
         while (!CheckClosing())
         {
-            //Sleep(waitTime);
-
             UINT32 packetLength = 0;
             _hr = captureClient->GetNextPacketSize(&packetLength);
 
@@ -106,6 +104,8 @@ void WASAPICaptureDevice::OnThreadProc()
                 _hr = captureClient->ReleaseBuffer(samplesToRelease);
                 _hr = captureClient->GetNextPacketSize(&packetLength);
             }
+
+            this_thread::sleep_for(1ms);
         }
 
         _hr = m_audioClient->Stop();

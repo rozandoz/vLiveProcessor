@@ -78,7 +78,11 @@ void WASAPIRenderDevice::OnThreadProc()
                 auto sizeToProcess = samplesToProcess * m_audioFormat.blockAlign();
 
                 if (sizeToProcess == 0)
+                {
+                    this_thread::sleep_for(1ms);
                     continue;
+                }
+                    
 
                 BYTE* pTargetBuffer;
                 _hr = renderClient->GetBuffer(samplesToProcess, &pTargetBuffer);
