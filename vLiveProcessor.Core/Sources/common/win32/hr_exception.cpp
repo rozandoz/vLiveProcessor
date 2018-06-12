@@ -7,8 +7,8 @@
 
 common::win32::HRException::HRException(const char* pFile, const char* pLine)
     : m_hr(S_OK)
-    , m_file(pFile)
-    , m_line(pLine)
+    , m_pFile(pFile)
+    , m_pLine(pLine)
 {
 }
 
@@ -22,7 +22,7 @@ std::string common::win32::HRException::ErrorMessage() const
 {
     auto error = _com_error(m_hr);
     auto errorMessage = WideToMultiByte(error.ErrorMessage());
-    return StringFormat("%s (line: %s) - %s (0x%02x)", m_file.c_str(), m_line.c_str(), errorMessage, m_hr);
+    return StringFormat("%s (line: %s) - %s (0x%02x)", m_pFile, m_pLine, errorMessage, m_hr);
 }
 
 HRESULT common::win32::HRException::Error() const

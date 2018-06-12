@@ -183,6 +183,9 @@
     <ClInclude Include="Sources\media\interfaces\i_plugin_window_controller.h">
       <Filter>Sources\media\interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\threading\queue.h">
+      <Filter>Sources\common\threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -18,8 +18,9 @@ namespace common
 
         private:
             HRESULT m_hr;
-            std::string m_file;
-            std::string m_line;
+
+            const char* m_pFile;
+            const char* m_pLine;
         };
 
         // ReSharper disable IdentifierTypo
@@ -30,5 +31,6 @@ namespace common
 
 typedef HRException hr_exception;
 #define _hr hr_exception(MEXPAND(__FILE__), STRINGIFY(__LINE__))
+
     }
 }

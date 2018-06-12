@@ -44,7 +44,7 @@ void AudioBus::SetProcessors(ProcessorsCollection& processors)
 
     for (auto processor : m_processors)
     {
-        processor->Initialize();
+        processor->Initialize(ProcessorSettings());
     }
 }
 
@@ -56,9 +56,9 @@ void AudioBus::Start()
 
     m_logger.trace << "AudioBus::Start" << endl;
 
-    for (auto& processor : m_processors)
+    for (auto i = m_processors.rbegin(); i != m_processors.rend(); ++i)
     {
-        processor->Start();
+        i->get()->Start();
     }
 
     m_started = true;

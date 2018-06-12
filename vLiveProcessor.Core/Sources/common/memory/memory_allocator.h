@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <mutex>
+#include <chrono>
 
 class MemoryAllocator : public std::enable_shared_from_this<MemoryAllocator>
 {
@@ -24,7 +25,7 @@ private:
 
 public:
     static SharedAllocator Create(size_t bufferSize, size_t buffersCount);
-    bool TryGetBuffer(uint32_t timeout, std::shared_ptr<MemoryBuffer>& buffer);
+    bool TryGetBuffer(std::chrono::milliseconds timeout, std::shared_ptr<MemoryBuffer>& buffer);
 
 private:
     std::mutex                          m_critSec;

@@ -3,7 +3,7 @@
 
 #include <atlcomcli.h>
 
-#include "common/memory/memory_allocator.h"
+#include "common/threading/queue.h"
 #include "media/interfaces/i_consumer.h"
 
 class WASAPIRenderDevice : public WASAPIDevice
@@ -14,15 +14,14 @@ public:
 
 protected:
     void OnInitialize() override;
-    bool OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+    bool OnAddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) override;
     void OnValidateFormat(const AudioFormat& format) override;
 
 private:
     void OnThreadProc() override;
 
 private:
-    std::mutex                              m_critSec;
-    std::queue<std::shared_ptr<Buffer>>     m_queue;
-
-    CComPtr<IAudioClient>                   m_audioClient;
+    CComPtr<IAudioClient>                               m_audioClient;
+    common::threading::Queue<std::shared_ptr<Buffer>>   m_queue;
+    
 };

@@ -33,18 +33,15 @@ void WASAPICaptureDevice::OnInitialize()
 
 void WASAPICaptureDevice::OnThreadProc()
 {
+    SetThreadPriority(GetNativeHandle(), THREAD_PRIORITY_TIME_CRITICAL);
+
     try
     {
-        UINT32 maxSamplesCount;
         CComPtr<IAudioCaptureClient> captureClient;
         _hr = m_audioClient->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
-        _hr = m_audioClient->GetBufferSize(&maxSamplesCount);
 
-        auto maxBufferSize = maxSamplesCount * m_audioFormat.blockAlign();
-        auto allocator = MemoryAllocator::Create(maxBufferSize / BUFFERS_COUNT, BUFFERS_COUNT);
-
-        auto actualDuration = static_cast<double>(REFTIMES_PER_SEC) * maxSamplesCount / m_audioFormat.samplesPerSec();
-        auto waitTime = static_cast<uint32_t>(actualDuration / REFTIMES_PER_MILLISEC / 2);
+        auto waitTime = AudioFormat::GetDurationMs(m_audioFormat, bufferSamples());
+        auto allocator = MemoryAllocator::Create(bufferSamples() * m_audioFormat.blockAlign(), buffersCount());
 
         _hr = m_audioClient->Start();
 
@@ -52,7 +49,7 @@ void WASAPICaptureDevice::OnThreadProc()
 
         while (!CheckClosing())
         {
-            Sleep(waitTime);
+            //Sleep(waitTime);
 
             UINT32 packetLength = 0;
             _hr = captureClient->GetNextPacketSize(&packetLength);
@@ -73,7 +70,7 @@ void WASAPICaptureDevice::OnThreadProc()
                 {
                     if (buffer == nullptr && !allocator->TryGetBuffer(waitTime, buffer))
                     {
-                        m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped!" << endl;
+                        m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped" << endl;
                         break;
                     }
 
@@ -98,11 +95,8 @@ void WASAPICaptureDevice::OnThreadProc()
                     {
                         if(m_consumer != nullptr)
                         {
-                            auto mediaBlock = make_shared<MediaBlock>(buffer, m_audioFormat);
-                            if(!m_consumer->AddBlock(waitTime, mediaBlock))
-                            {
+                            if(!m_consumer->AddBlock(waitTime, make_shared<MediaBlock>(buffer, m_audioFormat)))
                                 m_logger.error << "WASAPICaptureDevice: failed to push block to consumer" << endl;
-                            }
                         }
 
                         buffer.reset();

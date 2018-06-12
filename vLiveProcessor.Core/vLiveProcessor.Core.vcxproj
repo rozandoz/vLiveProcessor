@@ -149,6 +149,7 @@
     <ClInclude Include="Sources\common\logging\logger_streams.h" />
     <ClInclude Include="Sources\common\memory\memory_allocator.h" />
     <ClInclude Include="Sources\Common\strings.h" />
+    <ClInclude Include="Sources\common\threading\queue.h" />
     <ClInclude Include="Sources\common\threading\thread_base.h" />
     <ClInclude Include="Sources\common\win32\hr_exception.h" />
     <ClInclude Include="Sources\common\win32\strings_converter.h" />

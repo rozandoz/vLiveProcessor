@@ -14,10 +14,10 @@ public:
     virtual ~MediaProcessor();
 
 private:
-    void Initialize() override final;
+    void Initialize(const ProcessorSettings& settings) override final;
 
     void SetAudioFormat(const AudioFormat& audioFormat) override final;
-    bool AddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override final;
+    bool AddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) override final;
 
     void SetConsumer(const std::shared_ptr<IConsumer>& consumer) override final;
 
@@ -28,14 +28,18 @@ private:
 protected:
     virtual void OnInitialize() { }
     virtual void OnValidateFormat(const AudioFormat& format) { }
-    virtual bool OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) { return false; }
+    virtual bool OnAddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) { return false; }
     virtual void OnStart() { }
     virtual void OnStop() { }
     virtual void OnReset() { }
 
+    size_t bufferSamples() const { return m_settings.bufferSamples; }
+    size_t buffersCount() const { return m_settings.buffersCount; }
+
 protected:
     Logger&                         m_logger;
     AudioFormat                     m_audioFormat;
+    ProcessorSettings               m_settings;
 
     std::shared_ptr<IConsumer>      m_consumer;
 

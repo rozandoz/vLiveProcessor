@@ -9,5 +9,5 @@ protected:
 
 public:
     virtual void SetAudioFormat(const AudioFormat& audioFormat) = 0;
-    virtual bool AddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) = 0;
+    virtual bool AddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) = 0;
 };

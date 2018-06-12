@@ -2,13 +2,14 @@
 
 #include <memory>
 
+#include "common/threading/queue.h"
 #include "common/memory/memory_allocator.h"
 
 #include "media/interfaces/plugin_types.h"
-#include "media/media_processor.h"
+#include "media/media_processor_async.h"
 #include "media/plugins/vst2/vst2_plugin.h"
 
-class VST2Processor : public MediaProcessor
+class VST2Processor : public MediaProcessorAsync
 {
 public:
     VST2Processor(const PluginDescriptor& descriptor, const PluginSettings& settings);
@@ -17,12 +18,14 @@ public:
 protected:
     void OnInitialize() override;
     void OnValidateFormat(const AudioFormat& format) override;
-    bool OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block) override;
+    bool OnAddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) override;
+    void OnThreadProc() override;
 
 private:
-    PluginDescriptor                    m_descriptor;
-    PluginSettings                      m_settings;
+    PluginDescriptor                                        m_descriptor;
+    PluginSettings                                          m_settings;
 
-    std::shared_ptr<VST2Plugin>         m_plugin;
-    std::shared_ptr<MemoryAllocator>    m_memoryAllocator;
+    std::shared_ptr<VST2Plugin>                             m_plugin;
+    std::shared_ptr<MemoryAllocator>                        m_memoryAllocator;
+    common::threading::Queue<std::shared_ptr<Buffer>>       m_queue;
 };

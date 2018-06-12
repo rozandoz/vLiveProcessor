@@ -15,6 +15,7 @@ protected:
     bool CheckStarted() const;
     virtual void OnThreadProc() = 0;
 
+    void* GetNativeHandle();
 
 private:
     void StopThread(bool wait);

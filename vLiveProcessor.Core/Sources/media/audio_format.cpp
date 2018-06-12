@@ -2,10 +2,28 @@
 
 #include "common/strings.h"
 
+using namespace std;
+using namespace chrono;
+
 AudioFormat& AudioFormat::Invalid()
 {
     static AudioFormat invalidFormat(INVALID, 0, 0, 0);
     return invalidFormat;
+}
+
+duration<double> AudioFormat::GetDuration(const AudioFormat& format, size_t samples)
+{
+    return duration<double>(static_cast<double>(samples) / format.m_samplesPerSec);
+}
+
+seconds AudioFormat::GetDurationSec(const AudioFormat& format, size_t samples)
+{
+    return duration_cast<seconds>(GetDuration(format, samples));
+}
+
+milliseconds AudioFormat::GetDurationMs(const AudioFormat& format, size_t samples)
+{
+    return duration_cast<milliseconds>(GetDuration(format, samples));
 }
 
 AudioFormat::AudioFormat() 

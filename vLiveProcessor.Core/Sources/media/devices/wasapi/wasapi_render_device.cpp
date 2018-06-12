@@ -5,6 +5,7 @@
 #include "common/win32/hr_exception.h"
 
 using namespace std;
+using namespace chrono;
 using namespace common::win32;
 
 WASAPIRenderDevice::WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
@@ -23,6 +24,8 @@ void WASAPIRenderDevice::OnInitialize()
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
+        m_queue.SetCapacity(buffersCount());
+
         m_logger.trace << "WASAPIRenderDevice::OnInitialize: " << m_audioFormat << endl;
     }
     catch (hr_exception e)
@@ -32,11 +35,9 @@ void WASAPIRenderDevice::OnInitialize()
     }
 }
 
-bool WASAPIRenderDevice::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
+bool WASAPIRenderDevice::OnAddBlock(milliseconds timeout, shared_ptr<MediaBlock> block)
 {
-    lock_guard<mutex> lock(m_critSec);
-    m_queue.push(block->buffer());
-    return true;
+    return m_queue.TryAdd(timeout, block->buffer());
 }
 
 void WASAPIRenderDevice::OnValidateFormat(const AudioFormat& format)
@@ -47,6 +48,8 @@ void WASAPIRenderDevice::OnValidateFormat(const AudioFormat& format)
 
 void WASAPIRenderDevice::OnThreadProc()
 {
+    SetThreadPriority(GetNativeHandle(), THREAD_PRIORITY_TIME_CRITICAL);
+
     try
     {
         UINT32 maxSamplesCount;
@@ -59,22 +62,8 @@ void WASAPIRenderDevice::OnThreadProc()
         while (!CheckClosing())
         {
             shared_ptr<Buffer> buffer;
-
-            {
-                lock_guard<mutex> lock(m_critSec);
-
-                if (m_queue.size() != 0)
-                {
-                    buffer = m_queue.front();
-                    m_queue.pop();
-                }
-            }
-
-            if (!buffer)
-            {
-                Sleep(5);
+            if(!m_queue.TryGet(1ms, buffer))
                 continue;
-            }
 
             auto pSourceBuffer = buffer->data();
             auto sourceSamples = buffer->size() / m_audioFormat.blockAlign();
@@ -89,10 +78,7 @@ void WASAPIRenderDevice::OnThreadProc()
                 auto sizeToProcess = samplesToProcess * m_audioFormat.blockAlign();
 
                 if (sizeToProcess == 0)
-                {
-                    Sleep(targetSamples / m_audioFormat.samplesPerSec() / 1000 / 2);
                     continue;
-                }
 
                 BYTE* pTargetBuffer;
                 _hr = renderClient->GetBuffer(samplesToProcess, &pTargetBuffer);

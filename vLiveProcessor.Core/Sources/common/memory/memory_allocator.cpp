@@ -29,12 +29,12 @@ shared_ptr<MemoryAllocator> MemoryAllocator::Create(size_t bufferSize, size_t bu
     return make_shared<MemoryAllocator>(bufferSize, buffersCount);
 }
 
-bool MemoryAllocator::TryGetBuffer(uint32_t timeout, shared_ptr<MemoryBuffer>& buffer)
+bool MemoryAllocator::TryGetBuffer(milliseconds timeout, shared_ptr<MemoryBuffer>& buffer)
 {
     auto now = high_resolution_clock::now();
     auto start = now;
 
-    while (duration_cast<milliseconds>(now - start) < milliseconds(timeout))
+    while (duration_cast<milliseconds>(now - start) < timeout)
     {
         lock_guard<mutex> lock(m_critSec);
         {

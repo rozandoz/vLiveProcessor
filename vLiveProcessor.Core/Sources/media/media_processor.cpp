@@ -1,6 +1,7 @@
 #include "media_processor.h"
 
 using namespace std;
+using namespace chrono;
 
 MediaProcessor::MediaProcessor()
     : m_logger(Logger::GetInstance())
@@ -11,10 +12,15 @@ MediaProcessor::~MediaProcessor()
 {
 }
 
-void MediaProcessor::Initialize()
+void MediaProcessor::Initialize(const ProcessorSettings& settings)
 {
     try
     {
+        m_settings = settings;
+
+        if (bufferSamples() == 0)
+            throw exception("Invalid buffer samples");
+     
         OnInitialize();
 
         if (m_audioFormat == INVALID_AUDIO_FORMAT)
@@ -22,6 +28,8 @@ void MediaProcessor::Initialize()
 
         if (m_consumer != nullptr) 
             m_consumer->SetAudioFormat(m_audioFormat);
+
+       
     }
     catch (exception e)
     {
@@ -44,7 +52,7 @@ void MediaProcessor::SetAudioFormat(const AudioFormat& audioFormat)
     }
 }
 
-bool MediaProcessor::AddBlock(uint32_t timeout, shared_ptr<MediaBlock> block)
+bool MediaProcessor::AddBlock(milliseconds timeout, shared_ptr<MediaBlock> block)
 {
     try
     {

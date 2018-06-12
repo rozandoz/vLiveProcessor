@@ -42,6 +42,12 @@ bool ThreadBase::CheckStarted() const
     return m_started;
 }
 
+void* ThreadBase::GetNativeHandle()
+{
+    lock_guard<mutex> lock(m_critSec);
+    return m_started ? m_thread.native_handle() : nullptr;
+}
+
 void ThreadBase::StopThread(bool wait)
 {
     lock_guard<mutex> lock(m_critSec);
