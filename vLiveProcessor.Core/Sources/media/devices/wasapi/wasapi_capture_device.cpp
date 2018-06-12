@@ -58,8 +58,7 @@ void WASAPICaptureDevice::OnThreadProc()
                 UINT availableFrames = 0;
                 DWORD flags = 0;
 
-                UINT64 position;
-                _hr = captureClient->GetBuffer(&pData, &availableFrames, &flags, &position, nullptr);
+                _hr = captureClient->GetBuffer(&pData, &availableFrames, &flags, nullptr, nullptr);
 
                 auto silence = flags & AUDCLNT_BUFFERFLAGS_SILENT;
                 auto samplesToRelease = availableFrames;

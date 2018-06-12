@@ -2,7 +2,7 @@
 
 struct ProcessorSettings
 {
-    ProcessorSettings(size_t bufferSamples = 1024, size_t buffersCount = 2)
+    ProcessorSettings(size_t bufferSamples = 48, size_t buffersCount = 20)
         : bufferSamples(bufferSamples)
         , buffersCount(buffersCount)
     {
