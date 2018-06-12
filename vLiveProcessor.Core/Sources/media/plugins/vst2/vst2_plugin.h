@@ -36,18 +36,22 @@ protected:
     void Close();
 
 public:
-    std::vector<float*>& Process(float* pBuffer, size_t& frames);
+    size_t ProcessInterlaved(float* pInBuffer, float* pOutBuffer, size_t inputFrames);
 
 private:
-    Logger&                     m_logger;
-    VST2PluginSettings          m_settings;
+    Logger&                                     m_logger;
 
-    std::unique_ptr<VST2Module> m_module;
-    AEffect*                    m_pEffect;
+    size_t                                      m_blockSize;
+    AudioFormat                                 m_audioFormat;
+    std::string                                 m_modulePath;
+    std::shared_ptr<IPluginWindowController>    m_windowController;
 
-    std::vector<float>          m_inputBuffer;
-    std::vector<float>          m_outputBuffer;
+    std::unique_ptr<VST2Module>                 m_module;
+    AEffect*                                    m_pEffect;
 
-    std::vector<float*>         m_outputBufferPointers;
-    std::vector<float*>         m_inputBufferPointers;
+    std::vector<float>                          m_inputBuffer;
+    std::vector<float>                          m_outputBuffer;
+
+    std::vector<float*>                         m_outputBufferPointers;
+    std::vector<float*>                         m_inputBufferPointers;
 };

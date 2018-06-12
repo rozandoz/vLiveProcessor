@@ -18,7 +18,7 @@ void VST2Processor::OnInitialize()
 {
     VST2PluginSettings settings;
     settings.modulePath = m_descriptor.location;
-    settings.sampleRate = m_audioFormat.samplesPerSec();
+    settings.audioFormat = m_audioFormat;
     settings.windowController = m_settings.windowController;
 
     m_plugin = make_shared<VST2Plugin>(settings);
@@ -30,34 +30,26 @@ void VST2Processor::OnValidateFormat(const AudioFormat& format)
         throw exception("AudioFormat is not supported. Only 'IEEE_FLOAT' formats are supported");
 }
 
-bool VST2Processor::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> block)
+bool VST2Processor::OnAddBlock(uint32_t timeout, shared_ptr<MediaBlock> block)
 {
     if (m_memoryAllocator == nullptr)
     {
-        m_memoryAllocator = MemoryAllocator::Create(block->buffer()->max_size(), 20);
+        m_memoryAllocator = MemoryAllocator::Create(block->buffer()->max_size(), 4);
     }
 
-    std::shared_ptr<Buffer> outputBuffer;
-    m_memoryAllocator->TryGetBuffer(100, outputBuffer);
+    shared_ptr<Buffer> outputBuffer;
+    if (!m_memoryAllocator->TryGetBuffer(timeout, outputBuffer))
+        return false;
 
-    auto audioFormat = block->audioFormat();
     auto inputBuffer = block->buffer();
 
     auto pInData = reinterpret_cast<float*>(inputBuffer->data());
     auto pOutData = reinterpret_cast<float*>(outputBuffer->data());
 
-    auto totalFrames = inputBuffer->size() / audioFormat.blockAlign();
+    auto totalFrames = inputBuffer->size() / m_audioFormat.blockAlign();
     while (totalFrames > 0)
     {
-        auto frames = totalFrames;
-        auto result = m_plugin->Process(pInData, frames);
-
-        for (size_t i = 0; i < frames; i++)
-        {
-            auto offset = i * 2;
-            memcpy(pOutData + offset, result[0] + i, sizeof(float));
-            memcpy(pOutData + offset + 1, result[1] + i, sizeof(float));
-        }
+        auto frames = m_plugin->ProcessInterlaved(pInData, pOutData, totalFrames);
 
         pInData += frames * 2;
         pOutData += frames * 2;
@@ -67,5 +59,5 @@ bool VST2Processor::OnAddBlock(uint32_t timeout, std::shared_ptr<MediaBlock> blo
 
     outputBuffer->set_size(inputBuffer->size());
 
-    return m_consumer->AddBlock(timeout, std::make_shared<MediaBlock>(outputBuffer, audioFormat));
+    return m_consumer->AddBlock(timeout, make_shared<MediaBlock>(outputBuffer, m_audioFormat));
 }
