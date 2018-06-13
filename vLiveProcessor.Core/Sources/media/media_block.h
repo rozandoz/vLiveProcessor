@@ -7,15 +7,15 @@
 class MediaBlock
 {
 public:
-    MediaBlock(std::shared_ptr<Buffer> buffer, AudioFormat& audioFormat);
+    MediaBlock(std::shared_ptr<common::memory::Buffer> buffer, AudioFormat& audioFormat);
     ~MediaBlock();
 
-    DECLARE_ACCESSOR(std::shared_ptr<Buffer>, buffer)
+    DECLARE_ACCESSOR(std::shared_ptr<common::memory::Buffer>, buffer)
     DECLARE_ACCESSOR(AudioFormat, audioFormat)
 
 private:
-    std::shared_ptr<Buffer>     m_buffer;
-    AudioFormat                 m_audioFormat;
+    std::shared_ptr<common::memory::Buffer>     m_buffer;
+    AudioFormat                                 m_audioFormat;
 };
 
 

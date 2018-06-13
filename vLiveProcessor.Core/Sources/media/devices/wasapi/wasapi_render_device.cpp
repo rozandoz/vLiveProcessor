@@ -7,6 +7,7 @@
 using namespace std;
 using namespace chrono;
 using namespace common::win32;
+using namespace common::memory;
 
 WASAPIRenderDevice::WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : WASAPIDevice(descriptor, bufferTime)

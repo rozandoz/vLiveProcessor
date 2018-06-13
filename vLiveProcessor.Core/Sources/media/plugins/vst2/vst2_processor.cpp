@@ -4,6 +4,7 @@
 
 using namespace std;
 using namespace chrono;
+using namespace common::memory;
 
 VST2Processor::VST2Processor(const PluginDescriptor& descriptor, const PluginSettings& settings)
     : m_descriptor(descriptor)

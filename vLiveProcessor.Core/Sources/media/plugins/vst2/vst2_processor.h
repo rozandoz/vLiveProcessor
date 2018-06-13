@@ -22,10 +22,10 @@ protected:
     void OnThreadProc() override;
 
 private:
-    PluginDescriptor                                        m_descriptor;
-    PluginSettings                                          m_settings;
+    PluginDescriptor                                                        m_descriptor;
+    PluginSettings                                                          m_settings;
 
-    std::shared_ptr<VST2Plugin>                             m_plugin;
-    std::shared_ptr<MemoryAllocator>                        m_memoryAllocator;
-    common::threading::Queue<std::shared_ptr<Buffer>>       m_queue;
+    std::shared_ptr<VST2Plugin>                                             m_plugin;
+    std::shared_ptr<common::memory::MemoryAllocator>                        m_memoryAllocator;
+    common::threading::Queue<std::shared_ptr<common::memory::Buffer>>       m_queue;
 };

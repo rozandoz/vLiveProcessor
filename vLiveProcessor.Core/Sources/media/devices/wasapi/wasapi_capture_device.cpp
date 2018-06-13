@@ -4,6 +4,7 @@
 
 using namespace std;
 using namespace common::win32;
+using namespace common::memory;
 
 WASAPICaptureDevice::WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
     : WASAPIDevice(descriptor, bufferTime)

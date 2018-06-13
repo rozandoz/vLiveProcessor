@@ -20,8 +20,8 @@ private:
     void OnThreadProc() override;
 
 private:
-    std::mutex                              m_critSec;
-    std::queue<std::shared_ptr<Buffer>>     m_queue;
+    std::mutex                                              m_critSec;
+    std::queue<std::shared_ptr<common::memory::Buffer>>     m_queue;
     
-    CComPtr<IAudioClient>                   m_audioClient;
+    CComPtr<IAudioClient>                                   m_audioClient;
 };

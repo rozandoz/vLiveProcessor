@@ -6,7 +6,7 @@
 using namespace std;
 using namespace chrono;
 
-MemoryAllocator::MemoryAllocator(size_t bufferSize, size_t buffersCount)
+common::memory::MemoryAllocator::MemoryAllocator(size_t bufferSize, size_t buffersCount)
 {
     for (size_t i = 0; i < buffersCount; i++)
     {
@@ -14,22 +14,22 @@ MemoryAllocator::MemoryAllocator(size_t bufferSize, size_t buffersCount)
     }
 }
 
-MemoryAllocator::~MemoryAllocator()
+common::memory::MemoryAllocator::~MemoryAllocator()
 {
 }
 
-void MemoryAllocator::ReturnBuffer(SharedDataBuffer sharedBuffer)
+void common::memory::MemoryAllocator::ReturnBuffer(SharedDataBuffer sharedBuffer)
 {
     lock_guard<mutex> lock(m_critSec);
     m_buffers.push(sharedBuffer);
 }
 
-shared_ptr<MemoryAllocator> MemoryAllocator::Create(size_t bufferSize, size_t buffersCount)
+shared_ptr<common::memory::MemoryAllocator> common::memory::MemoryAllocator::Create(size_t bufferSize, size_t buffersCount)
 {
     return make_shared<MemoryAllocator>(bufferSize, buffersCount);
 }
 
-bool MemoryAllocator::TryGetBuffer(nanoseconds timeout, shared_ptr<MemoryBuffer>& buffer)
+bool common::memory::MemoryAllocator::TryGetBuffer(nanoseconds timeout, shared_ptr<Buffer>& buffer)
 {
     auto start = high_resolution_clock::now();
 
@@ -48,12 +48,12 @@ bool MemoryAllocator::TryGetBuffer(nanoseconds timeout, shared_ptr<MemoryBuffer>
 
         this_thread::sleep_for(1ms);
         
-    } while (high_resolution_clock::now() - start < timeout);
+    } while (duration_cast<nanoseconds>(high_resolution_clock::now() - start) < timeout);
 
     return false;
 }
 
-MemoryAllocator::MemoryBuffer::MemoryBuffer(SharedAllocator owner, SharedDataBuffer sharedBuffer)
+common::memory::MemoryAllocator::MemoryBuffer::MemoryBuffer(SharedAllocator owner, SharedDataBuffer sharedBuffer)
     : m_size(0)
     , m_owner(owner)
     , m_buffer(sharedBuffer)
@@ -61,7 +61,7 @@ MemoryAllocator::MemoryBuffer::MemoryBuffer(SharedAllocator owner, SharedDataBuf
 
 }
 
-MemoryAllocator::MemoryBuffer::~MemoryBuffer()
+common::memory::MemoryAllocator::MemoryBuffer::~MemoryBuffer()
 {
     if (m_owner)
     {
@@ -69,22 +69,22 @@ MemoryAllocator::MemoryBuffer::~MemoryBuffer()
     }
 }
 
-char* MemoryAllocator::MemoryBuffer::data() const
+char* common::memory::MemoryAllocator::MemoryBuffer::data() const
 {
     return m_buffer->data();
 }
 
-size_t MemoryAllocator::MemoryBuffer::max_size() const
+size_t common::memory::MemoryAllocator::MemoryBuffer::max_size() const
 {
     return m_buffer->size();
 }
 
-size_t MemoryAllocator::MemoryBuffer::size() const
+size_t common::memory::MemoryAllocator::MemoryBuffer::size() const
 {
     return m_size;
 }
 
-void MemoryAllocator::MemoryBuffer::set_size(size_t size)
+void common::memory::MemoryAllocator::MemoryBuffer::set_size(size_t size)
 {
     m_size = size;
 }

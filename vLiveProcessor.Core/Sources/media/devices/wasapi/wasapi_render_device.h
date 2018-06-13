@@ -21,7 +21,7 @@ private:
     void OnThreadProc() override;
 
 private:
-    CComPtr<IAudioClient>                               m_audioClient;
-    common::threading::Queue<std::shared_ptr<Buffer>>   m_queue;
+    CComPtr<IAudioClient>                                               m_audioClient;
+    common::threading::Queue<std::shared_ptr<common::memory::Buffer>>   m_queue;
     
 };

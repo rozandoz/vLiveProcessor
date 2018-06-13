@@ -186,6 +186,9 @@
     <ClInclude Include="Sources\common\threading\queue.h">
       <Filter>Sources\common\threading</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\memory\buffer.h">
+      <Filter>Sources\common\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
