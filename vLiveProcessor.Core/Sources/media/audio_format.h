@@ -18,9 +18,10 @@ class AudioFormat
 public: //static
     static AudioFormat& Invalid();
 
-    static std::chrono::duration<double> GetDuration(const AudioFormat& format, size_t samples);
-    static std::chrono::seconds GetDurationSec(const AudioFormat& format, size_t samples);
-    static std::chrono::milliseconds GetDurationMs(const AudioFormat& format, size_t samples);
+    static std::chrono::duration<double>    GetDuration(const AudioFormat& format, size_t samples);
+    static std::chrono::seconds             GetDurationSec(const AudioFormat& format, size_t samples);
+    static std::chrono::milliseconds        GetDurationMs(const AudioFormat& format, size_t samples);
+    static std::chrono::nanoseconds         GetDurationNs(const AudioFormat& format, size_t samples);
 
 public:
     AudioFormat();

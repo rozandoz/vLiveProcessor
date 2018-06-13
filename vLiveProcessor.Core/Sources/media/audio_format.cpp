@@ -26,6 +26,11 @@ milliseconds AudioFormat::GetDurationMs(const AudioFormat& format, size_t sample
     return duration_cast<milliseconds>(GetDuration(format, samples));
 }
 
+nanoseconds AudioFormat::GetDurationNs(const AudioFormat& format, size_t samples)
+{
+    return duration_cast<nanoseconds>(GetDuration(format, samples));
+}
+
 AudioFormat::AudioFormat() 
     : AudioFormat(Invalid())
 {
