@@ -15,8 +15,8 @@ namespace common
             explicit Queue(size_t capacity);
 
             void SetCapacity(size_t capacity);
-            bool TryAdd(std::chrono::milliseconds timeout, const T& item);
-            bool TryGet(std::chrono::milliseconds timeout, T& item);
+            bool TryAdd(std::chrono::nanoseconds timeout, const T& item);
+            bool TryGet(std::chrono::nanoseconds timeout, T& item);
 
         private:
             std::queue<T>   m_queue;
@@ -51,7 +51,7 @@ namespace common
         }
 
         template <class T>
-        bool Queue<T>::TryAdd(std::chrono::milliseconds timeout, const T& item)
+        bool Queue<T>::TryAdd(std::chrono::nanoseconds timeout, const T& item)
         {
             auto start = std::chrono::high_resolution_clock::now();
 
@@ -75,7 +75,7 @@ namespace common
         }
 
         template <class T>
-        bool Queue<T>::TryGet(std::chrono::milliseconds timeout, T& item)
+        bool Queue<T>::TryGet(std::chrono::nanoseconds timeout, T& item)
         {
             auto start = std::chrono::high_resolution_clock::now();
 

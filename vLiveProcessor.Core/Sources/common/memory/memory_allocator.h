@@ -25,7 +25,7 @@ private:
 
 public:
     static SharedAllocator Create(size_t bufferSize, size_t buffersCount);
-    bool TryGetBuffer(std::chrono::milliseconds timeout, std::shared_ptr<MemoryBuffer>& buffer);
+    bool TryGetBuffer(std::chrono::nanoseconds timeout, std::shared_ptr<MemoryBuffer>& buffer);
 
 private:
     std::mutex                          m_critSec;

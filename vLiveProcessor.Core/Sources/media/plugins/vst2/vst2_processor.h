@@ -18,7 +18,7 @@ public:
 protected:
     void OnInitialize() override;
     void OnValidateFormat(const AudioFormat& format) override;
-    bool OnAddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) override;
+    bool OnAddBlock(std::chrono::nanoseconds timeout, std::shared_ptr<MediaBlock> block) override;
     void OnThreadProc() override;
 
 private:

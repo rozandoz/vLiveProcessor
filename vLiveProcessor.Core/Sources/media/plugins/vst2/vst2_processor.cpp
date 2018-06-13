@@ -35,7 +35,7 @@ void VST2Processor::OnValidateFormat(const AudioFormat& format)
         throw exception("AudioFormat is not supported. Only 'IEEE_FLOAT' formats are supported");
 }
 
-bool VST2Processor::OnAddBlock(milliseconds timeout, shared_ptr<MediaBlock> block)
+bool VST2Processor::OnAddBlock(nanoseconds timeout, shared_ptr<MediaBlock> block)
 {
     return m_queue.TryAdd(timeout, block->buffer());
 }

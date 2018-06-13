@@ -29,7 +29,7 @@ shared_ptr<MemoryAllocator> MemoryAllocator::Create(size_t bufferSize, size_t bu
     return make_shared<MemoryAllocator>(bufferSize, buffersCount);
 }
 
-bool MemoryAllocator::TryGetBuffer(milliseconds timeout, shared_ptr<MemoryBuffer>& buffer)
+bool MemoryAllocator::TryGetBuffer(nanoseconds timeout, shared_ptr<MemoryBuffer>& buffer)
 {
     auto start = high_resolution_clock::now();
 

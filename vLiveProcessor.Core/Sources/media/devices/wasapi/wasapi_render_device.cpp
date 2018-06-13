@@ -35,7 +35,7 @@ void WASAPIRenderDevice::OnInitialize()
     }
 }
 
-bool WASAPIRenderDevice::OnAddBlock(milliseconds timeout, shared_ptr<MediaBlock> block)
+bool WASAPIRenderDevice::OnAddBlock(nanoseconds timeout, shared_ptr<MediaBlock> block)
 {
     return m_queue.TryAdd(timeout, block->buffer());
 }

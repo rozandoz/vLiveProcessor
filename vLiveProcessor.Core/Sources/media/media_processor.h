@@ -17,7 +17,7 @@ private:
     void Initialize(const ProcessorSettings& settings) override final;
 
     void SetAudioFormat(const AudioFormat& audioFormat) override final;
-    bool AddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) override final;
+    bool AddBlock(std::chrono::nanoseconds timeout, std::shared_ptr<MediaBlock> block) override final;
 
     void SetConsumer(const std::shared_ptr<IConsumer>& consumer) override final;
 
@@ -28,7 +28,7 @@ private:
 protected:
     virtual void OnInitialize() { }
     virtual void OnValidateFormat(const AudioFormat& format) { }
-    virtual bool OnAddBlock(std::chrono::milliseconds timeout, std::shared_ptr<MediaBlock> block) { return false; }
+    virtual bool OnAddBlock(std::chrono::nanoseconds timeout, std::shared_ptr<MediaBlock> block) { return false; }
     virtual void OnStart() { }
     virtual void OnStop() { }
     virtual void OnReset() { }

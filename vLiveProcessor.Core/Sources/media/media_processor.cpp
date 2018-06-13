@@ -52,7 +52,7 @@ void MediaProcessor::SetAudioFormat(const AudioFormat& audioFormat)
     }
 }
 
-bool MediaProcessor::AddBlock(milliseconds timeout, shared_ptr<MediaBlock> block)
+bool MediaProcessor::AddBlock(nanoseconds timeout, shared_ptr<MediaBlock> block)
 {
     try
     {
