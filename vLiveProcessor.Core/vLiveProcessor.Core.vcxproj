@@ -149,6 +149,7 @@
     <ClInclude Include="Sources\common\logging\logger_streams.h" />
     <ClInclude Include="Sources\common\memory\buffer.h" />
     <ClInclude Include="Sources\common\memory\memory_allocator.h" />
+    <ClInclude Include="Sources\common\memory\ring_buffer.h" />
     <ClInclude Include="Sources\Common\strings.h" />
     <ClInclude Include="Sources\common\threading\queue.h" />
     <ClInclude Include="Sources\common\threading\thread_base.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Sources\common\logging\logger.cpp" />
     <ClCompile Include="Sources\common\logging\logger_streams.cpp" />
     <ClCompile Include="Sources\common\memory\memory_allocator.cpp" />
+    <ClCompile Include="Sources\common\memory\ring_buffer.cpp" />
     <ClCompile Include="Sources\Common\strings.cpp" />
     <ClCompile Include="Sources\common\threading\thread_base.cpp" />
     <ClCompile Include="Sources\common\win32\hr_exception.cpp" />

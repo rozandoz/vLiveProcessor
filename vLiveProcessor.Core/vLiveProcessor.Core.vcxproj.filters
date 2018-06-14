@@ -189,6 +189,9 @@
     <ClInclude Include="Sources\common\memory\buffer.h">
       <Filter>Sources\common\memory</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\common\memory\ring_buffer.h">
+      <Filter>Sources\common\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="Sources\media\plugins\vst2\vst2_plugin.cpp">
       <Filter>Sources\media\plugins\vst2\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\common\memory\ring_buffer.cpp">
+      <Filter>Sources\common\memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
