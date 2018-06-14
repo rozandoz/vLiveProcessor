@@ -18,7 +18,7 @@ void MediaProcessor::Initialize(const ProcessorSettings& settings)
     {
         m_settings = settings;
 
-        if (bufferSamples() == 0)
+        if (maxBufferSamples() == 0)
             throw exception("Invalid buffer samples");
      
         OnInitialize();

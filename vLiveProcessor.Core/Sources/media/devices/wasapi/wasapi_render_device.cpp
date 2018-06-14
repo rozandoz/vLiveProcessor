@@ -25,8 +25,6 @@ void WASAPIRenderDevice::OnInitialize()
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
-        m_queue.SetCapacity(buffersCount());
-
         m_logger.trace << "WASAPIRenderDevice::OnInitialize: " << m_audioFormat << endl;
     }
     catch (hr_exception e)

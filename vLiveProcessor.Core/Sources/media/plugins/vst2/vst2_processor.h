@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "common/threading/queue.h"
-#include "common/memory/memory_allocator.h"
+#include "common/memory/ring_buffer.h"
 
 #include "media/interfaces/plugin_types.h"
 #include "media/media_processor_async.h"
@@ -26,6 +26,6 @@ private:
     PluginSettings                                                          m_settings;
 
     std::shared_ptr<VST2Plugin>                                             m_plugin;
-    std::shared_ptr<common::memory::MemoryAllocator>                        m_memoryAllocator;
+    std::shared_ptr<common::memory::RingBuffer>                             m_memoryAllocator;
     common::threading::Queue<std::shared_ptr<common::memory::Buffer>>       m_queue;
 };

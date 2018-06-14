@@ -2,14 +2,12 @@
 
 struct ProcessorSettings
 {
-    ProcessorSettings(size_t bufferSamples = 48, size_t buffersCount = 20)
-        : bufferSamples(bufferSamples)
-        , buffersCount(buffersCount)
+    ProcessorSettings(size_t maxBufferSamples = 1024)
+        : maxBufferSamples(maxBufferSamples)
     {
     }
      
-    size_t bufferSamples;
-    size_t buffersCount;
+    size_t maxBufferSamples;
 };
 
 class IProcessor

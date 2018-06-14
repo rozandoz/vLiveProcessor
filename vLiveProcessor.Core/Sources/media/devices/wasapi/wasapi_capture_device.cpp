@@ -1,6 +1,7 @@
 #include "wasapi_capture_device.h"
 
 #include "common/win32/hr_exception.h"
+#include "common/memory/ring_buffer.h"
 
 using namespace std;
 using namespace common::win32;
@@ -40,9 +41,8 @@ void WASAPICaptureDevice::OnThreadProc()
     {
         CComPtr<IAudioCaptureClient> captureClient;
         _hr = m_audioClient->GetService(__uuidof(IAudioCaptureClient), reinterpret_cast<void**>(&captureClient));
-
-        auto waitTime = AudioFormat::GetDurationMs(m_audioFormat, bufferSamples());
-        auto allocator = MemoryAllocator::Create(bufferSamples() * m_audioFormat.blockAlign(), buffersCount());
+        
+        auto allocator = RingBuffer::Create(maxBufferSamples() * m_audioFormat.blockAlign());
 
         _hr = m_audioClient->Start();
 
@@ -66,7 +66,9 @@ void WASAPICaptureDevice::OnThreadProc()
 
                 while (availableFrames != 0)
                 {
-                    if (buffer == nullptr && !allocator->TryGetBuffer(waitTime, buffer))
+                    auto waitTime = AudioFormat::GetDurationNs(m_audioFormat, availableFrames);
+
+                    if (buffer == nullptr && !allocator->TryGetBuffer(waitTime, availableFrames * m_audioFormat.blockAlign(), buffer))
                     {
                         m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped" << endl;
                         break;

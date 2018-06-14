@@ -33,8 +33,7 @@ protected:
     virtual void OnStop() { }
     virtual void OnReset() { }
 
-    size_t bufferSamples() const { return m_settings.bufferSamples; }
-    size_t buffersCount() const { return m_settings.buffersCount; }
+    size_t maxBufferSamples() const { return m_settings.maxBufferSamples; }
 
 protected:
     Logger&                         m_logger;

@@ -3,10 +3,6 @@
 
 #include <atlcomcli.h>
 
-#include "common/memory/memory_allocator.h"
-
-#define BUFFERS_COUNT 4
-
 class WASAPICaptureDevice : public WASAPIDevice
 {
 public:
@@ -21,7 +17,6 @@ private:
 
 private:
     std::mutex                                              m_critSec;
-    std::queue<std::shared_ptr<common::memory::Buffer>>     m_queue;
     
     CComPtr<IAudioClient>                                   m_audioClient;
 };
