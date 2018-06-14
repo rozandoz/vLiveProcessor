@@ -43,7 +43,7 @@ namespace common
                 friend class std::_Ref_count_obj<MemoryBuffer>;
 
                 MemoryBuffer(SharedAllocator owner, SharedDataBuffer sharedBuffer);
-                ~MemoryBuffer();
+                virtual ~MemoryBuffer();
 
             public:
                 char* data() const override;
