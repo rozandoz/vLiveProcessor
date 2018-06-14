@@ -125,10 +125,10 @@ void VST2Plugin::AllocateBuffrers()
     assert(m_pEffect);
 
     if (m_audioFormat == INVALID_AUDIO_FORMAT)
-        throw exception("VST2Plugin: invalid audio format");
+        throw exception("invalid audio format");
 
     if (m_pEffect->numInputs < m_audioFormat.channels() || m_pEffect->numOutputs < m_audioFormat.channels())
-        throw exception("VST2Plugin: plugin doesn't support required numbers of inputs/outputs");
+        throw exception("plugin doesn't support required numbers of inputs/outputs");
 
     m_inputBuffer.resize(m_pEffect->numInputs * m_blockSize);
     m_outputBuffer.resize(m_pEffect->numOutputs * m_blockSize);
@@ -142,15 +142,15 @@ void VST2Plugin::AllocateBuffrers()
 
 void VST2Plugin::Initialize()
 {
-    m_logger.trace << "VST2Plugin: initializing '" << m_modulePath << "' plugin" << endl;
+    m_logger.trace << _log_call_ << "initializing '" << m_modulePath << "' plugin" << endl;
 
-    if (m_module) throw exception("VST2Plugin: plugin is already initialized");
+    if (m_module) throw exception("plugin is already initialized");
 
     m_module = make_unique<VST2Module>();
     m_pEffect = m_module->LoadModule(m_modulePath, StaticCallback);
 
     if (m_pEffect == nullptr || m_pEffect->magic != kEffectMagic)
-        throw exception("VST2Plugin: invalid VST2 plugin");
+        throw exception("invalid VST2 plugin");
 
     /* if (!HasFlag(effFlagsIsSynth))
          throw exception("VST2Plugin: plugin has no 'IsSynth' flag");*/
@@ -170,7 +170,7 @@ void VST2Plugin::Initialize()
     {
         auto window = m_windowController->GetWindow();
 
-        if (window == nullptr) throw exception("VST2Plugin: cannot get editor window");
+        if (window == nullptr) throw exception("cannot get editor window");
 
         Dispatcher(effEditOpen, 0, 0, window);
 

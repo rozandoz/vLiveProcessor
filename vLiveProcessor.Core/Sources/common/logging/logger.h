@@ -28,8 +28,14 @@ public:
     logger_stream warning;
     logger_stream trace;
 
+    void Error(std::string msg, ...);
+    void Warning(std::string msg, ...);
+    void Trace(std::string msg, ...);
+
 private:
     std::function<void(void)>                   m_guard;
     std::vector<std::shared_ptr<ILoggerSink>>   m_sinks;
     std::mutex                                  m_mutex;
 };
+
+#define _log_call_ std::string(_func__) + ": "

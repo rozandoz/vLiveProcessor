@@ -9,7 +9,7 @@
 class WASAPIRenderDevice : public WASAPIDevice
 {
 public:
-    explicit WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
+    explicit WASAPIRenderDevice(DeviceDescriptor& descriptor);
     virtual ~WASAPIRenderDevice();
 
 protected:

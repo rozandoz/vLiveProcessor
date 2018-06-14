@@ -6,7 +6,7 @@
 class WASAPICaptureDevice : public WASAPIDevice
 {
 public:
-    explicit WASAPICaptureDevice(DeviceDescriptor& descriptor, uint64_t bufferTime = REFTIMES_PER_SEC);
+    explicit WASAPICaptureDevice(DeviceDescriptor& descriptor);
     virtual ~WASAPICaptureDevice();
 
 protected:

@@ -33,7 +33,7 @@ void MediaProcessor::Initialize(const ProcessorSettings& settings)
     }
     catch (exception e)
     {
-        m_logger.error << "Error initialize media processor. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }
@@ -47,7 +47,7 @@ void MediaProcessor::SetAudioFormat(const AudioFormat& audioFormat)
     }
     catch (exception e)
     {
-        m_logger.error << "Error set audio format. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }
@@ -60,7 +60,7 @@ bool MediaProcessor::AddBlock(nanoseconds timeout, shared_ptr<MediaBlock> block)
     }
     catch (exception e)
     {
-        m_logger.error << "Error push block. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }
@@ -78,7 +78,7 @@ void MediaProcessor::Start()
     }
     catch (exception e)
     {
-        m_logger.error << "Error start processor. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }
@@ -91,7 +91,7 @@ void MediaProcessor::Stop()
     }
     catch (exception e)
     {
-        m_logger.error << "Error stop processor. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }
@@ -104,7 +104,7 @@ void MediaProcessor::Reset()
     }
     catch (exception e)
     {
-        m_logger.error << "Error reset processor. Reason: " << e.what();
+        m_logger.error << _log_call_ << e.what() << endl;
         throw;
     }
 }

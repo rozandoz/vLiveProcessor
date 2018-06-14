@@ -54,7 +54,7 @@ void AudioBus::Start()
 
     if (m_started) throw exception("Audio bus is already started");
 
-    m_logger.trace << "AudioBus::Start" << endl;
+    m_logger.trace << _log_call_ << endl;
 
     for (auto i = m_processors.rbegin(); i != m_processors.rend(); ++i)
     {
@@ -70,7 +70,7 @@ void AudioBus::Stop()
 
     if (!m_started) return;
 
-    m_logger.trace << "AudioBus::Stop" << endl;
+    m_logger.trace << _log_call_ << endl;
 
     for (auto& processor : m_processors)
     {

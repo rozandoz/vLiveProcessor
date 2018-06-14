@@ -9,8 +9,8 @@ using namespace chrono;
 using namespace common::win32;
 using namespace common::memory;
 
-WASAPIRenderDevice::WASAPIRenderDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
-    : WASAPIDevice(descriptor, bufferTime)
+WASAPIRenderDevice::WASAPIRenderDevice(DeviceDescriptor& descriptor)
+    : WASAPIDevice(descriptor)
 {
 }
 
@@ -25,11 +25,11 @@ void WASAPIRenderDevice::OnInitialize()
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
-        m_logger.trace << "WASAPIRenderDevice::OnInitialize: " << m_audioFormat << endl;
+        m_logger.trace << _log_call_ << m_audioFormat << endl;
     }
     catch (hr_exception e)
     {
-        m_logger.error << "WASAPIRenderDevice::OnInitialize: " << e.ErrorMessage() << endl;
+        m_logger.error << _log_call_ << e.ErrorMessage() << endl;
         throw;
     }
 }

@@ -1,5 +1,8 @@
 #include "logger.h"
 
+#include <cstdarg>
+
+#include "common/strings.h"
 #include "console_logger_sink.h"
 
 using namespace std;
@@ -11,9 +14,9 @@ Logger& Logger::GetInstance()
 }
 
 Logger::Logger()
-    : error([&](string msg) -> int { return Message(Error, msg); })
-    , warning([&](string msg) -> int { return Message(Warning, msg); })
-    , trace([&](string msg) -> int { return Message(Trace, msg); })
+    : error([&](string msg) -> int { return Message(MessageType::Error, msg); })
+    , warning([&](string msg) -> int { return Message(MessageType::Warning, msg); })
+    , trace([&](string msg) -> int { return Message(MessageType::Trace, msg); })
 {
     AddSink(make_shared<ConsoleLoggerSink>());
 }
@@ -33,4 +36,28 @@ void Logger::AddSink(shared_ptr<ILoggerSink> sink)
     lock_guard<mutex> lock(m_mutex);
 
     m_sinks.push_back(sink);
+}
+
+void Logger::Error(string msg, ...)
+{
+    va_list myargs; 
+    va_start(myargs, msg);
+    error << StringFormatArgs(msg, myargs) << endl;
+    va_end(myargs);
+}
+
+void Logger::Warning(string msg, ...)
+{
+    va_list myargs;
+    va_start(myargs, msg);
+    warning << StringFormatArgs(msg, myargs) << endl;
+    va_end(myargs);
+}
+
+void Logger::Trace(string msg, ...)
+{
+    va_list myargs;
+    va_start(myargs, msg);
+    trace << StringFormatArgs(msg, myargs) << endl;
+    va_end(myargs);
 }

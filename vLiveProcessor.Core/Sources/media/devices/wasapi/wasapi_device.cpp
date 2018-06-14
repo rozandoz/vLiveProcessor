@@ -6,9 +6,10 @@
 
 using namespace common::win32;
 
-WASAPIDevice::WASAPIDevice(DeviceDescriptor& descriptor, uint64_t bufferTime)
-    : m_bufferTime(bufferTime)
-    , m_descriptor(descriptor)
+#define REFTIMES_PER_SEC 10000000
+
+WASAPIDevice::WASAPIDevice(DeviceDescriptor& descriptor)
+    : m_descriptor(descriptor)
 {
 }
 
@@ -87,7 +88,7 @@ HRESULT WASAPIDevice::InitializeAudioClient(IAudioClient** ppAudioClient, AudioF
         else
             pWaveFormat = FromAudioFormat(audioFormat);
 
-        _hr = audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, 0, m_bufferTime, 0, pWaveFormat, nullptr);
+        _hr = audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, 0, REFTIMES_PER_SEC, 0, pWaveFormat, nullptr);
         _hr = audioClient.QueryInterface(ppAudioClient);
 
         audioFormat = ToAudioFormat(pWaveFormat);

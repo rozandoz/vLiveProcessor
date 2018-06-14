@@ -1,8 +1,5 @@
 #pragma once
 
-#define REFTIMES_PER_SEC        10000000
-#define REFTIMES_PER_MILLISEC   10000
-
 #define DECLARE_ACCESSOR(type, name) \
     type name() const { return m_##name; }
 
@@ -12,3 +9,9 @@
 #define DECLARE_ACCESSOR_AND_MUTATOR(type, name) \
     DECLARE_ACCESSOR(type, name) \
     DECLARE_MUTATOR(type, name)
+
+#ifdef WIN32
+#define _func__ __FUNCTION__
+#else 
+#define _func__ __func__
+#endif
