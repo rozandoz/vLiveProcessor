@@ -44,67 +44,48 @@ void WASAPICaptureDevice::OnThreadProc()
         
         auto allocator = RingBuffer::Create(maxBufferSamples() * m_audioFormat.blockAlign());
 
+        m_logger.trace << "WASAPICaptureDevice: buffer allocated (" << maxBufferSamples() << ")" << endl;
+
         _hr = m_audioClient->Start();
 
-        shared_ptr<Buffer> buffer;
+        this_thread::sleep_for(AudioFormat::GetDurationNs(m_audioFormat, maxBufferSamples()));
 
         while (!CheckClosing())
         {
             UINT32 packetLength = 0;
             _hr = captureClient->GetNextPacketSize(&packetLength);
 
-            while (packetLength != 0 && !CheckClosing())
+            if(packetLength != 0)
             {
                 BYTE* pData;
-                UINT availableFrames = 0;
                 DWORD flags = 0;
+                UINT availableFrames = 0;
 
                 _hr = captureClient->GetBuffer(&pData, &availableFrames, &flags, nullptr, nullptr);
 
-                auto silence = flags & AUDCLNT_BUFFERFLAGS_SILENT;
-                auto samplesToRelease = availableFrames;
+                auto waitTime = AudioFormat::GetDurationNs(m_audioFormat, availableFrames);
+                auto availableSize = availableFrames * m_audioFormat.blockAlign();
 
-                while (availableFrames != 0)
+                shared_ptr<Buffer> buffer;
+                if (allocator->TryGetBuffer(waitTime, availableSize, buffer))
                 {
-                    auto waitTime = AudioFormat::GetDurationNs(m_audioFormat, availableFrames);
-
-                    if (buffer == nullptr && !allocator->TryGetBuffer(waitTime, availableFrames * m_audioFormat.blockAlign(), buffer))
-                    {
-                        m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped" << endl;
-                        break;
-                    }
-
-                    auto actualBufferSize = buffer->max_size() - buffer->size();
-                    auto actualFramesCount = actualBufferSize / m_audioFormat.blockAlign();
-
-                    auto framesToCopy = min(availableFrames, (UINT)actualFramesCount);
-                    auto sizeToCopy = framesToCopy * m_audioFormat.blockAlign();
-
-                    if (silence)
-                        memset(buffer->data() + buffer->size(), 0, sizeToCopy);
+                    
+                    if (flags & AUDCLNT_BUFFERFLAGS_SILENT)
+                        memset(buffer->data(), 0, availableSize);
                     else
-                        memcpy(buffer->data() + buffer->size(), pData, sizeToCopy);
+                        memcpy(buffer->data(), pData, availableSize);
 
+                    buffer->set_size(availableSize);
 
-                    pData += sizeToCopy;
-                    availableFrames -= framesToCopy;
-
-                    buffer->set_size(buffer->size() + sizeToCopy);
-
-                    if (buffer->size() == buffer->max_size())
-                    {
-                        if(m_consumer != nullptr)
-                        {
-                            if(!m_consumer->AddBlock(waitTime, make_shared<MediaBlock>(buffer, m_audioFormat)))
-                                m_logger.error << "WASAPICaptureDevice: failed to push block to consumer" << endl;
-                        }
-
-                        buffer.reset();
-                    }
+                    if (!m_consumer->AddBlock(waitTime, make_shared<MediaBlock>(buffer, m_audioFormat)))
+                        m_logger.error << "WASAPICaptureDevice: failed to push block to consumer" << endl;
+                }
+                else
+                {
+                    m_logger.warning << "WASAPICaptureDevice: " << availableFrames << " frames were dropped" << endl;
                 }
 
-                _hr = captureClient->ReleaseBuffer(samplesToRelease);
-                _hr = captureClient->GetNextPacketSize(&packetLength);
+                _hr = captureClient->ReleaseBuffer(availableFrames);
             }
 
             this_thread::sleep_for(1ms);

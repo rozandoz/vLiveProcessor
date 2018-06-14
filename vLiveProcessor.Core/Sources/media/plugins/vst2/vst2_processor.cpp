@@ -18,8 +18,6 @@ VST2Processor::~VST2Processor()
 
 void VST2Processor::OnInitialize()
 {
-    m_memoryAllocator = RingBuffer::Create(maxBufferSamples() * m_audioFormat.blockAlign());
-
     VST2PluginSettings settings;
     settings.modulePath = m_descriptor.location;
     settings.audioFormat = m_audioFormat;
@@ -37,42 +35,18 @@ void VST2Processor::OnValidateFormat(const AudioFormat& format)
 
 bool VST2Processor::OnAddBlock(nanoseconds timeout, shared_ptr<MediaBlock> block)
 {
-    return m_queue.TryAdd(timeout, block->buffer());
-}
+    auto buffer = block->buffer();
+    
+    auto pData = reinterpret_cast<float*>(buffer->data());
+    auto samples = buffer->size() / m_audioFormat.blockAlign();
 
-void VST2Processor::OnThreadProc()
-{
-    while (!CheckClosing())
+    while (samples > 0)
     {
-        shared_ptr<Buffer> inputBuffer;
-        if (!m_queue.TryGet(1ms, inputBuffer))
-            continue;
+        auto frames = m_plugin->ProcessInterlaved(pData, pData, samples); // this method makes double copying to and from internal buffer
 
-        auto inputSamples = inputBuffer->size() / m_audioFormat.blockAlign();
-        auto waitTime = AudioFormat::GetDurationNs(m_audioFormat, inputSamples);
-
-        shared_ptr<Buffer> outputBuffer;
-        if (m_memoryAllocator->TryGetBuffer(waitTime, inputBuffer->size(), outputBuffer))
-        {
-            auto pInData = reinterpret_cast<float*>(inputBuffer->data());
-            auto pOutData = reinterpret_cast<float*>(outputBuffer->data());
-
-            auto totalFrames = inputSamples;
-
-            while (totalFrames > 0)
-            {
-                auto frames = m_plugin->ProcessInterlaved(pInData, pOutData, totalFrames);
-
-                pInData += frames * m_audioFormat.channels();
-                pOutData += frames * m_audioFormat.channels();
-
-                totalFrames -= frames;
-            }
-
-            outputBuffer->set_size(inputBuffer->size());
-
-            if (!m_consumer->AddBlock(waitTime, make_shared<MediaBlock>(outputBuffer, m_audioFormat)))
-                m_logger.warning << "VST2Processor: failed to push block to consumer";
-        }
+        pData += frames * m_audioFormat.channels();
+        samples -= frames;
     }
+
+    return m_consumer->AddBlock(timeout, make_shared<MediaBlock>(buffer, m_audioFormat));
 }
