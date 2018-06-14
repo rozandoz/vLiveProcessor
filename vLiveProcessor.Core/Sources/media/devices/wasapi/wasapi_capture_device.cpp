@@ -23,12 +23,12 @@ void WASAPICaptureDevice::OnInitialize()
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
-        m_logger.trace << _log_call_ << m_audioFormat << endl;
+        m_logger.trace << _log_call_pref_ << m_audioFormat << endl;
 
     }
     catch(hr_exception e)
     {
-        m_logger.error << _log_call_ << e.ErrorMessage() << endl;
+        m_logger.error << _log_call_pref_ << e.ErrorMessage() << endl;
         throw;
     }
 }
@@ -44,7 +44,7 @@ void WASAPICaptureDevice::OnThreadProc()
         
         auto allocator = RingBuffer::Create(maxBufferSamples() * m_audioFormat.blockAlign());
 
-        m_logger.trace << _log_call_ << "buffer size - " << maxBufferSamples() << " samples" << endl;
+        m_logger.trace << _log_call_pref_ << "buffer size - " << maxBufferSamples() << " samples" << endl;
 
         _hr = m_audioClient->Start();
 
@@ -78,11 +78,11 @@ void WASAPICaptureDevice::OnThreadProc()
                     buffer->set_size(availableSize);
 
                     if (!m_consumer->AddBlock(waitTime, make_shared<MediaBlock>(buffer, m_audioFormat)))
-                        m_logger.error << _log_call_ << " failed to push block to consumer" << endl;
+                        m_logger.error << _log_call_pref_ << " failed to push block to consumer" << endl;
                 }
                 else
                 {
-                    m_logger.warning << _log_call_ << availableFrames << " samples have been dropped!" << endl;
+                    m_logger.warning << _log_call_pref_ << availableFrames << " samples have been dropped!" << endl;
                 }
 
                 _hr = captureClient->ReleaseBuffer(availableFrames);
@@ -95,6 +95,6 @@ void WASAPICaptureDevice::OnThreadProc()
     }
     catch (hr_exception e)
     {
-        m_logger.error << _log_call_ << e.ErrorMessage();
+        m_logger.error << _log_call_pref_ << e.ErrorMessage();
     }
 }

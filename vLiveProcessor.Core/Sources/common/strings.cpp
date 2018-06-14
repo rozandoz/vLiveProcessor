@@ -9,16 +9,12 @@ string StringFormat(const string format, ...)
 {
     va_list args;
     va_start(args, format);
-    auto str = StringFormatArgs(format, args);
-    va_end(args);
-    return str;
-}
-
-string StringFormatArgs(const string format, va_list args)
-{
     size_t len = vsnprintf(nullptr, 0, format.c_str(), args);
+    va_end(args);
     vector<char> vec(len + 1);
+    va_start(args, format);
     vsnprintf(&vec[0], len + 1, format.c_str(), args);
+    va_end(args);
     return &vec[0];
 }
 
@@ -26,15 +22,11 @@ wstring WStringFormat(const wstring format, ...)
 {
     va_list args;
     va_start(args, format);
-    auto str = WStringFormatArgs(format, args);
-    va_end(args);
-    return str;
-}
-
-wstring WStringFormatArgs(const wstring format, va_list args)
-{
     size_t len = vswprintf(nullptr, 0, format.c_str(), args);
+    va_end(args);
     vector<wchar_t> vec(len + 1);
+    va_start(args, format);
     vswprintf(&vec[0], len + 1, format.c_str(), args);
+    va_end(args);
     return &vec[0];
 }

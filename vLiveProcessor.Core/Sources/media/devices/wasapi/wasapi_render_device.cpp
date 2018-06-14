@@ -25,11 +25,11 @@ void WASAPIRenderDevice::OnInitialize()
         _hr = CoInitialize(nullptr);
         _hr = InitializeAudioClient(&m_audioClient, m_audioFormat);
 
-        m_logger.trace << _log_call_ << m_audioFormat << endl;
+        m_logger.trace << _log_call_pref_ << m_audioFormat << endl;
     }
     catch (hr_exception e)
     {
-        m_logger.error << _log_call_ << e.ErrorMessage() << endl;
+        m_logger.error << _log_call_pref_ << e.ErrorMessage() << endl;
         throw;
     }
 }

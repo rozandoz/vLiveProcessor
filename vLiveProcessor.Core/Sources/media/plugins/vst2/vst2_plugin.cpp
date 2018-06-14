@@ -142,7 +142,7 @@ void VST2Plugin::AllocateBuffrers()
 
 void VST2Plugin::Initialize()
 {
-    m_logger.trace << _log_call_ << "initializing '" << m_modulePath << "' plugin" << endl;
+    m_logger.trace << _log_call_pref_ << "initializing '" << m_modulePath << "' plugin" << endl;
 
     if (m_module) throw exception("plugin is already initialized");
 

@@ -40,24 +40,24 @@ void Logger::AddSink(shared_ptr<ILoggerSink> sink)
 
 void Logger::Error(string msg, ...)
 {
-    va_list myargs; 
-    va_start(myargs, msg);
-    error << StringFormatArgs(msg, myargs) << endl;
-    va_end(myargs);
+    va_list args;
+    va_start(args, msg);
+    error << StringFormat(msg, args) << endl;
+    va_end(args);
 }
 
 void Logger::Warning(string msg, ...)
 {
-    va_list myargs;
-    va_start(myargs, msg);
-    warning << StringFormatArgs(msg, myargs) << endl;
-    va_end(myargs);
+    va_list args;
+    va_start(args, msg);
+    warning << StringFormat(msg, args) << endl;
+    va_end(args);
 }
 
 void Logger::Trace(string msg, ...)
 {
-    va_list myargs;
-    va_start(myargs, msg);
-    trace << StringFormatArgs(msg, myargs) << endl;
-    va_end(myargs);
+    va_list args;
+    va_start(args, msg);
+    trace << StringFormat(msg, args) << endl;
+    va_end(args);
 }

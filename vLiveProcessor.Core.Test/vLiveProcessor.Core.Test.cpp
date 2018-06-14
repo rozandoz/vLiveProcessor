@@ -13,11 +13,26 @@
 
 #include "TestWindowController.h"
 
+#include "common/memory/ring_buffer.h"
+
 using namespace std;
 
 int main()
 {
-    SetPriorityClass(GetCurrentProcess(), ABOVE_NORMAL_PRIORITY_CLASS);
+    //auto allocator = common::memory::RingBuffer::Create(10);
+    //
+    //shared_ptr<common::memory::Buffer> buffer1;
+    //allocator->TryGetBuffer(100000ns, 2, buffer1);
+
+    //shared_ptr<common::memory::Buffer> buffer2;
+    //allocator->TryGetBuffer(100000ns, 3, buffer2);
+
+    //shared_ptr<common::memory::Buffer> buffer3;
+    //allocator->TryGetBuffer(100000ns, 5, buffer3);
+
+    //allocator->TryGetBuffer(100000ns, 6, buffer3);
+
+    SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS);
 
     auto& logger = Logger::GetInstance();
 
@@ -51,7 +66,7 @@ int main()
         vector<shared_ptr<IProcessor>> processors;
         processors.push_back(deviceProvider->CreateDevice("WASAPI", Capture, captureDevices[0]));
         processors.push_back(pluginProvider->CreatePlugin("VST2", vst2Plugins[0], PluginSettings { controller }));
-        processors.push_back(deviceProvider->CreateDevice("WASAPI", Render, renderDevices[0]));
+        processors.push_back(deviceProvider->CreateDevice("WASAPI", Render, renderDevices[1]));
 
         auto audiobus = make_unique<AudioBus>();
 
@@ -60,11 +75,11 @@ int main()
 
         while (true)
         {
-            if (GetAsyncKeyState(0x58)) // X
-            {
-                logger.trace << "Closing..." << endl;
-                break;
-            }
+            //if (GetAsyncKeyState(0x58)) // X
+            //{
+            //    logger.trace << "Closing..." << endl;
+            //    break;
+            //}
 
             WaitMessage();
 

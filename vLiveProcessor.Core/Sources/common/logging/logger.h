@@ -38,4 +38,5 @@ private:
     std::mutex                                  m_mutex;
 };
 
-#define _log_call_ std::string(_func__) + ": "
+#define _log_call_ _func__
+#define _log_call_pref_ std::string(_log_call_) + ": "
