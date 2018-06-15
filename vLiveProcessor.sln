@@ -15,6 +15,9 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "vLiveProcessor.Core.Py.Test", "vLiveProcessor.Core.Py.Test\vLiveProcessor.Core.Py.Test.pyproj", "{D21F8157-2CBB-49AA-B88D-97B057E972BF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vLiveProcessor.Core.NET", "vLiveProcessor.Core.NET\vLiveProcessor.Core.NET.vcxproj", "{8E751A7D-1E4F-42D2-AA18-E4337376814F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D1CF1F04-8103-455C-A0CE-AD333171C9C1} = {D1CF1F04-8103-455C-A0CE-AD333171C9C1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

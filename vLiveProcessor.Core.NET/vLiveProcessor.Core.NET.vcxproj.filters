@@ -13,22 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{930da49f-b64a-4b09-846d-ba3c6ec8dafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\DeviceEnumerator">
+      <UniqueIdentifier>{ab5c1147-61d3-4688-b26a-7b51bb1f61ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Common">
+      <UniqueIdentifier>{74d7bb84-f096-4552-8194-c232d5f26813}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vLiveProcessor.Core.NET.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\DeviceEnumerator\Device.h">
+      <Filter>Sources\DeviceEnumerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\DeviceEnumerator\DeviceGroup.h">
+      <Filter>Sources\DeviceEnumerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\DeviceEnumerator\DeviceEnumerator.h">
+      <Filter>Sources\DeviceEnumerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Common\Strings.h">
+      <Filter>Sources\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vLiveProcessor.Core.NET.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

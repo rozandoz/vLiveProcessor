@@ -8,10 +8,9 @@
 
 class IDeviceManager
 {
-protected:
+public:
     virtual ~IDeviceManager() {}
 
-public:
     virtual std::vector<std::string> GetGroups() = 0;
     virtual std::vector<DeviceDescriptor> GetGroupDevices(std::string group, DeviceType type) = 0;
     virtual std::shared_ptr<IProcessor> CreateDevice(std::string group, DeviceType type, DeviceDescriptor& descriptor) = 0;

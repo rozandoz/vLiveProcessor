@@ -4,4 +4,12 @@
 
 #pragma once
 
+using namespace System;
 
+#include "media/devices/device_manager.h"
+
+#include "Sources/Common/Strings.h"
+
+#include "Sources/DeviceEnumerator/Device.h"
+#include "Sources/DeviceEnumerator/DeviceGroup.h"
+#include "Sources/DeviceEnumerator/DeviceEnumerator.h"
